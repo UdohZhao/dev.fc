@@ -11,7 +11,8 @@ class indexCtrl extends baseCtrl{
   public function index(){
     // Get
     if (IS_GET === true) {
-      echo '<h1 style="margin:30px;"> ~~ 欢迎使用存己框架 :)</h1>';
+      // display
+      $this->display('index','index.html');
       die;
     }
   }
