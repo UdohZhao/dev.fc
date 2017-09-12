@@ -62,7 +62,7 @@ function ePass(id,username){
 }
 
 // flag
-function flag(id,type){
+function flag(id,status){
   var title;
   var text;
   // status
