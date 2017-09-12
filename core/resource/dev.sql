@@ -75,24 +75,24 @@ CREATE TABLE `article_comment`(
   KEY (`apid`),
   KEY (`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-# 休闲娱乐表
-CREATE TABLE `recreation`(
+# 休闲娱乐类别表
+CREATE TABLE `recreation_category`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '休闲娱乐表主键id',
-  `pid` int(11) UNSIGNED NOT NULL COMMENT '父id',
   `cname` varchar(50) NOT NULL COMMENT '名称',
   `sort` tinyint(3) UNSIGNED NOT NULL COMMENT '排序',
   `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态？0>隐藏，1>展示',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-# 娱乐图片视频表
-CREATE TABLE `recreation_iv`(
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '娱乐图片表主键id',
-  `rid` int(11) UNSIGNED NOT NULL COMMENT '关联休闲娱乐表主键id',
-  `path` varchar(255) NOT NULL COMMENT '路径',
-  `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
-  `type` tinyint(1) UNSIGNED NOT NULL COMMENT '类型？0>图片，1>视频',
+# 休闲娱乐文章表
+CREATE TABLE `recreation_article`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '休闲娱乐文章表主键id',
+  `rcid` int(11) UNSIGNED NOT NULL COMMENT '关联休闲娱乐表主键id',
+  `cover_path` varchar(255) NOT NULL COMMENT '封面',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `content` varchar(50000) NOT NULL COMMENT '内容',
+  `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态？0>隐藏，1>显示',
   PRIMARY KEY (`id`),
-  KEY (`rid`)
+  KEY (`rcid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 # banner
 CREATE TABLE `banner`(
