@@ -290,3 +290,13 @@ $val = json_decode(json_encode($xmlstring),true);
 return $val;
 
 }
+
+/**
+ * 替换url参数
+ */
+function replaceUrlParam($url,$param){
+  $urlArr = parse_url($url);
+  $pstr = http_build_query($param);
+  $url = str_replace($urlArr['query'], $pstr, $url);
+  return $url;
+}
