@@ -16,9 +16,9 @@ class baseCtrl extends \core\icunji{
     $this->appsecret = conf::get('APPSECRET','wechat');
     $this->wechat = new wechat(TOKEN,DEBUG,$this->appid,$this->appsecret);
     // access_token检测是否过期
-    if (time() > $_SESSION['expires_in']) {
-      $this->wechat->getAccessToken();
-    }
+    // if (time() > $_SESSION['expires_in']) {
+    //   $this->wechat->getAccessToken();
+    // }
 
   }
 
