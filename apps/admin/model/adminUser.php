@@ -28,8 +28,7 @@ class adminUser extends model{
   /**
    * 读取全部数据
    */
-  public function getAll($search,$limit){
-    // sql
+  public function getAll($search){
     $sql = "
         SELECT
                 *
@@ -39,11 +38,14 @@ class adminUser extends model{
                 1 = 1
         AND
                 username like '%$search%'
-        {$limit}
     ";
     return $this->query($sql)->fetchAll();
   }
 
+// getUsername
+  public function getUsername($username){
+    return $this->count($this->table,['username'=>$username]);
+  }
   /**
    * 读取单条数据
    */
@@ -58,7 +60,11 @@ class adminUser extends model{
     $res = $this->update($this->table,$data,['id'=>$id]);
     return $res->rowCount();
   }
-
+ // upStatus
+  public function Status($id,$status){
+    $res = $this->update($this->table,['status'=>$status],['id'=>$id]);
+    return $res->rowCount();
+  }
   /**
    * 删除数据
    */
@@ -73,7 +79,9 @@ class adminUser extends model{
   public function totalRow(){
     return $this->count($this->table);
   }
-
+ public function cou(){
+    return $this->count($this->table);
+  }
 
 }
 
