@@ -96,6 +96,7 @@ class adminUserCtrl extends baseCtrl{
       $password = enPassword(htmlspecialchars($_POST['password']));
       // update
       $res = $this->db->ePass($this->id,$password);
+      
       if ($res) {
         echo json_encode(true);
         die;
