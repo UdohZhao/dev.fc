@@ -7,6 +7,7 @@ class baseCtrl extends \core\icunji{
   public $appid;
   public $appsecret;
   public $wechat;
+  public $appsPath = '/apps/admin/views';
   // 构造方法
   public function _initialize(){
     //控制器初始化
@@ -30,6 +31,8 @@ class baseCtrl extends \core\icunji{
 
     // 站点名称
     $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));
+    // 应用路径
+    $this->assign('appsPath',$this->appsPath);
     // 模版赋值
     if (isset($_SESSION['userinfo'])) {
       $this->assign('userinfo',$_SESSION['userinfo']);
