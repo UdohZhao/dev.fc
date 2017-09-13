@@ -5,17 +5,18 @@ $(function(){
 
 
   // 验证登录表单
-  $("#newHouseMainForm").validate({
-      focusInvalid: true,
-      rules: {
+  $("#buyHouseForm").validate({
+    
+     
         house_type_name: {
           required: true
         },
-        
-      messages: {
+   
+  
         house_type_name: {
-          required: "<span style='color:red;'>户型不能为空 :(</span>"
+          required: "<span style='color:red;'>标题不能为空 :(</span>"
         },
+   
       submitHandler: function(form){
         // 获取封面图片路径，户型解析
         var cover_path = $("input[name='cover_path']").val();
@@ -45,7 +46,9 @@ $(function(){
           });
         }
       }
-  
+  });
+
+})
 
 
 

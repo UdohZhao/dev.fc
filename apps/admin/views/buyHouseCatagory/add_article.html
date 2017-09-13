@@ -5,17 +5,17 @@
 {% block content %}
 <!-- Page -->
 <div class="page animsition">
-  <div class="page-header">
-    <h1 class="page-title"># 房屋管理</h1>
-  </div>
   <div class="page-content">
     <div class="panel">
       <div class="panel-heading">
-        <h3 class="panel-title">@ 添加主力户型</h3>
+        <h3 class="panel-title">@ 添加内容</h3>
       </div>
       <div class="panel-body">
-        <form class="form-horizontal" id="newHouseMainForm" action="/admin/newHouseMain/add/nhcid/{{ nhcid }}" method="post">
-          <div class="form-group">
+      <!-- id="buyHouseForm" -->
+        <form class="form-horizontal" id="buyHouseForm" action="/admin/buyHouseCatagory/add/id/{{ date.id }}" method="post">
+
+        <!-- 图片 -->
+          <div class="form-group">        
             <label for="inputEmail3" class="col-sm-2 control-label">封面图片路径</label>
             <div class="col-sm-10">
                 <div id="preview">
@@ -24,23 +24,27 @@
                 <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg" name="cover_path">
             </div>
           </div>
-            <div class="form-group">
+
+         <!-- 标题 -->
+          <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="cname" placeholder="请输入标题" value="{{ data.cname }}">
+              <input type="text" class="form-control" name="title" value="{{ date.house_type_name }}" placeholder="请输入标题">
             </div>
           </div>
-            <div class="form-group">
-              <label for="inputPassword3" class="col-sm-2 control-label">户型解析</label>
-              <div class="col-sm-10">
-                <!-- 加载编辑器的容器 -->
-                <script id="container" name="analysis" type="text/plain"  style="height: 300px;"></script>
-              </div>
+           
+         <!-- 内容 -->
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">户型解析</label>
+            <div class="col-sm-10">
+              <!-- 加载编辑器的容器 -->
+              <script id="container" name="analysis" type="text/plain"  style="height: 300px;">{% autoescape false %}{{ date.analysis }}{% endautoescape %}</script>
             </div>
+          </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-success">添加</button>
-              
+             
             </div>
           </div>
         </form>
@@ -51,7 +55,7 @@
 <!-- End Page -->
 {% endblock %}
 {% block js %}
-<script src="/apps/admin/views/newHouseMain/js/add.js"></script>
+<script src="/apps/admin/views/buyHouseCatagory/js/add_article.js"></script>
 <!-- 配置文件 -->
 <script type="text/javascript" src="/public/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->

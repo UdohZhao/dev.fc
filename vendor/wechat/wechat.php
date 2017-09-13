@@ -61,7 +61,7 @@ class wechat{
     $url = replaceUrlParam($url,$param);
     // access_token
     $res = json_decode(CG($url),true);
-<<<<<<< HEAD
+
     // if (array_key_exists('access_token', $res)) {
     //   $_SESSION['access_token'] = $res['access_token'];
     //   $_SESSION['expires_in'] = bcadd($res['expires_in'], time(), 0);
@@ -69,15 +69,14 @@ class wechat{
     //   echo '获取access_token失败';
     //   die;
     // }
-=======
-    if (array_key_exists('access_token', $res)) {
-      $_SESSION['access_token'] = $res['access_token'];
-      $_SESSION['expires_in'] = bcadd($res['expires_in'], time(), 0);
-    } else {
-      echo '获取access_token失败~';
-      die;
-    }
->>>>>>> 8dd1f9176267df899cf96cb66a4a8ce7fea7ad93
+
+    // if (array_key_exists('access_token', $res)) {
+    //   $_SESSION['access_token'] = $res['access_token'];
+    //   $_SESSION['expires_in'] = bcadd($res['expires_in'], time(), 0);
+    // } else {
+    //   echo '获取access_token失败~';
+    //   die;
+    // }
   }
 
   /**

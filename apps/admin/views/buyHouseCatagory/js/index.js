@@ -9,10 +9,10 @@ function flag(id,status){
     var text;
     // status
     if (status == 1) {
-        title = "确认隐藏该房类别吗？";
+        title = "确认显示该房类别吗？";
         text = "隐藏后该房类别将不再显示 :(";
     } else {
-        title = "确认显示该房类别吗？";
+        title = "确认隐藏该房类别吗？";
         text = "显示后该房类别将可正常显示 :)";
     }
     swal({
@@ -112,10 +112,10 @@ function view_next(id){
 
 //添加文章
 function add_article(id,cname){
-    window.location.href='http://'+window.location.host+'/admin/buyHouseCatagory/add_article?id='+id+'&cname='+cname;
+    window.location.href='/admin/buyHouseCatagory/add_article?id='+id+'&cname='+cname;
 }
 
 //查看文章
 function show_article_list(id){
-    window.location.href='http://'+window.location.host+'/admin/buyHouseCatagory/article_list/id/'+id;
+    window.location.href='/admin/buyHouseCatagory/article_list/id/'+id;
 }

@@ -37,6 +37,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
             $this->display('buyHouseCatagory','add.html');
             die;
         }
+
         // Ajax
         if (IS_AJAX === true) {
             // data
@@ -60,17 +61,21 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     public function and(){
          if (IS_GET === true) {   
             // id
-            
+            if($this->id){
+                
+            }
             // display
             $this->display('buyHouseCatagory','add_article.html');
         }
     }
     // 初始化数据
-    private function getData(){
+    private function getData($coverPath){
         // data
         $data = array();
+        // ipPath
+        $data['cover_path'] = $coverPath;
         $data['cname'] = htmlspecialchars($_POST['cname']);
-        $data['sort'] = intval($_POST['sort']);
+        $data['contentcontent'] = intval($_POST['content']);
         $data['status'] = 1;
         return $data;
     }
@@ -95,25 +100,25 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         die;
     }
 
-    // 修改密码
-    public function ePass(){
-        // Ajax
-        if (IS_AJAX === true) {
-            // password
-            $password = enPassword(htmlspecialchars($_POST['password']));
-            // update
-            $res = $this->db->ePass($this->id,$password);
-            if ($res) {
-                echo json_encode(true);
-                die;
-            } else {
-                echo json_encode(false);
-                die;
-            }
-        }
-    }
+    // // 修改密码
+    // public function ePass(){
+    //     // Ajax
+    //     if (IS_AJAX === true) {
+    //         // password
+    //         $password = enPassword(htmlspecialchars($_POST['password']));
+    //         // update
+    //         $res = $this->db->ePass($this->id,$password);
+    //         if ($res) {
+    //             echo json_encode(true);
+    //             die;
+    //         } else {
+    //             echo json_encode(false);
+    //             die;
+    //         }
+    //     }
+    // }
 
-    // flag
+    // flag展示 隐藏
     public function flag(){
         // Ajax
         if (IS_AJAX === true) {
@@ -131,81 +136,81 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         }
     }
 
-    // del
-    public function del(){
-        // Ajax
-        if (IS_AJAX === true) {
-            // delete
-            $res = $this->db->del($this->id);
-            if ($res) {
-                echo json_encode(true);
-                die;
-            } else {
-                echo json_encode(false);
-                die;
-            }
-        }
-    }
+    // // del
+    // public function del(){
+    //     // Ajax
+    //     if (IS_AJAX === true) {
+    //         // delete
+    //         $res = $this->db->del($this->id);
+    //         if ($res) {
+    //             echo json_encode(true);
+    //             die;
+    //         } else {
+    //             echo json_encode(false);
+    //             die;
+    //         }
+    //     }
+    // }
 
-    public function add_article(){
-        $update_id=isset($_GET['update_id'])?intval($_GET['update_id']):0;
-        if(IS_GET === true){
-            $id=isset($_GET['id'])?intval($_GET['id']):0;
-            $article_id=isset($_GET['article_id'])?intval($_GET['article_id']):0;
-            $cname=isset($_GET['cname'])?htmlspecialchars($_GET['cname']):'';
-            $this->assign('id',$id);
-            $this->assign('cname',$cname);
-            if($article_id){
-                $data=$this->db->article_detail($article_id);
-                $this->assign('cname',$this->db->getInfo($data['hecid'])['cname']);
-                $this->assign('data',$data);
-                $this->assign('id',$data['hecid']);
-            }
-            $this->display('buyHouseCatagory','add_article.html');
-        }
+    // public function add_article(){
+    //     $update_id=isset($_GET['update_id'])?intval($_GET['update_id']):0;
+    //     if(IS_GET === true){
+    //         $id=isset($_GET['id'])?intval($_GET['id']):0;
+    //         $article_id=isset($_GET['article_id'])?intval($_GET['article_id']):0;
+    //         $cname=isset($_GET['cname'])?htmlspecialchars($_GET['cname']):'';
+    //         $this->assign('id',$id);
+    //         $this->assign('cname',$cname);
+    //         if($article_id){
+    //             $data=$this->db->article_detail($article_id);
+    //             $this->assign('cname',$this->db->getInfo($data['hecid'])['cname']);
+    //             $this->assign('data',$data);
+    //             $this->assign('id',$data['hecid']);
+    //         }
+    //         $this->display('buyHouseCatagory','add_article.html');
+    //     }
 
-        if(IS_AJAX === true){
-            if($update_id){
-               if($this->db->update_article($update_id,$this->getArticle())) {
-                   echo json_encode(array('error'=>201,'msg'=>'保存成功'));
-                   die;
-               }else{
-                   echo json_encode(array('error'=>401,'msg'=>'稍后再试'));
-                   die;
-               }
-            }
-            if($this->db->add_article($this->getArticle())){
-                echo json_encode(true);
-            }else{
-                echo json_encode(false);
-            }
-        }
-    }
+    //     if(IS_AJAX === true){
+    //         if($update_id){
+    //            if($this->db->update_article($update_id,$this->getArticle())) {
+    //                echo json_encode(array('error'=>201,'msg'=>'保存成功'));
+    //                die;
+    //            }else{
+    //                echo json_encode(array('error'=>401,'msg'=>'稍后再试'));
+    //                die;
+    //            }
+    //         }
+    //         if($this->db->add_article($this->getArticle())){
+    //             echo json_encode(true);
+    //         }else{
+    //             echo json_encode(false);
+    //         }
+    //     }
+    // }
 
     //获取文章添加数据
-    private  function getArticle(){
-        $data=array();
-        $data['content']=$_POST['content'];
-        $data['title']=htmlspecialchars($_POST['title']);
-        $data['ctime']=time();
-        $data['hecid']=intval($_POST['hecid']);
-        return $data;
-    }
+    // private  function getArticle(){
+    //     $data=array();
+    //     $data['content']=$_POST['content'];
+    //     $data['title']=htmlspecialchars($_POST['title']);
+    //     $data['ctime']=time();
+    //     $data['hecid']=intval($_POST['hecid']);
+    //     return $data;
+    // }
 
-    //查看文章列表
-    public function article_list(){
-        $id=isset($_GET['id'])?intval($_GET['id']):0;
-        $data=$this->db->show_article($id);
-        $this->assign('data',$data);
-        $this->display('buyHouseCatagory','article_list.html');
-    }
+    // //查看文章列表
+    // public function article_list(){
+    //     $id=isset($_GET['id'])?intval($_GET['id']):0;
+    //     $data=$this->db->show_article($id);
+    //     $this->assign('data',$data);
+    //     $this->display('buyHouseCatagory','article_list.html');
+    // }
 
-    public function del_article(){
-        $id=isset($_GET['id'])?intval($_GET['id']):0;
-        if($this->db->del_article($id)){
-                echo  json_encode(true);
-        }else{
-            echo json_encode(false);
-        }
-    }
+    // public function del_article(){
+    //     $id=isset($_GET['id'])?intval($_GET['id']):0;
+    //     if($this->db->del_article($id)){
+    //             echo  json_encode(true);
+    //     }else{
+    //         echo json_encode(false);
+    //     }
+    // }
 }
