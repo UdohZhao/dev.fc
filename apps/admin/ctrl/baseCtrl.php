@@ -17,24 +17,24 @@ class baseCtrl extends \core\icunji{
     $this->appsecret = conf::get('APPSECRET','wechat');
     $this->wechat = new wechat(TOKEN,DEBUG,$this->appid,$this->appsecret);
     // access_token检测是否过期
-    if (isset($_SESSION['expires_in'])) {
-      if (time() > $_SESSION['expires_in']) {
-        $this->wechat->getAccessToken();
-      }
-    } else {
-      $this->wechat->getAccessToken();
-    }
-    // 站点名称
-    $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));
-    // 应用路径
-    $this->assign('appsPath',$this->appsPath);
-    // 模版赋值
-    if (isset($_SESSION['userinfo'])) {
-      $this->assign('userinfo',$_SESSION['userinfo']);
-    } else {
-      header('Location:/admin/login/index');
-      die;
-    }
+    // if (isset($_SESSION['expires_in'])) {
+    //   if (time() > $_SESSION['expires_in']) {
+    //     $this->wechat->getAccessToken();
+    //   }
+    // } else {
+    //   $this->wechat->getAccessToken();
+    // }
+    // // 站点名称
+    // $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));
+    // // 应用路径
+    // $this->assign('appsPath',$this->appsPath);
+    // // 模版赋值
+    // if (isset($_SESSION['userinfo'])) {
+    //   $this->assign('userinfo',$_SESSION['userinfo']);
+    // } else {
+    //   header('Location:/admin/login/index');
+    //   die;
+    // }
 
   }
 
