@@ -33,6 +33,7 @@ class baseCtrl extends \core\icunji{
 
   }
 
+
   /**
    * 回调获取授权code
    */
