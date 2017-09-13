@@ -1,55 +1,32 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>重庆存己科技</title>
 
-    <!-- Bootstrap -->
-    <link href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+{% extends "layouts.html" %}
 
-    <!-- jQuery WeUI -->
-    <link rel="stylesheet" href="/public/jquery-weui-build/dist/lib/weui.min.css">
-    <link rel="stylesheet" href="/public/jquery-weui-build/dist/css/jquery-weui.min.css">
+{% block css %}
 
-    {% block css %}
-
-    {% endblock %}
-
-  </head>
-  <body>
-  <div class="container-fluid">
-  
-	  <div class="row">
-	    <h3>　5000字彻底读懂疯狂的‘ico、取款连、比特币’江湖</h3>
-	    	
-	    	<img src="/admin/2017-9-11/002.jpg" alt="First slide">
-	    	<spen style="float: right;">2019-9-12 12:33</spen>
-	    	<img src="/admin/2017-9-11/003.jpg" alt="First slide">
-	    	<spen style="float: right;">2019-9-12 12:35</spen>
-	  </div>
-</div>
+{% endblock %}
 
 {% block content %}
+  <div class="container-fluid">
+  {% if data %}
+    {% for k,v in data %}
+    <div class="row">
+     <div class="weui-media-box__bd" >
+            <h2 >{{v.title}}</h2>
+            <div class="swiper-container" style="width:300px; height:100%; margin-top:20px; "  >
+            
+            <p >{{v.content}}</p>
+             </div>
+          </div>  
+    </div>
+    {% endfor %}
+      {% endif %}
+</div>
 
 
-  {% endblock %}
+{% endblock %}
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/vendor/components/jquery/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+{% block js %}
 
-    <!-- jQuery WeUI -->
-    <script src="/public/jquery-weui-build/dist/js/jquery-weui.min.js"></script>
-    <script src="/public/jquery-weui-build/dist/js/swiper.min.js"></script>
-    <script src="/public/jquery-weui-build/dist/js/city-picker.min.js"></script>
+{% endblock %}
 
-  {% block js %}
 
-  {% endblock %}
-
-  </body>
-</html>

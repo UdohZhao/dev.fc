@@ -21,16 +21,13 @@
   </head>
   <body>
 
-<div class="swiper-container" data-space-between='10' data-pagination='.swiper-pagination' data-autoplay="1000">
+<!-- <div class="swiper-container">
   <div class="swiper-wrapper">
     <div class="swiper-slide"><img src="/admin/2017-9-11/001.jpg" alt=""></div>
     <div class="swiper-slide"><img src="/admin/2017-9-11/002.jpg" alt=""></div>
     <div class="swiper-slide"><img src="/admin/2017-9-11/003.jpg" alt=""></div>
   </div>
-</div>
-
-
-
+</div> -->
 
 
   {% block content %}
@@ -44,9 +41,26 @@
 
     <!-- jQuery WeUI -->
     <script src="/public/jquery-weui-build/dist/js/jquery-weui.min.js"></script>
-    <script src='/public/jquery-weui-build/dist/js/swiper.js'></script>
     <script src="/public/jquery-weui-build/dist/js/swiper.min.js"></script>
     <script src="/public/jquery-weui-build/dist/js/city-picker.min.js"></script>
+    <script src='/public/jquery-weui-build/dist/js/swiper.js' ></script>
+
+    <!-- <script type="text/javascript">
+     $(".swiper-container").swiper(mySwiper)
+        var mySwiper = new Swiper('.swiper-container', {
+            speed: 10000,
+            spaceBetween: 100,
+            direction: 'horizontal',
+            autoplay: 1500,
+            allowSwipeToPrev: true,
+            keyboardControl: true,
+            allowSwipeToNext: true,
+            noSwiping: true,
+            noSwipingClass: true,
+        });  
+
+    </script> -->
+
 
   {% block js %}
 
