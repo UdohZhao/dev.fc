@@ -76,6 +76,11 @@ class baseCtrl extends \core\icunji{
         }
       }
     }
+
+    see($_SESSION);
+    see($_SESSION['userinfo']);
+    die;
+
   }
 
 }
