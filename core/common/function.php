@@ -293,10 +293,20 @@ return $val;
 
 /**
  * 替换url参数
+ * @param $url  地址
+ * @param $data 替换数组
  */
-function replaceUrlParam($url,$param){
+function replaceUrlParam($url,$data){
   $urlArr = parse_url($url);
-  $pstr = http_build_query($param);
+  $pstr = http_build_query($data);
   $url = str_replace($urlArr['query'], $pstr, $url);
   return $url;
+}
+
+/**
+ * 判断https ？ http 并且附带域名 https://baidu.com
+ */
+function isHttps(){
+  $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+  return $http_type . $_SERVER['SERVER_NAME'];
 }

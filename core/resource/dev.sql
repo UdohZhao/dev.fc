@@ -101,3 +101,13 @@ CREATE TABLE `banner`(
   `sort` tinyint(3) UNSIGNED NOT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# 微信菜单栏目表
+CREATE TABLE `wecaht_menu`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '微信菜单栏目表主键id',
+  `cname` varchar(25) NOT NULL COMMENT '名称',
+  `url` varchar(255) NOT NULL COMMENT '跳转链接',
+  `type` tinyint(1) UNSIGNED NOT NULL COMMENT '类型？0>默认，1>微信',
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
