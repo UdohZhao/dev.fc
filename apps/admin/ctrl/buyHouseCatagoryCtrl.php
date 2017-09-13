@@ -21,21 +21,17 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     // 添加娱乐页面
     public function add(){
         // Get
-        if (IS_GET === true) {
-            
+
+        if (IS_GET === true) {   
             // id
             if ($this->id) {
                 // 获取单条数据
                 $data = $this->db->getInfo($this->id);
-
             }
             if($this->pid){
                 $data['cname']=$this->db->getInfo($this->pid)['cname'];
-
                 $data['pid']=$this->pid;
-
-                $this->assign('data',$data);
-                  
+                $this->assign('data',$data);               
             }
             // display
             $this->display('buyHouseCatagory','add.html');
@@ -46,12 +42,6 @@ class buyHouseCatagoryCtrl extends baseCtrl{
             // data
             $data = $this->getData();
             // id
-            if($this->pid){
-                // 写入数据表,添加的下一级
-                $res = $this->db->add($data);
-                echo json_encode(true);
-                die;
-            }
             if ($this->id) {
                 $res = $this->db->save($this->id,$data);
             } else {
@@ -67,27 +57,19 @@ class buyHouseCatagoryCtrl extends baseCtrl{
             }
         }
     }
-
+    public function and(){
+         if (IS_GET === true) {   
+            // id
+            
+            // display
+            $this->display('buyHouseCatagory','add_article.html');
+        }
+    }
     // 初始化数据
     private function getData(){
         // data
         $data = array();
-        // // ipPath
-        // $ipPath = isset($_POST['ipPath']) ? $_POST['ipPath'] : '';
-        // if (!$ipPath) {
-        //     $res = upFiles('icon_path');
-        //     if ($res['error'] == 1) {
-        //         echo json_encode($res['msg']);
-        //         die;
-        //     } else {
-        //         $data['icon_path'] = $res['filepath'];
-        //     }
-        // } else {
-        //     $data['icon_path'] = $ipPath;
-        // }
         $data['cname'] = htmlspecialchars($_POST['cname']);
-        $data['pid']=$this->db->sel_pid(htmlspecialchars($_POST['cname']));
-        unset($_POST['pcname']);
         $data['sort'] = intval($_POST['sort']);
         $data['status'] = 1;
         return $data;
@@ -102,7 +84,8 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         // 数据分页
         $page = new Page($cou,conf::get('LIMIT','admin'));
         // 结果集
-        $data = $this->db->sel($search,$page->limit,$this->id);
+        $data = $this->db->sel($search,$page->limit);
+        
         // assign
         $this->assign('data',$data);
         $this->assign('page',$page->showpage());

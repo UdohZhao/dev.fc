@@ -26,9 +26,8 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                     <!--    <th>图标</th> -->
                         <th>名称</th>
-                        <th>父级名称</th>
+                       
                         <th>排序</th>
                         <th>操作</th>
                     </tr>
@@ -46,21 +45,15 @@
                         </td>
                        
                         <td>{{ v.cname }}</td>
-                        <td>
-                            {% if v.pcname %}
-                            {{ v.pcname }}
-                            {% else %}
-                            顶级
-                            {% endif %}
-                        </td>
+                       
                         <td>{{ v.sort }}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
                             <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
 
                             {% if v.pid == 0 %}
-                            <button type="button" class="btn btn-primary btn-xs" onclick="add({{ v.id }});">添加下一级</button>          
-                            <button type="button" class="btn btn-primary btn-xs" onclick="view_next({{ v.id }});">查看下一级</button>
+                            <button type="button" class="btn btn-primary btn-xs" onclick="add({{ v.id }});">添加内容</button>          
+                            <button type="button" class="btn btn-primary btn-xs" onclick="view_next({{ v.id }});">查看内容</button>
 
                             {% endif %}
                             {% if v.pid != 0 %}

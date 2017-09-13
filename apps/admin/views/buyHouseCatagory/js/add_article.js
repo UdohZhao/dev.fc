@@ -1,80 +1,108 @@
 $(function(){
 
-    // 验证登录表单
-    $("#newHouseCatalogForm").validate({
+  // 实例化编辑器
+  var ue = UE.getEditor('container');
+
+
+  // 验证登录表单
+  $("#newHouseMainForm").validate({
+      focusInvalid: true,
+      rules: {
+        house_type_name: {
+          required: true
+        },
         
-        focusInvalid: true,
-        rules: {
-            cid: {
-                required: true,
-                remote: {
-                    url: "/admin/city/getCity/pid/"+$("input[name='pid']").val(),
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        cid: function() {
-                            return $("input[name='cid']").val();
-                        }
-                    },
-                    error: function(e){
-                        console.log(e);
-                    }
+      messages: {
+        house_type_name: {
+          required: "<span style='color:red;'>户型不能为空 :(</span>"
+        },
+      submitHandler: function(form){
+        // 获取封面图片路径，户型解析
+        var cover_path = $("input[name='cover_path']").val();
+        var analysis = ue.getContent();
+        if (cover_path == '') {
+          swal("提交失败", "请上传封面图片 :(", "error");
+        } else if (analysis == false) {
+          swal("提交失败", "户型解析不能为空 :(", "error");
+        } else {
+          $(form).ajaxSubmit({
+              dataType:"json",
+              success:function(res){
+                // res
+                if (res.error == 0) {
+                  swal("提交成功", res.msg, "success");
+                  window.setTimeout("window.location.reload();",3000);
+                } else if (res.error == 1) {
+                  swal("提交失败", res.msg, "error");
+                } else {
+                  swal("提交失败", res.msg, "error");
                 }
-            },
-            
-        submitHandler: function(form){
-            // 获取htype，ptype选中的值
-            var htype = new Array();
-
-            $.each($(".htype:checked"),function(){
-                htype.push($(this).val());
-            });
-            // if
-            if (htype != '') {
-                swal("拒绝提交", "请勾选出租类型:(", "error");
-            } else {
-                $(form).ajaxSubmit({
-                    dataType:"json",
-                    success:function(res){
-                        // res
-                        if (res.error == 0) {
-                            swal("提交成功", "受影响的操作 :)", "success");
-                            window.location.href = "/admin/tenmentInfo/add/tcid/"+res.msg;
-                        } else if (res.error == 201) {
-                            swal("提交失败", res.msg, "error");
-                        } else if (res.error == 202) {
-                            swal("提交失败", res.msg, "error");
-                        } else if (res.error == 401) {
-                            swal("提交成功", "受影响的操作 :)", "success");
-                            setTimeout("window.location.href = document.referrer;",2000);
-                        } else {
-                            swal("提交失败", "请尝试刷新页面后重试 :(", "error");
-                        }
-                    },
-                    error:function(e){
-                        console.log(e);
-                        swal("未知错误", "请尝试刷新页面后重试 :(", "error");
-                    }
-                });
-            }
+              },
+              error:function(e){
+                console.log(e);
+                swal("未知错误", "请尝试刷新页面后重试 :(", "error");
+              }
+          });
         }
-    });
+      }
+  
 
-});
 
 
-$(function(){
-    var dobj=document.getElementsByClassName('dtype');
-    for(var i=0;i<dobj.length;i++ ){
-        if(dobj[i].getAttribute('value')==_dtype){
-            dobj[i].setAttribute('checked','checked');
+  // 前往新房列表
+  function gotoNhc(){
+    window.location.href = "/admin/newHouseCatalog/index";
+  }
+
+  //图片上传预览    IE是用了滤镜。
+  function previewImage(file)
+  {
+    var MAXWIDTH  = 90;
+    var MAXHEIGHT = 90;
+    var div = document.getElementById('preview');
+    if (file.files && file.files[0])
+    {
+        div.innerHTML ='<img id=imghead onclick=$("#previewImg").click()>';
+        var img = document.getElementById('imghead');
+        img.onload = function(){
+          var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+          img.width  =  rect.width;
+          img.height =  rect.height;
+          // img.style.marginLeft = rect.left+'px';
+          img.style.marginTop = rect.top+'px';
         }
+        var reader = new FileReader();
+        reader.onload = function(evt){img.src = evt.target.result;}
+        reader.readAsDataURL(file.files[0]);
     }
-
-    var hobj=document.getElementsByClassName('htype');
-    for(var j=0;j<hobj.length;j++ ){
-        if(hobj[j].getAttribute('value')==_htype){
-            hobj[j].setAttribute('checked','checked');
-        }
+    else //兼容IE
+    {
+      var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+      file.select();
+      var src = document.selection.createRange().text;
+      div.innerHTML = '<img id=imghead>';
+      var img = document.getElementById('imghead');
+      img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+      status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+      div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
     }
-})
+  }
+  function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+      var param = {top:0, left:0, width:width, height:height};
+      if( width>maxWidth || height>maxHeight ){
+          rateWidth = width / maxWidth;
+          rateHeight = height / maxHeight;
+
+          if( rateWidth > rateHeight ){
+              param.width =  maxWidth;
+              param.height = Math.round(height / rateWidth);
+          }else{
+              param.width = Math.round(width / rateHeight);
+              param.height = maxHeight;
+          }
+      }
+      param.left = Math.round((maxWidth - param.width) / 2);
+      param.top = Math.round((maxHeight - param.height) / 2);
+      return param;
+  }

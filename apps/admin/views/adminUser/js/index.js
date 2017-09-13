@@ -48,6 +48,7 @@ $(function(){
   });
 });
 
+
 // 修改密码
 function ePass(id,username){
   // 动态赋值
@@ -59,6 +60,7 @@ function ePass(id,username){
     keyboard: false
   });
 }
+
 
 // flag
 function flag(id,status){

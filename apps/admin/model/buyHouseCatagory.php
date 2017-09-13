@@ -2,7 +2,7 @@
 namespace apps\admin\model;
 use core\lib\model;
 class buyHouseCatagory extends model{
-    public $table='recreation';
+    public $table='recreation_category';
 
     public function checkUser($data){
         return $this->get($this->table,'*',['username'=>$data['username'],'password'=>$data['password']]);
@@ -20,23 +20,19 @@ class buyHouseCatagory extends model{
     }
  
     // sel
-    public function sel($search,$limit,$pid){
+    public function sel($search,$limit){
         // sql
         $sql = "
         SELECT
-               tb1.*,tb2.cname as pcname
+               *
         FROM
-                `$this->table` AS tb1
-        LEFT JOIN `$this->table` AS tb2
-        ON tb1.pid=tb2.id
+                $this->table
         WHERE
                 1 = 1
-        AND 
-               tb1.pid=$pid
         AND
-                tb1.cname like '%$search%'
+                cname like '%$search%'
         ORDER BY
-                tb1.sort ASC
+            sort ASC
         {$limit}
     ";
         $data = $this->query($sql)->fetchAll(2);

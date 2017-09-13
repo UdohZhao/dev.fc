@@ -100,7 +100,7 @@ function del(id){
 //添加下一级
 //当前选择的id 即父级id
 function add(id){
-   window.location.href='/admin/buyHouseCatagory/add/pid/'+id;
+   window.location.href='/admin/buyHouseCatagory/and/id/'+id;
 }
 
 //查看下一级
