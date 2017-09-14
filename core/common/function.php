@@ -240,7 +240,7 @@ function wxJsapiPay($openId,$goods,$order_sn,$total_fee,$attach){
     $input->SetTime_expire(date("YmdHis", time() + 600));//支付超时
     $input->SetGoods_tag("1");
     //支付回调验证地址
-    $input->SetNotify_url(conf::get('SERVER_NAME','weapp')."/indent/notify");
+    $input->SetNotify_url(conf::get('DOMAIN','wechat')."/indent/notify");
     $input->SetTrade_type("JSAPI");              //支付类型
     $input->SetOpenid($openId);                  //用户openID
     $order = WxPayApi::unifiedOrder($input);    //统一下单

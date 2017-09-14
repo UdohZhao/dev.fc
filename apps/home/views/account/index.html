@@ -1,0 +1,48 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/account/css/index.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row gold-box">
+    <div class="col-xs-12">15800金币</div>
+  </div>
+  <div class="row recharge-box">
+    <div class="col-xs-12">充值（人民币）<span class="recharge-box-tips">注：100元兑换为1000金币</span></div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-defalut" id="" onclick="select(0,6);">6元</button>
+    </div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-defalut" onclick="select(1,68);">68元</button>
+    </div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-defalut" onclick="select(2,208);">208元</button>
+    </div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-defalut" onclick="select(3,388);">388元</button>
+    </div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-defalut" onclick="select(4,698);">698元</button>
+    </div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-defalut" onclick="select(5,998);">998元</button>
+    </div>
+    <div class="col-xs-4 recharge-box-item">
+      <button type="button" class="btn btn-danger" onclick="select(6,'0.01');">0.01分</button>
+    </div>
+  </div>
+  <div class="row pay-box">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-danger btn-lg btn-block" onclick="gotoPay();">去支付</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/account/js/index.js"></script>
+{% endblock %}
+
