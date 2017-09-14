@@ -9,10 +9,10 @@ function flag(id,status){
     var text;
     // status
     if (status == 1) {
-        title = "确认隐藏该房类别吗？";
+        title = "确认显示该房类别吗？";
         text = "隐藏后该房类别将不再显示 :(";
     } else {
-        title = "确认显示该房类别吗？";
+        title = "确认隐藏该房类别吗？";
         text = "显示后该房类别将可正常显示 :)";
     }
     swal({
@@ -81,7 +81,7 @@ function del(id){
             swal("提交成功", "当前操作已发生改变 :)", "success");
             setTimeout("window.location.reload();",2000);
           } else if (res === false) {
-            swal("提交失败", "请先删除其下级 :(", "error");
+            swal("提交失败", "请尝试刷新后重试 :(", "error");
           } else {
             swal("提交失败", "请先删除其下级 :(", "error");
           }
@@ -100,7 +100,7 @@ function del(id){
 //添加下一级
 //当前选择的id 即父级id
 function add(id){
-   window.location.href='/admin/buyHouseCatagory/add/pid/'+id;
+   window.location.href='/admin/buyHouseCatagory/and/id/'+id;
 }
 
 //查看下一级
@@ -112,10 +112,10 @@ function view_next(id){
 
 //添加文章
 function add_article(id,cname){
-    window.location.href='http://'+window.location.host+'/admin/buyHouseCatagory/add_article?id='+id+'&cname='+cname;
+    window.location.href='/admin/buyHouseCatagory/add_article?id='+id+'&cname='+cname;
 }
 
 //查看文章
 function show_article_list(id){
-    window.location.href='http://'+window.location.host+'/admin/buyHouseCatagory/article_list/id/'+id;
+    window.location.href='/admin/buyHouseCatagory/article_list/id/'+id;
 }

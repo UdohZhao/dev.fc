@@ -28,26 +28,26 @@ $(function(){
       submitHandler: function(form){
         $(form).ajaxSubmit({
             dataType:"json",
-            success:function(res){
-              // 隐藏Modal
-              $('#ePassModal').modal('hide');
-              // res
-              if (res === true) {
-                swal("提交成功", "受影响的操作 :)", "success");
-                window.setTimeout("window.location.reload();",2000);
-              } else {
-                swal("提交失败", "请尝试刷新页面后重试 :(", "error");
-              }
-            },
-            error:function(e){
+              success:function(res){
+                // 隐藏Modal
+                $('#ePassModal').modal('hide');
+                // res
+                if (res === true) {
+                  swal("提交成功", "受影响的操作 :)", "success");
+                  window.setTimeout("window.location.reload();",2000);
+                } else {
+                  swal("提交失败", "请尝试刷新页面后重试 :(", "error");
+                }
+              },
+              error:function(e){
               console.log(e);
               swal("未知错误", "请尝试刷新页面后重试 :(", "error");
             }
         });
       }
   });
-
 });
+
 
 // 修改密码
 function ePass(id,username){
@@ -60,6 +60,7 @@ function ePass(id,username){
     keyboard: false
   });
 }
+
 
 // flag
 function flag(id,status){
