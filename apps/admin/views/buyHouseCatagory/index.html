@@ -27,7 +27,6 @@
                     <tr>
                         <th>#</th>
                         <th>名称</th>
-                       
                         <th>排序</th>
                         <th>操作</th>
                     </tr>
@@ -48,8 +47,8 @@
                        
                         <td>{{ v.sort }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
-                            <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
+                    <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
+                    <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
 
                             {% if v.pid == 0 %}
                             <button type="button" class="btn btn-primary btn-xs" onclick="add({{ v.id }});">添加内容</button>          

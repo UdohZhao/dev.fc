@@ -11,19 +11,27 @@ $(function(){
         rules: {
             title: {
                 required: true
+            },
+            tips: {
+                required: true
             }
+
         },
         messages: {
             title: {
                 required: "<span style='color:red;'>标题不能为空 :(</span>"
+            },
+            tips: {
+              required: "<span style='color:red;'>说明不能为空 :(</span>"
             }
         },
    
       submitHandler: function(form){
            //获取封面图片路径，户型解析
         var cover_path = $("input[name='cover_path']").val();
+        var ipPath = $("input[name='ipPath']").val();
         var analysis = ue.getContent();
-        if (cover_path == '') {
+        if (cover_path == '' && ipPath == undefined) {
           swal("提交失败", "请上传封面图片 :(", "error");
         } else if (analysis == false) {
           swal("提交失败", "内容不能为空 :(", "error");

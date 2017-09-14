@@ -13,13 +13,17 @@
       <div class="panel-body">
       <!-- id="buyHouseForm" -->
         <form class="form-horizontal" id="buyHouseForm" action="/admin/buyHouseCatagory/and/id/{{ id }}" method="post">
-
+        <input type="hidden" class="form-control" name="rcid" value="{{ date.rcid }}">
         <!-- 图片 -->
           <div class="form-group">        
             <label for="inputEmail3" class="col-sm-2 control-label">封面图片路径</label>
             <div class="col-sm-10">
                 <div id="preview">
-                    <img id="imghead" border="0" src="/apps/admin/views/assets/images/photo_icon.png" width="90" height="90" onclick="$('#previewImg').click();">
+                {% if rcid == 0 %}
+                 <img id="imghead" border="0" src="/apps/admin/views/assets/images/photo_icon.png" width="90" height="90" onclick="$('#previewImg').click();">
+                {% else %}
+                 <img id="imghead" border="0" src="{{ date.cover_path }}" width="90" height="90" onclick="$('#previewImg').click();">
+                {% endif %}
                 </div>
                 <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg" name="cover_path">
             </div>
@@ -29,16 +33,23 @@
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="title" value="{{ date.house_type_name }}" placeholder="请输入标题">
+              <input type="text" class="form-control" name="title" value="{{ date.title }}" placeholder="请输入标题">
             </div>
           </div>
            
+         <!-- 说明 -->
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">说明</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="tips" value="{{ date.tips }}" placeholder="请输入说明">
+            </div>
+          </div>
          <!-- 内容 -->
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
             <div class="col-sm-10">
               <!-- 加载编辑器的容器 -->
-              <script id="container" name="content" type="text/plain"  style="height: 300px;"></script>
+              <script id="container" name="content" type="text/plain"  style="height: 300px;">{% autoescape false %}{{ date.content }}{% endautoescape %}</script>
             </div>
           </div>
           <div class="form-group">
