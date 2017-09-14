@@ -40,6 +40,7 @@ CREATE TABLE `article_pay`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文章付费表主键id',
   `cover_path` varchar(255) NOT NULL COMMENT '封面',
   `title` varchar(255) NOT NULL COMMENT '标题',
+  `tips` varchar(50) NOT NULL COMMENT '提示说明',
   `content` varchar(50000) NOT NULL COMMENT '内容',
   `ctime` int(10) UNSIGNED NOT NULL COMMENT '发布时间',
   `reads` int(10) UNSIGNED NOT NULL COMMENT '阅读数',
@@ -89,6 +90,7 @@ CREATE TABLE `recreation_article`(
   `rcid` int(11) UNSIGNED NOT NULL COMMENT '关联休闲娱乐表主键id',
   `cover_path` varchar(255) NOT NULL COMMENT '封面',
   `title` varchar(255) NOT NULL COMMENT '标题',
+  `tips` varchar(50) NOT NULL COMMENT '提示说明',
   `content` varchar(50000) NOT NULL COMMENT '内容',
   `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态？0>隐藏，1>显示',
   PRIMARY KEY (`id`),
@@ -109,5 +111,20 @@ CREATE TABLE `wecaht_menu`(
   `type` tinyint(1) UNSIGNED NOT NULL COMMENT '类型？0>默认，1>微信',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# 充值记录表
+CREATE TABLE `recharge_record`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '充值记录表主键id',
+  `uid` int(11) UNSIGNED NOT NULL COMMENT '关联用户表主键id',
+  `pid` int(11) UNSIGNED NOT NULL COMMENT '父id',
+  `orderid` varchar(64) NOT NULL COMMENT '订单编号',
+  `money` decimal(14,2) UNSIGNED NOT NULL COMMENT '充值金额',
+  `unit_money` decimal(14,2) UNSIGNED NOT NULL COMMENT '提成金额',
+  `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`),
+  KEY (`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 
 
