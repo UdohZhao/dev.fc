@@ -40,6 +40,14 @@ class userCtrl extends baseCtrl{
   }
 
   public function add(){
+   // Get
+    if (IS_GET === true) {
+      // display
+      $this->display('user','index.html');
+      die;
+    }
+    var_dump($_POST);
+    die;
     // Ajax
     if (IS_AJAX === true) {
       // data
@@ -54,21 +62,6 @@ class userCtrl extends baseCtrl{
         die;
       }
     }
-  }
-  // public function ePass(){
-  // 		 if (IS_AJAX === true) {
-
-  //     //  insert
-  //     $res = $this->db->ePass($this->id,$data);
-  //     if ($res) {
-  //       echo json_encode(true);
-  //       die;
-  //     } else {
-  //       echo json_encode(false);
-  //       die;
-  //     }
-  //   }
-
-
-  // }
+ 
+}
 }

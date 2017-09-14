@@ -25,4 +25,8 @@ class user extends model{
     $res = $this->insert($this->table1,$data);
     return $this->id();
   }
+   public function save($id,$data){
+        $res = $this->update($this->table,$data,['id'=>$id]);
+        return $res->rowCount();
+    }
 }
