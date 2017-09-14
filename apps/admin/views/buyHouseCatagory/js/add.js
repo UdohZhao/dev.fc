@@ -33,10 +33,10 @@ $(function(){
                     success:function(res){
                         // res
                         if (res === true) {
-                            swal("提交成功", "即将跳转到购房百科列表 :)", "success");
+                            swal("提交成功", "即将跳转到娱乐内容列表 :)", "success");
                             window.setTimeout("window.location.href='/admin/buyHouseCatagory/index'",2000);
                         } else if (res === false) {
-                            swal("提交失败", "请尝试刷新页面后重试 :(", "error");
+                            swal("提交失败", "标题不能相同 :(", "error");
                         } else {
                             swal("提交失败", res, "error");
                         }

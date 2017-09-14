@@ -12,7 +12,7 @@
       </div>
       <div class="panel-body">
       <!-- id="buyHouseForm" -->
-        <form class="form-horizontal" id="buyHouseForm" action="/admin/buyHouseCatagory/add/id/{{ date.id }}" method="post">
+        <form class="form-horizontal" id="buyHouseForm" action="/admin/buyHouseCatagory/and/id/{{ id }}" method="post">
 
         <!-- 图片 -->
           <div class="form-group">        
@@ -35,10 +35,10 @@
            
          <!-- 内容 -->
           <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">户型解析</label>
+            <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
             <div class="col-sm-10">
               <!-- 加载编辑器的容器 -->
-              <script id="container" name="analysis" type="text/plain"  style="height: 300px;">{% autoescape false %}{{ date.analysis }}{% endautoescape %}</script>
+              <script id="container" name="content" type="text/plain"  style="height: 300px;"></script>
             </div>
           </div>
           <div class="form-group">

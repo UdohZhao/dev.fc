@@ -2,16 +2,31 @@
 namespace apps\admin\model;
 use core\lib\model;
 class buyHouseCatagory extends model{
+    public $tabless='recreation_article';
     public $table='recreation_category';
+    
 
     public function checkUser($data){
         return $this->get($this->table,'*',['username'=>$data['username'],'password'=>$data['password']]);
     }
-
+    //check
+    public function check($id){
+        return $this->select($this->tabless,'*',['rcid'=>$id]);
+    }
     // getUsername
     public function getUsername($username){
         return $this->count($this->table,['username'=>$username]);
     }
+    // and
+    public function and($data){
+        $res = $this->insert($this->tabless,$data);
+        return $this->id();
+    }
+    // 更新
+  public function saves($id,$data){
+    $res = $this->update($this->tabless,$data,['id'=>$id]);
+    return $res->rowCount();
+  }
 
     // add
     public function add($data){
@@ -50,7 +65,7 @@ class buyHouseCatagory extends model{
         return $res->rowCount();
     }
     public function hecid($id){
-        return $this->get($this->tables,'hecid',['hecid'=>$id]);
+        return $this->get($this->tabless,'hecid',['hecid'=>$id]);
     }
     // del
     public function del($id){
