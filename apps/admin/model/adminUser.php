@@ -52,7 +52,11 @@ class adminUser extends model{
   public function getSingle($id){
     return $this->get($this->table,'*',['id'=>$id]);
   }
-
+  // ePass
+  public function ePass($id,$password){
+    $res = $this->update($this->table,['password'=>$password],['id'=>$id]);
+    return $res->rowCount();
+  }
   /**
    * 更新数据
    */
