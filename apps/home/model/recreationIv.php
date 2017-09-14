@@ -5,7 +5,7 @@ use core\lib\model;
  	public $table = 'recreation_article';
 
  	public function sel($id){
- 		$sql = " SELECT * FROM $this->table where id=$id";
+ 		$sql = " SELECT * FROM $this->table where id= '$id' ";
  		$data = $this->query($sql)->fetchAll(2);
  		return $data;
  	}

@@ -21,7 +21,7 @@ class recreationCtrl extends baseCtrl{
       $type = $this->type;
       $banner = $this->ban->sel();
   		$data1 = $this->db->sel1($this->id);
-      
+     
 
       $this->assign('banner',$banner);
       $this->assign('type',$type);
