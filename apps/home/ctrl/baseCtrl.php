@@ -9,6 +9,7 @@ class baseCtrl extends \core\icunji{
   public $appsecret;
   public $wechat;
   public $udb;
+  public $appsPath = '/apps/home/views';
   // 构造方法
   public function _initialize(){
     //控制器初始化
@@ -18,18 +19,20 @@ class baseCtrl extends \core\icunji{
     $this->appsecret = conf::get('APPSECRET','wechat');
     $this->wechat = new wechat(TOKEN,DEBUG,$this->appid,$this->appsecret);
     $this->udb = new user();
+    // 应用路径
+    $this->assign('appsPath',$this->appsPath);
     // access_token检测是否过期
-    if (isset($_SESSION['expires_in'])) {
-      if (time() > $_SESSION['expires_in']) {
-        $this->wechat->getAccessToken();
-      }
-    } else {
-      $this->wechat->getAccessToken();
-    }
-    // 获取微信用户信息
-    if (!isset($_SESSION['userinfo'])) {
-      $this->wechat->getUserInfo(1,'','','');
-    }
+    // if (isset($_SESSION['expires_in'])) {
+    //   if (time() > $_SESSION['expires_in']) {
+    //     $this->wechat->getAccessToken();
+    //   }
+    // } else {
+    //   $this->wechat->getAccessToken();
+    // }
+    // // 获取微信用户信息
+    // if (!isset($_SESSION['userinfo'])) {
+    //   $this->wechat->getUserInfo(1,'','','');
+    // }
 
   }
 
@@ -77,6 +80,10 @@ class baseCtrl extends \core\icunji{
         }
       }
     }
+
+    header("Location:/account/index");
+    die;
+
   }
 
 }

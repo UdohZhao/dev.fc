@@ -8,12 +8,14 @@ class recreationIvCtrl extends baseCtrl{
 	public $db;
 	//构造方法
 	public function _auto(){
-		$this->id = isset($_POST['id']) ? intval($_POST['id']): 1;
+		$this->id = isset($_GET['id']) ? intval($_GET['id']): 0;
+
 		$this->db = new recreationIv();
 	}
 	public function index(){
-		$data = $this->db->sel($this->id);
 		
+		$data = $this->db->sel($this->id);
+
 		$this->assign('data',$data);
 		$this->display('recreationIv','index.html');
 		die;

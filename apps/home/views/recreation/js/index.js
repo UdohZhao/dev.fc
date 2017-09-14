@@ -34,11 +34,9 @@ $(function(){
 });
 
 function ePass(id,type){
-	
-
 
 	window.location.href="/recreation/index/id/"+id+"/type/"+type;
 
 
-
 }
+

@@ -25,5 +25,13 @@ class user extends model{
     return $this->id();
   }
 
+  /**
+   * 更新数据表
+   */
+  public function save($id,$data){
+    $res = $this->update($this->table,$data,['id'=>$id]);
+    return $res->rowCount();
+  }
+
 }
 

@@ -1,0 +1,143 @@
+{% extends "layouts.html" %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+<!-- Page -->
+<div class="page animsition">
+  <div class="page-header">
+    <h1 class="page-title"># 用户管理</h1>
+  </div>
+  <div class="page-content">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">@ 用户列表</h3>
+      </div>
+        <ul class="nav nav-pills" style="margin-left: 25px;">
+                <li role="presentation" {% if type == 0 %}class="active"{% endif %}><a href="/admin/user/index/type/0">普通用户</a></li>
+                <li role="presentation" {% if type == 1 %}class="active"{% endif %}><a href="/admin/user/index/type/1">职员用户</a></li>
+      <form action="/admin/user/index" method="post">
+        <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
+          <input type="text" class="form-control" name="search" placeholder="请输入关键字">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+      </ul>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>昵称</th>
+			{% if type == 1 %}
+			  <th>姓名</th>
+			  <th>电话</th>
+			{% endif %}
+              <th>所在地</th>
+              <th>剩余金币</th>
+              {% if type == 1 %}
+			  <th>提成金额</th>
+			  <th>提现状态</th>
+			{% endif %}
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if data %}
+          {% for k,v in data %}
+            <tr>
+              <td></td>
+              <td>{{v.nickname}}</td>
+
+			  {% if type == 1 %}
+			  <th>姓名</th>
+			  <th>电话</th>
+			{% endif %}
+
+
+              {% if city=='' %}
+			<td>{{v.country}}-{{v.province}}-{{v.province}}</td>
+			{% else %}
+              <td>{{v.country}}-{{v.province}}-{{v.city}}</td>
+             {% endif %}
+              <td>{{v.residue}}</td>
+			 
+			  {% if type == 1 %}
+			  <th>提成金额</th>
+			  <th>提现状态</th>
+			{% endif %}
+
+			
+			{% if type == 1 %}
+			 <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="flow({{ v.id }});">查看邀请成员</button>
+              </td>
+			{% endif %}
+              <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="ePass({{ v.id }});">申请成为职员</button>
+              </td>
+            </tr>
+          {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="4">
+                <blockquote>
+                  <p>暂无数据 :(</p>
+                </blockquote>
+              </td>
+            </tr>
+          {% endif %}
+          </tbody>
+        </table>
+
+          <div style="float: right;">
+            {% autoescape false %}
+              {{ page }}
+            {% endautoescape %}
+          </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->
+<!-- 申请成为职员modal start -->
+<div id="ePassModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">申请成为职员</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="ePassForm"  method="post">
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+              <input type="cname" class="form-control" id="cname" name="cname" placeholder="请输入姓名">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">电话号码</label>
+            <div class="col-sm-10">
+              <input type="phone" class="form-control" name="phone" placeholder="请输入电话号码">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">提 交</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 申请成为职员modal end -->
+{% endblock %}
+
+{% block js %}
+<script src="/apps/admin/views/user/js/index.js"></script>
+{% endblock %}
