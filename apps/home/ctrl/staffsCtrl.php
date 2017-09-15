@@ -11,8 +11,20 @@ class staffsCtrl extends baseCtrl{
   public function index(){
     // Get
     if (IS_GET === true) {
+      // 读取当前用户提现金额
+      $_SESSION['userinfo']['push_money'] = $this->udb->getPushMoney($_SESSION['userinfo']['id']);
       // display
       $this->display('staffs','index.html');
+      die;
+    }
+  }
+
+  // 分享二维码页面
+  public function shareQRcode(){
+    // Get
+    if (IS_GET === true) {
+      // display
+      $this->display('staffs','shareQRcode.html');
       die;
     }
   }
