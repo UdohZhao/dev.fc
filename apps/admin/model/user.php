@@ -5,7 +5,8 @@ class user extends model{
 	public $table = 'user';
 	public $table1 = 'staffs';
 
-	  public function getAll($type,$id){
+	  public function getAll($type,$id,$limit,$search){
+   
     $sql = "
         SELECT
                 *,u.id
@@ -15,10 +16,21 @@ class user extends model{
         		`$this->table1` AS s 
         ON		u.id=s.uid       
        WHERE 
-       			u.type=$type
+       			
+            u.pid=$id 
         AND
-            u.pid=$id   
-          
+            u.type=$type
+        AND 
+            u.nickname like '%$search%'
+        OR        
+            s.phone like '$search'
+        OR 
+            s.cname like '$search'
+           
+       order by 
+            u.id   
+            
+        {$limit} 
         
     ";
     return $this->query($sql)->fetchAll(2);
@@ -33,8 +45,9 @@ class user extends model{
     $res = $this->update($this->table,['type'=>$type],['id'=>$id]);
     return $res->rowCount();
   }
-    public function status($id,$status){
-    $res = $this->update($this->table,['status'=>$status],['id'=>$id]);
-    return $res->rowCount();
-    }
+   // cou
+  public function cou(){
+    return $this->count($this->table);
+  }
+ 
 }

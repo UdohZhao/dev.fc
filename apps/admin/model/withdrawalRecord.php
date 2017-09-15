@@ -1,8 +1,8 @@
 <?php
 namespace apps\admin\model;
 use core\lib\model;
-class rechargeRecord extends model{
-	public $table = 'recharge_record';
+class withdrawalRecord extends model{
+	public $table = 'withdrawal_record';
 
 	public function getAll($id,$limit,$search){
 		$sql = "
@@ -12,15 +12,19 @@ class rechargeRecord extends model{
 				$this->table 
 			WHERE 
 				uid=$id 
-			OR 
-				orderid like '%$search%'
+			OR
+				orderid like '%$search%'	
 			ORDER BY 'ctime' desc 
 			{$limit}  
 			";
 			 return $this->query($sql)->fetchAll(2);
 	}
-	  // cou
- public function cou($id){
+	   public function status($id,$status){
+    $res = $this->update($this->table,['status'=>$status],['id'=>$id]);
+    return $res->rowCount();
+    }
+       // cou
+public function cou($id){
     return $this->count($this->table,['uid'=>$id]);
   }
 }

@@ -188,8 +188,7 @@ class articlesCtrl extends baseCtrl{
       foreach ($data as $k){
         $qwe = $k['ctime'];
       }
-      $ctime = date('Y-d-m H:i',$qwe);
-      $this->assign("ctime",$ctime);
+     
       $this->assign("data",$data);
       $this->display("articles","comment.html");
   }
