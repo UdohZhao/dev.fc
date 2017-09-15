@@ -23,6 +23,7 @@ class userCtrl extends baseCtrl{
 		$data = $this->db->getAll($this->type);
 		$type = $this->type;
 		
+
 		$this->assign('type',$type);
 		$this->assign('data',$data);
 		$this->display('user','index.html');
@@ -40,20 +41,18 @@ class userCtrl extends baseCtrl{
   }
 
   public function add(){
-   // Get
-    if (IS_GET === true) {
-      // display
-      $this->display('user','index.html');
-      die;
-    }
-    var_dump($_POST);
-    die;
-    // Ajax
+
+
+   // Ajax
     if (IS_AJAX === true) {
-      // data
-      $data = $this->getData();
+      // password
+      $type = 1;
+      // update
+      $delt = $this->db->ePass($this->id,$type);
+      //data
+       $data = $this->getData();
       // insert
-      $res = $this->db->add($data);
+       $res = $this->db->add($data);
       if ($res) {
         echo json_encode(true);
         die;

@@ -8,7 +8,7 @@ class user extends model{
 	  public function getAll($type){
     $sql = "
         SELECT
-                *
+                *,u.id
         FROM
                 `$this->table` AS u
         LEFT JOIN  
@@ -20,13 +20,14 @@ class user extends model{
     ";
     return $this->query($sql)->fetchAll(2);
   }
-   // add
+ // add
   public function add($data){
     $res = $this->insert($this->table1,$data);
     return $this->id();
   }
-   public function save($id,$data){
-        $res = $this->update($this->table,$data,['id'=>$id]);
-        return $res->rowCount();
-    }
+
+    public function ePass($id,$type){
+    $res = $this->update($this->table,['type'=>$type],['id'=>$id]);
+    return $res->rowCount();
+  }
 }
