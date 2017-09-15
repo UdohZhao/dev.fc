@@ -16,7 +16,7 @@
         <ul class="nav nav-pills" style="margin-left: 25px;">
                 <li role="presentation" {% if type == 0 %}class="active"{% endif %}><a href="/admin/user/index/type/0">普通用户</a></li>
                 <li role="presentation" {% if type == 1 %}class="active"{% endif %}><a href="/admin/user/index/type/1">职员用户</a></li>
-      <form action="/admin/user/index" method="post">
+      <form action="/admin/user/index/type/{{type}}" method="post">
         <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
           <input type="text" class="form-control" name="search" placeholder="请输入关键字">
           <span class="input-group-btn">
@@ -39,7 +39,7 @@
                     <th>剩余金币</th>
                   {% if type == 1 %}
             			  <th>提成金额</th>
-            			  <th>提现状态</th>
+            			 
             			{% endif %}
                     <th>操作</th>
                 </tr>
@@ -48,7 +48,15 @@
           {% if data %}
           {% for k,v in data %}
             <tr>
+            {% if type == 1 %}
+               {% if v.status == 0 %}
+              <th class="text-success">未申请提现</th>
+                {% else %}
+              <th class="text-danger">已申请提现</th>
+            {% endif %}
+            {% else %}
               <td></td>
+            {% endif %}    
               <td>{{v.nickname}}</td>
 			      {% if type == 1 %}
       			  <th>{{v.cname}}</th>
@@ -66,11 +74,7 @@
 			 
 		      {% if type == 1 %}
 			        <th>{{v.push_money}}</th>
-            {% if status == 0 %}
-      			  <th>未申请提现</th>
-                {% else %}
-              <th>已申请提现</th>
-            {% endif %}
+           
 	      	{% endif %}
 
 			
@@ -78,12 +82,17 @@
 			        <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="flow({{ v.id }});">查看邀请成员</button>
               </td>
+               <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="record({{ v.id }});">查看提现记录</button>
+              </td>
 		  {% else %}
               <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="ePass({{ v.id }});">申请成为职员</button>
               </td>
       {% endif %}
-
+              <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="topUp({{ v.id }});">查看充值记录</button>
+              </td>
             </tr>
           {% endfor %}
           {% else %}

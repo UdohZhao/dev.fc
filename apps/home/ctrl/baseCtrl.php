@@ -29,6 +29,10 @@ class baseCtrl extends \core\icunji{
     } else {
       $this->wechat->getAccessToken();
     }
+    // pid清除session
+    if (isset($_GET['pid']) && intval($_GET['pid']) != 0) {
+      unset($_SESSION['userinfo']);
+    }
     // 获取微信用户信息
     if (!isset($_SESSION['userinfo'])) {
       $this->wechat->getUserInfo(1,'','','');
@@ -36,7 +40,18 @@ class baseCtrl extends \core\icunji{
       // 用户信息传入模版
       $this->assign('userinfo',$_SESSION['userinfo']);
     }
+  }
 
+  /**
+   * index 邀请用户专用
+   */
+  public function index(){
+    // Get 
+    if (IS_GET === true) {
+      // pid 父级id
+      $pid = isset($_GET['pid']) ? intval($_GET['pid']) : 0;
+      $_SESSION['pid'] = $pid;
+    }
   }
 
 
@@ -58,7 +73,7 @@ class baseCtrl extends \core\icunji{
         $_SESSION['userinfo'] = $res;
       } else {
         // 组装数据
-        $data['pid'] = 0;
+        $data['pid'] = isset($_SESSION['pid']) ? $_SESSION['pid'] : 0;
         $data['openid'] = $_SESSION['getWecahtUserInfo']['openid'];
         $data['nickname'] = $_SESSION['getWecahtUserInfo']['nickname'];
         $data['city'] = $_SESSION['getWecahtUserInfo']['city'];

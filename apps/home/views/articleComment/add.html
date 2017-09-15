@@ -1,0 +1,32 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/articleComment/css/add.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="weui-cells__title title">{{title}}</div>
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea id="comments" class="weui-textarea" placeholder="留言将由公众号刷选后显示，对所有人可见。" rows="4"></textarea>
+          <div class="weui-textarea-counter"><span id="num">0</span>/200</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 btn-box">
+        <a href="javascript:;" class="weui-btn weui-btn_primary" onclick="btnSubmit({{apid}});">提交</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/articleComment/js/add.js"></script>
+{% endblock %}
+

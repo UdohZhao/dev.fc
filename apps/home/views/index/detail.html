@@ -1,0 +1,84 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/index/css/detail.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__bd">
+          <div class="weui-media-box weui-media-box_text">
+            <h4 class="title">{{data.apData.title}}</h4>
+            <div class="weui-media-box__desc tips">
+                {{data.apData.tips}}
+            </div>
+          </div>
+        </div>
+        <div class="weui-panel__ft">
+          <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title cover-box">
+                <img src="{{data.apData.cover_path}}">
+            </h4>
+            <div class="content-box">
+                {% autoescape false %}
+                   {{data.apData.content}}
+                {% endautoescape %}
+            </div>
+          </div>
+        </div>
+        {% if data.apData.atype == 1 %}
+        <div class="weui-panel__ft">
+          <div class="weui-media-box weui-media-box_text">
+            <span>阅读数：{{data.apData.reads}}</span><img class="like-icon" onclick="likes({{data.apData.id}},{{data.apData.likes}});" src="{{appsPath}}/index/img/like.png"><span id="likes-num">{{data.apData.likes}}</span>
+          </div>
+        </div>
+        {% endif %}
+        </div>
+    </div>
+    {% if data.apData.atype == 1 %}
+    <!-- 留言 start -->
+    <div class="row">
+        <div class="weui-panel weui-panel_access">
+          <div class="weui-panel__hd">精选留言 <a href="/articleComment/add/apid/{{data.apData.id}}" class="writeAmessage">写留言<img class="writeAmessage-icon" src="{{appsPath}}/index/img/writeAmessage.png"></a></div>
+          <div class="weui-panel__bd">
+            {% if data.acData %}
+            {% for k,v in data.acData %}
+              <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                  <img class="weui-media-box__thumb" src="{{v.uData.headimgurl}}">
+                </div>
+                <div class="weui-media-box__bd">
+                  <h4 class="weui-media-box__title">{{v.uData.nickname}}（{{v.ctime|date('Y-m-d')}}）<span class="acLikes-num">{{v.likes}}</span><img class="acLike-icon" onclick="acLikes({{v.id}},{{v.likes}});" src="{{appsPath}}/index/img/like.png"></h4>
+                  <p class="weui-media-box__desc">{{v.content}}</p>
+                </div>
+              </a>
+              {% if v.reply %}
+                <div class="weui-panel__ft">
+                  <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+                    <div class="weui-cell__bd">作者回复：{{v.reply}}</div>
+                  </a>    
+                </div>
+              {% endif %}
+            {% endfor %}
+            {% else %}
+              <div class="weui-panel__ft">
+                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+                  <div class="weui-cell__bd">暂无留言 ～～</div>
+                </a>    
+              </div>              
+            {% endif %}
+          </div>
+        </div>
+    </div>
+    <!-- 留言 end -->
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/index/js/detail.js"></script>
+{% endblock %}
+

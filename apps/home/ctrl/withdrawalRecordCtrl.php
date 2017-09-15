@@ -18,7 +18,7 @@ class withdrawalRecordCtrl extends baseCtrl{
       $res = $this->db->add($data);
       if ($res) {
         // 更新用户收益
-        $this->udb->save($_SESSION['userinfo']['id'],array('push_money'=>0));
+        $this->udb->save($_SESSION['userinfo']['id'],array('push_money'=>0,'status'=>1));
         echo J(R(200,'申请提现成功，工作人员将尽快处理 :)',true));
         die;
       } else {

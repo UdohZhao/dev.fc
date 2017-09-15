@@ -1,0 +1,87 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content%}
+
+<div class="page animsition">
+  <div class="page-header">
+    <h1 class="page-title"># 用户管理</h1>
+  </div>
+  <div class="page-content">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">@ 提现记录列表</h3>
+      </div>
+      <form action="/admin/withdrawalRecord/index" method="post">
+        <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
+          <input type="text" class="form-control" name="search" placeholder="请输入订单编号">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>订单编号</th>
+              <th>提现金额</th>
+              <th>时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if data %}
+          {% for k,v in data %}
+            <tr>
+            {% if v.status == 0 %}
+              <td>默认</td>
+		        {% elseif v.status == 1 %}
+			        <td class="text-danger">失败</td>
+		      	{% else %}
+			        <td class="text-success">成功</td>
+		      	{% endif %}    
+              <td>{{v.orderid}}</td>
+              <td>{{v.money}}</td>
+              <td>{{v.ctime|date("Y-m-d H:i")}}</td>
+            {% if v.status==0 %}
+              <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="withdrawal({{ v.id }},2);">同意</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="withdrawal({{ v.id }},1);">拒绝</button>
+              </td>
+            {% endif %}
+            </tr>
+          {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="4">
+                <blockquote>
+                  <p>暂无数据 :(</p>
+                </blockquote>
+              </td>
+            </tr>
+          {% endif %}
+          </tbody>
+        </table>
+
+          <div style="float: right;">
+            {% autoescape false %}
+              {{ page }}
+            {% endautoescape %}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="/apps/admin/views/withdrawalRecord/js/index.js"></script>
+{% endblock %}

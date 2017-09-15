@@ -1,6 +1,6 @@
 $(function(){
 
-  // 验证登录表单
+  // 验证表单
   $("#ePassForm").validate({
       focusInvalid: true,
       rules: {
@@ -9,7 +9,7 @@ $(function(){
         },
         phone: {
           required: true,
-              digits:true
+           	digits:true
         }
       },
       messages: {
@@ -18,7 +18,7 @@ $(function(){
         },
         phone: {
           required: "<span style='color:red;'>电话号码不能为空 :(</span>",
-          digits:  "<span style='color:red;'>请输入正确的电话号码。 :(</span>"
+           digits: "<span style='color:red;'>请输入正确的电话号码。 :(</span>",
         }
       },
       submitHandler: function(form){
@@ -45,8 +45,8 @@ $(function(){
 
 });
 
-// 修改密码
-function ePass(id){
+// 申请成为职员
+function ePass(id,username){
 
   $("#ePassForm").attr("action","/admin/user/add/id/"+id);
   // modal
@@ -55,5 +55,17 @@ function ePass(id){
     keyboard: false
   });
 }
+// 查看充值记录
+function flow(id){
+	window.location.href = "/admin/user/index/id/"+id+ "/type/"+0 ;
+}
 
 
+//查看充值记录
+function topUp(id){
+	window.location.href = "/admin/rechargeRecord/index/id/"+id;
+}
+//查看提现记录
+function record(id){
+  window.location.href = "/admin/withdrawalRecord/index/id/"+id;
+}

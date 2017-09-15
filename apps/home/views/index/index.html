@@ -1,15 +1,111 @@
 {% extends "layouts.html" %}
 
 {% block css %}
-
+<link rel="stylesheet" href="{{appsPath}}/index/css/index.css">
 {% endblock %}
 
 {% block content %}
-<h1 style="margin:30px;"> ~~ 欢迎使用存己框架 : )</h1>
+<div class="container-fluid">
+  <!-- 幻灯片 start -->	
+  <div class="row swiper-box">
+	<!-- Slider main container -->
+	<div class="swiper-container">
+	    <!-- Additional required wrapper -->
+	    <div class="swiper-wrapper">
+	        <!-- Slides -->
+		    <div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>
+		    <div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>
+		    <div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>
+	    </div>
+	    <!-- If we need pagination -->
+	    <div class="swiper-pagination"></div>
+	</div>
+  </div>
+  <!-- 幻灯片 end -->
+
+  <!-- 导航栏 start -->
+  <div class="row navbar-box">
+	<!-- 容器 -->
+	<div class="weui-tab">
+	  <div class="weui-navbar">
+	    <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+	      行业动态
+	    </a>
+	    <a class="weui-navbar__item" href="#tab2">
+	      赌石技巧
+	    </a>
+	  </div>
+	  <div class="weui-tab__bd">
+	    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+			<div class="weui-panel weui-panel_access">
+			  <div class="weui-panel__hd">行业动态列表</div>
+			  <div class="weui-panel__bd">
+                {% if data.atype0 %}
+                {% for k,v in data.atype0 %}
+                    <a href="/index/detail/id/{{v.id}}" class="weui-media-box weui-media-box_appmsg">
+                      <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{{v.cover_path}}">
+                      </div>
+                      <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{{v.title}}</h4>
+                        <p class="weui-media-box__desc">{{v.tips}}</p>
+                      </div>
+                    </a>
+                {% endfor %}    
+                {% else %}
+                    <p>暂无数据 ～～</p>
+                {% endif %}
+			  </div>
+              {% if data.atype0 %}
+			  <div class="weui-panel__ft">
+			    <a href="/index/indexAll/atype/0" class="weui-cell weui-cell_access weui-cell_link">
+			      <div class="weui-cell__bd">查看更多</div>
+			      <span class="weui-cell__ft"></span>
+			    </a>    
+			  </div>
+              {% endif %}
+			</div>
+	    </div>
+	    <div id="tab2" class="weui-tab__bd-item">
+	    	<div class="weui-panel weui-panel_access">
+			  <div class="weui-panel__hd">赌石技巧列表</div>
+              <div class="weui-panel__bd">
+                {% if data.atype1 %}
+                {% for k,v in data.atype1 %}
+                    <a href="/index/detail/id/{{v.id}}" class="weui-media-box weui-media-box_appmsg">
+                      <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{{v.cover_path}}">
+                      </div>
+                      <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{{v.title}}</h4>
+                        <p class="weui-media-box__desc">阅读数：{{v.reads}} - 点赞数：{{v.likes}} - 评论数：{{v.comments}}</p>
+                      </div>
+                    </a>
+                {% endfor %}    
+                {% else %}
+                    <p>暂无数据 ～～</p>
+                {% endif %}
+              </div>
+              {% if data.atype1 %}
+              <div class="weui-panel__ft">
+                <a href="/index/indexAll/atype/1" class="weui-cell weui-cell_access weui-cell_link">
+                  <div class="weui-cell__bd">查看更多</div>
+                  <span class="weui-cell__ft"></span>
+                </a>    
+              </div>
+              {% endif %}
+			</div>
+	    </div>
+	  </div>
+	</div>
+  </div>
+  <!-- 导航栏 end -->
+
+</div>
 
 {% endblock %}
 
 {% block js %}
-
+<script src="{{appsPath}}/index/js/index.js"></script>
 {% endblock %}
 

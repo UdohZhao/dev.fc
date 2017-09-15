@@ -20,12 +20,23 @@ class userCtrl extends baseCtrl{
 	}
 	public function index(){
 
-		$data = $this->db->getAll($this->type);
-		$type = $this->type;
+    // 获取搜索条件
+    $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
+    
+    // 总记录数
+    $cou = $this->db->cou();
+    // 数据分页
+    $page = new Page($cou,conf::get('LIMIT','admin'));
+    // 结果集
+
+		$data = $this->db->getAll($this->type,$this->id,$page->limit,$search);
+		
+    $type = $this->type;
 		
 
 		$this->assign('type',$type);
 		$this->assign('data',$data);
+    $this->assign('page',$page->showpage());
 		$this->display('user','index.html');
 		die;
 	}
@@ -41,14 +52,13 @@ class userCtrl extends baseCtrl{
   }
 
   public function add(){
-
-
    // Ajax
     if (IS_AJAX === true) {
-      // password
+        // password
       $type = 1;
       // update
       $delt = $this->db->ePass($this->id,$type);
+     
       //data
        $data = $this->getData();
       // insert
@@ -61,6 +71,6 @@ class userCtrl extends baseCtrl{
         die;
       }
     }
- 
 }
+
 }
