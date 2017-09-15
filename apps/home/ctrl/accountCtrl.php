@@ -118,7 +118,7 @@ class accountCtrl extends baseCtrl{
               $data = $this->udb->getidInfo($data['pid']);
               $push_money = bcadd($data['push_money'], $unit_money, 2);
               file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/unit.txt",$push_money.'//'.$data['pid'].PHP_EOL,FILE_APPEND);
-              $this->udb->save($data['pid'],array('push_money'=>$push_money));
+              $this->udb->save($data['id'],array('push_money'=>$push_money));
             }
           }
         }
