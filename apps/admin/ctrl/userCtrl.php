@@ -20,8 +20,9 @@ class userCtrl extends baseCtrl{
 	}
 	public function index(){
 
-		$data = $this->db->getAll($this->type);
-		$type = $this->type;
+		$data = $this->db->getAll($this->type,$this->id);
+		
+    $type = $this->type;
 		
 
 		$this->assign('type',$type);
@@ -41,14 +42,13 @@ class userCtrl extends baseCtrl{
   }
 
   public function add(){
-
-
    // Ajax
     if (IS_AJAX === true) {
-      // password
+        // password
       $type = 1;
       // update
       $delt = $this->db->ePass($this->id,$type);
+     
       //data
        $data = $this->getData();
       // insert
@@ -61,6 +61,21 @@ class userCtrl extends baseCtrl{
         die;
       }
     }
- 
 }
+ public function status(){
+        // Ajax
+        if (IS_AJAX === true) {
+            // status
+            $status = intval($_POST['status']);
+            // update
+            $res = $this->db->status($this->id,$status);
+            if ($res) {
+                echo json_encode(true);
+                die;
+            } else {
+                echo json_encode(false);
+                die;
+            }
+        }
+    }
 }

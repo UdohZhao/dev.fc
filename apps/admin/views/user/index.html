@@ -66,7 +66,7 @@
 			 
 		      {% if type == 1 %}
 			        <th>{{v.push_money}}</th>
-            {% if status == 0 %}
+            {% if v.status == 0 %}
       			  <th>未申请提现</th>
                 {% else %}
               <th>已申请提现</th>
@@ -78,12 +78,20 @@
 			        <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="flow({{ v.id }});">查看邀请成员</button>
               </td>
+      {% if v.status ==1 %}
+               <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="withdrawal({{ v.id }},0);">同意提现</button>
+              </td>
+      {% endif %}
+
 		  {% else %}
               <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="ePass({{ v.id }});">申请成为职员</button>
               </td>
       {% endif %}
-
+              <td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="topUp({{ v.id }});">查看充值记录</button>
+              </td>
             </tr>
           {% endfor %}
           {% else %}
