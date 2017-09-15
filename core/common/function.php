@@ -292,6 +292,23 @@ return $val;
 }
 
 /**
+ * 数组转xml
+ */
+function AX($arr){
+  $xml = "<xml>";
+  foreach ($arr as $key=>$val)
+  {
+    if (is_numeric($val)){
+      $xml.="<".$key.">".$val."</".$key.">";
+    }else{
+      $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+    }
+  }
+  $xml.="</xml>";
+  return $xml;
+}
+
+/**
  * 替换url参数
  * @param $url  地址
  * @param $data 替换数组

@@ -11,5 +11,13 @@ class rechargeRecord extends model{
     return $this->id();
   }
 
+  /**
+   * 读取订单编号是否存在
+   */
+  public function getOrderid($orderid){
+    return $this->count($this->table,['orderid'=>$orderid]);
+  }
+
+
 }
 
