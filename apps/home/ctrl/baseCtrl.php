@@ -37,8 +37,6 @@ class baseCtrl extends \core\icunji{
       $this->assign('userinfo',$_SESSION['userinfo']);
     }
 
-
-
   }
 
 
