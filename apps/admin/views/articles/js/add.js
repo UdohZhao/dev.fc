@@ -5,99 +5,77 @@ $(function(){
 
 
   // 验证登录表单
-  $("#newHouseMainForm").validate({
+  $("#articlesForm").validate({
       focusInvalid: true,
       rules: {
-        house_type_name: {
+        title: {
           required: true
         },
-        cname: {
+        tips: {
           required: true
         },
-        trait: {
-          required: true
+        gold: {
+          required: true,
+          digits: true
         },
-        price: {
-          required: true
-        },
-        covered_area: {
-          required: true
-        },
-        orientation: {
-          required: true
-        },
-        down_payment: {
-          required: true
-        },
-        mip: {
-          required: true
-        }
       },
       messages: {
-        house_type_name: {
-          required: "<span style='color:red;'>户型不能为空 :(</span>"
+        title: {
+          required: "<span style='color:red;'>标题不能为空 :(</span>"
         },
-        cname: {
-          required: "<span style='color:red;'>名称不能为空 :(</span>"
+        tips: {
+          required: "<span style='color:red;'>说明不能为空 :(</span>"
         },
-        trait: {
-          required: "<span style='color:red;'>特点不能为空 :(</span>"
-        },
-        price: {
-          required: "<span style='color:red;'>价格不能为空 :(</span>"
-        },
-        covered_area: {
-          required: "<span style='color:red;'>面积不能为空 :(</span>"
-        },
-        orientation: {
-          required: "<span style='color:red;'>朝向不能为空 :(</span>"
-        },
-        down_payment: {
-          required: "<span style='color:red;'>首付占比不能为空 :(</span>"
-        },
-        mip: {
-          required: "<span style='color:red;'>月供不能为空 :(</span>"
+        gold:{
+          required: "<span style='color:red;'>金币不能为空 :(</span>",
+          digits: "<span style='color:red;'>必须为整数 :(</span>"
         }
       },
-      submitHandler: function(form){
-        // 获取封面图片路径，户型解析
+     submitHandler: function(form){
+           //获取封面图片路径，户型解析
         var cover_path = $("input[name='cover_path']").val();
+        var ipPath = $("input[name='ipPath']").val();
         var analysis = ue.getContent();
-        if (cover_path == '') {
+        if (cover_path == '' && ipPath == undefined) {
           swal("提交失败", "请上传封面图片 :(", "error");
         } else if (analysis == false) {
-          swal("提交失败", "户型解析不能为空 :(", "error");
+          swal("提交失败", "内容不能为空 :(", "error");
         } else {
-          $(form).ajaxSubmit({
-              dataType:"json",
-              success:function(res){
-                // res
-                if (res.error == 0) {
-                  swal("提交成功", res.msg, "success");
-                  window.setTimeout("window.location.reload();",3000);
-                } else if (res.error == 1) {
-                  swal("提交失败", res.msg, "error");
-                } else {
-                  swal("提交失败", res.msg, "error");
-                }
-              },
-              error:function(e){
-                console.log(e);
-                swal("未知错误", "请尝试刷新页面后重试 :(", "error");
-              }
-          });
+                $(form).ajaxSubmit({
+                    dataType:"json",
+                    success:function(res){
+                        // res
+                        if (res === true) {
+                            swal("提交成功", "可在此页面继续添加 :)", "success");
+                            window.setTimeout("window.location.reload();",2000);
+                        } else if (res === false) {
+                            swal("提交失败", "请尝试刷新页面后重试 :(", "error");
+                        } else {
+                            swal("提交失败", res, "error");
+                        }
+                    },
+                    error:function(e){
+                        console.log(e);
+                        swal("未知错误", "请尝试刷新页面后重试 :(", "error");
+                    }
+                });
+            }
         }
-      }
   });
 
 })
 
 
-
-  // 前往新房列表
-  function gotoNhc(){
-    window.location.href = "/admin/newHouseCatalog/index";
+// 跳转到行业动态条目
+  function index(){
+    window.location.href = "/admin/articles/index";
   }
+
+// 跳转到赌石技巧条目
+  function indextow(){
+    window.location.href = "/admin/articles/indextow";
+  }
+
 
   //图片上传预览    IE是用了滤镜。
   function previewImage(file)
