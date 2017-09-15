@@ -47,5 +47,18 @@ class user extends model{
     return $this->get($this->table,'push_money',['id'=>$id]);
   }
 
+  /**
+   * 读取下级总数
+   */
+  public function getTotalLevel($pid){
+    return $this->count($this->table,['pid'=>$pid]);
+  }
+
+  // 读取用户类型
+  public function getType($id){
+    return $this->get($this->table,'type',['id'=>$id]);
+  }
+
+
 }
 

@@ -16,9 +16,12 @@ class accountCtrl extends baseCtrl{
     // Get
     if (IS_GET === true) {
       if (isset($_SESSION['userinfo']['id'])) {
+        // 读取当前用户类型
+        $type = $this->udb->getType($_SESSION['userinfo']['id']);
         // 读取当前用户金币
         $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
         // assign
+        $this->assign('type',$type);
         $this->assign('residue',$residue);
       }
       // display
@@ -81,12 +84,13 @@ class accountCtrl extends baseCtrl{
         if (!$res) {
           // 获取实际充值金额
           $total_fee = bcdiv($total_fee, 100, 2);
+          //$total_fee = 100;
 
           // 查询当前用户详细信息
           $data = $this->udb->getidInfo($uid);
           if ($data['pid'] != 0) {
             // 获取提成百分比
-            $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 0);
+            $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 2);
             // 计算提成金额
             $unit_money = bcmul($total_fee, $unit_percent, 2);
           } else {
@@ -99,7 +103,7 @@ class accountCtrl extends baseCtrl{
           $rrData['pid'] = $data['pid'];
           $rrData['orderid'] = $order_sn;
           $rrData['money'] = $total_fee;
-          $rrData['unit_money'] = 0;
+          $rrData['unit_money'] = $unit_money;
           $rrData['ctime'] = time();
           $res = $this->rrdb->add($rrData);
           if ($res) {
@@ -109,10 +113,10 @@ class accountCtrl extends baseCtrl{
             // 更新用户金币
             $this->udb->save($uid,array('residue'=>$residue));
             // unit_money 提成金额不为0
-            if ($unit_money != 0) {
+            if ($unit_money > 0) {
               $data = $this->udb->getidInfo($data['pid']);
               $push_money = bcadd($data['push_money'], $unit_money, 2);
-              $this->udb->save($data['pid'],array('push_money'=>$push_money));
+              $this->udb->save($data['id'],array('push_money'=>$push_money));
             }
           }
         }

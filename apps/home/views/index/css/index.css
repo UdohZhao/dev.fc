@@ -1,0 +1,13 @@
+.swiper-slide img{
+	width: 100%;
+	height: 200px;
+}
+.weui-navbar{
+	position: static;
+}
+.weui-bar__item--on{
+	color: #227D51!important;
+}
+.weui-tab__bd{
+	padding: 0px!important;
+}
