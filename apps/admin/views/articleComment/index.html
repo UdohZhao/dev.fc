@@ -13,7 +13,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">@ 休闲娱乐列表</h3>
             </div>
-            <form action="/admin/buyHouseCatagory/index" method="post">
+            <form action="/admin/articleComment/index/id/{{id}}" method="post">
                 <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
                     <input type="text" class="form-control" name="search" placeholder="请输入关键字">
                     <span class="input-group-btn">
@@ -26,10 +26,11 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>封面</th>
-                        <th>标题</th>
-                        <th>提示说明</th>
-                       <!--  <th>发布时间</th> -->
+                        <th>评价内容</th>
+                        <th>评论人</th>
+                        <th>作者回复</th>
+                        <th>点赞数</th>
+                        <th>时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -44,25 +45,20 @@
                             <span class="text-danger">{隐藏}</span>
                             {% endif %}
                          </td>
-                       
-                         <td>
-                         <img src="{{ v.cover_path }}" class="img-responsive" style="width: 90px; height: 90px;">
-                         </td>
-                       
-                         <td>{{ v.title }}</td>
-
-                         <td>{{ v.tips }}</td>
+                        
+                        <td>{{v.content}}</td>
+                        <td>{{v.nickname}}</td>
+                        <td>{{v.reply}}</td>
+                        <td>{{v.likes}}</td>
+					    <td>{{v.ctime|date("Y-m-d H:i")}}</td>
+                         
                         <!--  <th>{{ ctime }}</th> -->
                         <td>
-                    <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
-                    <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
-
-                        
-  
+                    <button type="button" class="btn btn-default btn-xs" onclick="delse({{ v.id }});">删除</button>
                         {% if v.status == 1 %}
-                            <button type="button" class="btn btn-danger btn-xs" onclick="flag({{ v.id }},0);">隐藏</button>
+                            <button type="button" class="btn btn-danger btn-xs" onclick="flae({{ v.id }},0);">隐藏</button>
                         {% else %}
-                            <button type="button" class="btn btn-success btn-xs" onclick="flag({{ v.id }},1);">显示</button>
+                            <button type="button" class="btn btn-success btn-xs" onclick="flae({{ v.id }},1);">显示</button>
                          {% endif %}
                         </td>
                     </tr>
@@ -93,5 +89,5 @@
 {% endblock %}
 
 {% block js %}
-<script src="/apps/admin/views/articles/js/index.js"></script>
+<script src="/apps/admin/views/articleComment/js/index.js"></script>
 {% endblock %}

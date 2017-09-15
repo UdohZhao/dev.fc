@@ -15,7 +15,7 @@
       </div>
       <div class="panel-body">
       <!-- id="articlesForm" -->
-        <form class="form-horizontal" id="articlesForm" action="/admin/articles/add/id/{{ date.id }}" method="post">
+        <form class="form-horizontal" id="articlesForm" action="/admin/articlePay/add/id/{{ data.id }}" method="post">
         {% if atype == 0 %}
         <input type="hidden" name = "atype" value="0">
         {% else %}
@@ -23,6 +23,7 @@
         {% endif %}
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">封面图片路径</label>
+           
             <div class="col-sm-10">
                 <div id="preview">
                 {% if id == 0 %}
@@ -33,6 +34,7 @@
                 </div>
                 <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg" name="cover_path">
             </div>
+
           </div>
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
@@ -70,6 +72,26 @@
               <input type="text" class="form-control" name="gold" value="{{ date.gold }}" placeholder="请输入阅读金币">
             </div>
           </div>
+        {% if id !=0 %}
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">阅读数</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="reads" value="{{ date.reads }}" placeholder="请输入阅读数">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">点赞数</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="likes" value="{{ date.likes }}" placeholder="请输入点赞数">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">评论数</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="comments" value="{{ date.comments }}" placeholder="请输入评论数">
+            </div>
+          </div>
+		      {% endif %}
           {% endif %}
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
@@ -83,11 +105,15 @@
           
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
+                {% if id==0 %}
               <button type="submit" class="btn btn-success">添加文章</button>
+                {% else %}
+              <button type="submit" class="btn btn-success">修改文章</button>
+                {% endif %}
               {% if atype == 0 %}
-               <a href="/admin/articles/index" class="btn btn-default">跳转到行业动态条目</a>
+               <a href="/admin/articlePay/index/atype/0" class="btn btn-default">跳转到行业动态条目</a>
                {% else %}
-               <a href="/admin/articles/indextow" class="btn btn-default">跳转到赌石技巧条目</a>
+               <a href="/admin/articlePay/index/atype/1" class="btn btn-default">跳转到赌石技巧条目</a>
                {% endif %}
             </div>
           </div>
@@ -99,7 +125,7 @@
 <!-- End Page -->
 {% endblock %}
 {% block js %}
-<script src="/apps/admin/views/articles/js/add.js"></script>
+<script src="/apps/admin/views/articlePay/js/add.js"></script>
 <!-- 配置文件 -->
 <script type="text/javascript" src="/public/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->

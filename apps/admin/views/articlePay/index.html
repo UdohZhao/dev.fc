@@ -6,14 +6,18 @@
 <!-- Page -->
 <div class="page animsition">
     <div class="page-header">
-        <h1 class="page-title"># 休闲娱乐管理</h1>
+        <h1 class="page-title"># 文章表管理</h1>
     </div>
     <div class="page-content">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">@ 休闲娱乐列表</h3>
+			{% if atype==0 %}
+                <h3 class="panel-title">@ 行业动态条目</h3>
+			{% else %}
+				 <h3 class="panel-title">@ 赌石技巧条目</h3>
+			{% endif %}
             </div>
-            <form action="/admin/buyHouseCatagory/index" method="post">
+            <form action="/admin/articlePay/index/atype/{{atype}}" method="post">
                 <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
                     <input type="text" class="form-control" name="search" placeholder="请输入关键字">
                     <span class="input-group-btn">
@@ -29,37 +33,51 @@
                         <th>封面</th>
                         <th>标题</th>
                         <th>提示说明</th>
-                       <!--  <th>发布时间</th> -->
+                        <th>发布时间</th>
+					{% if atype==1 %}
+                        <th>阅读数</th>
+                        <th>点赞数</th>
+                        <th>评论数</th>
+                        <th>阅读金币</th>
+                        <th>类型</th>
+					{% endif %}
                         <th>操作</th>
+					
                     </tr>
                     </thead>
                     <tbody>
                     {% if data %}
                     {% for k,v in data %}
                     <tr>
-                         <td>
-                            {% if v.status == 1 %}
-                            <span class="text-success">{显示}</span>
-                            {% else %}
-                            <span class="text-danger">{隐藏}</span>
-                            {% endif %}
-                         </td>
-                       
-                         <td>
-                         <img src="{{ v.cover_path }}" class="img-responsive" style="width: 90px; height: 90px;">
-                         </td>
-                       
-                         <td>{{ v.title }}</td>
+					{% if v.status==0 %}
+                         <td class="btn btn-danger btn-xs">隐藏</td>
+					{% else %}
+					     <td class="btn btn-success btn-xs">显示</td>
+					{% endif %}     
+                         <td> <img src="{{ v.cover_path }}" class="img-responsive" style="width: 90px; height: 90px;"></td>
+                         <td>{{v.title}}</td>
+                         <td>{{v.tips}}</td>
+                         <td>{{v.ctime|date("Y-m-d H:i")}}</td>
 
-                         <td>{{ v.tips }}</td>
-                        <!--  <th>{{ ctime }}</th> -->
+						{% if atype==1 %}
+                         <td>{{v.reads}}</td>
+                         <td>{{v.likes}}</td>
+                         <td>{{v.comments}}</td>
+                         <td>{{v.gold}}</td>
+					{% if v.type==0 %}
+                         <td>不支持编码</td>
+					{% else %}
+						  <td>支持编码</td>
+					{% endif %}	  
+						{% endif %}
+
                         <td>
-                    <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
-                    <button type="button" class="btn btn-primary btn-xs" onclick="comment({{ v.id }});">查看修改评论</button>
-                    <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
+                     <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
+                     <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
+                        {% if atype == 1 %}
+                        <button type="button" class="btn btn-primary btn-xs" onclick="comment({{ v.id }});">查看评论</button>
+                        {% endif %}
 
-                        
-  
                         {% if v.status == 1 %}
                             <button type="button" class="btn btn-danger btn-xs" onclick="flag({{ v.id }},0);">隐藏</button>
                         {% else %}
@@ -94,5 +112,5 @@
 {% endblock %}
 
 {% block js %}
-<script src="/apps/admin/views/articles/js/index.js"></script>
+<script src="/apps/admin/views/articlePay/js/index.js"></script>
 {% endblock %}

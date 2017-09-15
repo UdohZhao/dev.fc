@@ -32,6 +32,7 @@ $(function(){
         }
       },
      submitHandler: function(form){
+     
            //获取封面图片路径，户型解析
         var cover_path = $("input[name='cover_path']").val();
         var ipPath = $("input[name='ipPath']").val();
@@ -46,7 +47,7 @@ $(function(){
                     success:function(res){
                         // res
                         if (res === true) {
-                            swal("提交成功", "可在此页面继续添加 :)", "success");
+                            swal("提交成功", "可在此页面继续操作 :)", "success");
                             window.setTimeout("window.location.reload();",2000);
                         } else if (res === false) {
                             swal("提交失败", "请尝试刷新页面后重试 :(", "error");
@@ -68,12 +69,12 @@ $(function(){
 
 // 跳转到行业动态条目
   function index(){
-    window.location.href = "/admin/articles/index";
+    window.location.href = "/admin/articlePay/index/atype/0";
   }
 
 // 跳转到赌石技巧条目
   function indextow(){
-    window.location.href = "/admin/articles/indextow";
+    window.location.href = "/admin/articlePay/index/atype/1";
   }
 
 
