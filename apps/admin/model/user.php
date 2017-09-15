@@ -5,7 +5,7 @@ class user extends model{
 	public $table = 'user';
 	public $table1 = 'staffs';
 
-	  public function getAll($type){
+	  public function getAll($type,$id){
     $sql = "
         SELECT
                 *,u.id
@@ -15,7 +15,10 @@ class user extends model{
         		`$this->table1` AS s 
         ON		u.id=s.uid       
        WHERE 
-       			type=$type
+       			u.type=$type
+        AND
+            u.pid=$id   
+          
         
     ";
     return $this->query($sql)->fetchAll(2);
@@ -30,4 +33,8 @@ class user extends model{
     $res = $this->update($this->table,['type'=>$type],['id'=>$id]);
     return $res->rowCount();
   }
+    public function status($id,$status){
+    $res = $this->update($this->table,['status'=>$status],['id'=>$id]);
+    return $res->rowCount();
+    }
 }
