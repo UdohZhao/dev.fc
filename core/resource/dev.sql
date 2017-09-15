@@ -123,7 +123,17 @@ CREATE TABLE `recharge_record`(
   PRIMARY KEY (`id`),
   KEY (`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+# 提现记录表
+CREATE TABLE `withdrawal_record`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '提现记录表主键id',
+  `uid` int(11) UNSIGNED NOT NULL COMMENT '关联用户表主键id',
+  `orderid` varchar(64) NOT NULL COMMENT '订单编号',
+  `money` decimal(14,2) UNSIGNED NOT NULL COMMENT '提现金额',
+  `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
+  `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态？0>默认，1>失败，2>成功',
+  PRIMARY KEY (`id`),
+  KEY (`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

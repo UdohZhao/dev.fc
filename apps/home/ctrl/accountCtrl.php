@@ -15,10 +15,12 @@ class accountCtrl extends baseCtrl{
   public function index(){
     // Get
     if (IS_GET === true) {
-      // 读取当前用户金币
-      $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
-      // assign
-      $this->assign('residue',$residue);
+      if (isset($_SESSION['userinfo']['id'])) {
+        // 读取当前用户金币
+        $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
+        // assign
+        $this->assign('residue',$residue);
+      }
       // display
       $this->display('account','index.html');
       die;
