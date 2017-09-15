@@ -33,5 +33,12 @@ class user extends model{
     return $res->rowCount();
   }
 
+  /**
+   * 读取金币
+   */
+  public function getResidue($id){
+    return $this->get($this->table,'residue',['id'=>$id]);
+  }
+
 }
 
