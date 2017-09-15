@@ -37,7 +37,7 @@
 			{% endif %}
               <th>所在地</th>
               <th>剩余金币</th>
-              {% if type == 1 %}
+      {% if type == 1 %}
 			  <th>提成金额</th>
 			  <th>提现状态</th>
 			{% endif %}
@@ -52,8 +52,8 @@
               <td>{{v.nickname}}</td>
 
 			  {% if type == 1 %}
-			  <th>姓名</th>
-			  <th>电话</th>
+			  <th>{{v.cname}}</th>
+			  <th>{{v.phone}}</th>
 			{% endif %}
 
 
