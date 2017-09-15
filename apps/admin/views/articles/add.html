@@ -1,0 +1,107 @@
+{% extends "layouts.html" %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+<!-- Page -->
+<div class="page animsition">
+  <div class="page-header">
+    <h1 class="page-title"># 文章表管理</h1>
+  </div>
+  <div class="page-content">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">@ 添加{% if atype == 0 %}行业动态{% else %}赌石技巧{% endif %}</h3>
+      </div>
+      <div class="panel-body">
+      <!-- id="articlesForm" -->
+        <form class="form-horizontal" id="articlesForm" action="/admin/articles/add/id/{{ date.id }}" method="post">
+        {% if atype == 0 %}
+        <input type="hidden" name = "atype" value="0">
+        {% else %}
+        <input type="hidden" name = "atype" value="1">
+        {% endif %}
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">封面图片路径</label>
+            <div class="col-sm-10">
+                <div id="preview">
+                {% if id == 0 %}
+                 <img id="imghead" border="0" src="/apps/admin/views/assets/images/photo_icon.png" width="90" height="90" onclick="$('#previewImg').click();">
+                {% else %}
+                 <img id="imghead" border="0" src="{{ date.cover_path }}" width="90" height="90" onclick="$('#previewImg').click();">
+                {% endif %}
+                </div>
+                <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg" name="cover_path">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="title" value="{{ date.title }}" placeholder="请输入标题">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">说明</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="tips" value="{{ date.tips }}" placeholder="请输入说明">
+            </div>
+          </div>
+          {% if atype == 0 %}
+            <input type="hidden" name="type" value="0">
+           {% else %}
+            <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">编码类型</label>
+            <div class="col-sm-10">
+              <label class="radio-inline">
+                <input type="radio" name="type" value="0" checked="checked"> 不支持编码
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="type" value="1"> 支持编码
+              </label>
+            </div>
+          </div>
+           {% endif %}
+          {% if atype == 0 %}
+              <input type="hidden" name="gold" value="0">
+          {% else %}
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">阅读金币</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="gold" value="{{ date.gold }}" placeholder="请输入阅读金币">
+            </div>
+          </div>
+          {% endif %}
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
+            <div class="col-sm-10">
+              <!-- 加载编辑器的容器 -->
+              <script id="container" name="content" type="text/plain" style="height: 300px;">
+         {% autoescape false %}{{ date.content }}{% endautoescape %}       
+              </script>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-success">添加文章</button>
+              {% if atype == 0 %}
+               <a href="/admin/articles/index" class="btn btn-default">跳转到行业动态条目</a>
+               {% else %}
+               <a href="/admin/articles/indextow" class="btn btn-default">跳转到赌石技巧条目</a>
+               {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->
+{% endblock %}
+{% block js %}
+<script src="/apps/admin/views/articles/js/add.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/public/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/public/ueditor/ueditor.all.js"></script>
+{% endblock %}
