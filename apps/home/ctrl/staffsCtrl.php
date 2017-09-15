@@ -12,10 +12,11 @@ class staffsCtrl extends baseCtrl{
     // Get
     if (IS_GET === true) {
       // 读取当前用户提现金额
-      $_SESSION['userinfo']['push_money'] = $this->udb->getPushMoney($_SESSION['userinfo']['id']);
+      $push_money = $this->udb->getPushMoney($_SESSION['userinfo']['id']);
       // 读取当前用户邀请人数
       $totalLevel = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
       // assign
+      $this->assign('push_money',$push_money);
       $this->assign('totalLevel',$totalLevel);
       // display
       $this->display('staffs','index.html');
