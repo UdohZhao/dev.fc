@@ -40,5 +40,12 @@ class user extends model{
     return $this->get($this->table,'residue',['id'=>$id]);
   }
 
+  /**
+   * 读取提现金额
+   */
+  public function getPushMoney($id){
+    return $this->get($this->table,'push_money',['id'=>$id]);
+  }
+
 }
 
