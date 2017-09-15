@@ -64,20 +64,27 @@
              {% endif %}
               <td>{{v.residue}}</td>
 			 
-			  {% if type == 1 %}
-			  <th>提成金额</th>
-			  <th>提现状态</th>
-			{% endif %}
+		{% if type == 1 %}
+			  <th>{{v.push_money}}</th>
+
+      {% if status == 0 %}
+			  <th>未申请提现</th>
+        {% else %}
+        <th>已申请提现</th>
+      {% endif %}
+		{% endif %}
 
 			
 			{% if type == 1 %}
-			 <td>
+			        <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="flow({{ v.id }});">查看邀请成员</button>
               </td>
-			{% endif %}
+		  {% else %}
               <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="ePass({{ v.id }});">申请成为职员</button>
               </td>
+        {% endif %}
+
             </tr>
           {% endfor %}
           {% else %}

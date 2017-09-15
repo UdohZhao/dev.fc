@@ -22,7 +22,11 @@ class buyHouseCatagory extends model{
         $res = $this->insert($this->tabless,$data);
         return $this->id();
     }
-    // 更新
+    //modify
+    public function modify($id){
+        return $this->get ($this->tabless,'*',['id'=>$id]);
+    }
+    // 修改
   public function saves($id,$data){
     $res = $this->update($this->tabless,$data,['id'=>$id]);
     return $res->rowCount();
@@ -64,12 +68,22 @@ class buyHouseCatagory extends model{
         $res = $this->update($this->table,['status'=>$status],['id'=>$id]);
         return $res->rowCount();
     }
-    public function hecid($id){
-        return $this->get($this->tabless,'hecid',['hecid'=>$id]);
+    // upStatus
+    public function upStatu($id,$status){
+        $res = $this->update($this->tabless,['status'=>$status],['id'=>$id]);
+        return $res->rowCount();
+    }
+    public function rcid($id){
+        return $this->get($this->tabless,'rcid',['rcid'=>$id]);
     }
     // del
     public function del($id){
         $res = $this->delete($this->table,['id'=>$id]);
+        return $res->rowCount();
+    }
+    //dle
+    public function dle($id){
+        $res = $this->delete($this->tabless,['id'=>$id]);
         return $res->rowCount();
     }
 
