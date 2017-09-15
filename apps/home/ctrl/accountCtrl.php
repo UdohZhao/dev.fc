@@ -16,6 +16,8 @@ class accountCtrl extends baseCtrl{
     // Get
     if (IS_GET === true) {
       if (isset($_SESSION['userinfo']['id'])) {
+        // 读取当前用户类型
+        $_SESSION['userinfo']['type'] = $this->udb->getType($_SESSION['userinfo']['id']);
         // 读取当前用户金币
         $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
         // assign
@@ -80,15 +82,18 @@ class accountCtrl extends baseCtrl{
         $res = $this->rrdb->getOrderid($order_sn);
         if (!$res) {
           // 获取实际充值金额
-          $total_fee = bcdiv($total_fee, 100, 2);
+          //$total_fee = bcdiv($total_fee, 100, 2);
+          $total_fee = 100;
 
           // 查询当前用户详细信息
           $data = $this->udb->getidInfo($uid);
           if ($data['pid'] != 0) {
             // 获取提成百分比
-            $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 0);
+            $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 2);
             // 计算提成金额
             $unit_money = bcmul($total_fee, $unit_percent, 2);
+            // 这句file_put_contents是用来查看服务器返回的XML数据 测试完可以删除了
+            file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/unit.txt",$unit_percent.'//'.$unit_money.PHP_EOL,FILE_APPEND);
           } else {
             $unit_money = 0;
           }
@@ -109,9 +114,10 @@ class accountCtrl extends baseCtrl{
             // 更新用户金币
             $this->udb->save($uid,array('residue'=>$residue));
             // unit_money 提成金额不为0
-            if ($unit_money != 0) {
+            if ($unit_money > 0) {
               $data = $this->udb->getidInfo($data['pid']);
               $push_money = bcadd($data['push_money'], $unit_money, 2);
+              file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/unit.txt",$push_money.'//'.$data['pid'].PHP_EOL,FILE_APPEND);
               $this->udb->save($data['pid'],array('push_money'=>$push_money));
             }
           }

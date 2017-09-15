@@ -13,6 +13,10 @@ class staffsCtrl extends baseCtrl{
     if (IS_GET === true) {
       // 读取当前用户提现金额
       $_SESSION['userinfo']['push_money'] = $this->udb->getPushMoney($_SESSION['userinfo']['id']);
+      // 读取当前用户邀请人数
+      $totalLevel = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
+      // assign
+      $this->assign('totalLevel',$totalLevel);
       // display
       $this->display('staffs','index.html');
       die;
@@ -28,5 +32,24 @@ class staffsCtrl extends baseCtrl{
       die;
     }
   }
+
+  // 生成二维码
+  public function getQRcode(){
+    // 引入二维码类
+    include ICUNJI.'/vendor/wxpay/phpqrcode/phpqrcode.php';
+    $data = isHttps() . '/base/index/pid/' . $_SESSION['userinfo']['id']; 
+    $level = 'L';// 纠错级别：L、M、Q、H
+    $size = 6;// 点的大小：1到10,用于手机端4就可以了
+    $QRcode = new \QRcode();
+    ob_start();
+    $QRcode->png($data,false,$level,$size);
+    $imageString = base64_encode(ob_get_contents());
+    return $imageString;
+  }
+
+
+
+
+
 
 }

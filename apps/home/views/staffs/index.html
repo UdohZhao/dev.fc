@@ -5,28 +5,6 @@
 {% endblock %}
 
 {% block content %}
-<!-- <div class="container-fluid">
-  <div class="row staff-box">
-    <div class="col-xs-12">
-      <button type="button" class="btn btn-primary btn-sm">申请提现</button>
-    </div>
-  </div>
-  <div class="row gold-box">
-    <div class="col-xs-12"><span class="residue-tips">¥</span>1176<span class="residue-tips">元</span></div>
-  </div>
-  <div class="row recharge-box">
-    <div class="col-xs-12">累计邀请人数</div>
-    <div class="col-xs-12 recharge-box-item">
-      111
-    </div>
-  </div>
-  <div class="row pay-box">
-    <div class="col-xs-12">
-      <button type="button" class="btn btn-danger btn-lg btn-block" id="gotoPay" onclick="gotoPay();">立即支付</button>
-    </div>
-  </div>
-</div> -->
-
 <div class="weui-msg">
   <div class="weui-msg__icon-area headimgurl-box">
     <img src="{{userinfo.headimgurl}}" class="img-responsive">
@@ -34,7 +12,7 @@
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">{{userinfo.nickname}}</h2>
     <div class="weui-msg__desc staff-desc">
-        <p>- 邀请人数：<span class="staff-desc-figure">137 </span>-</p>
+        <p>- 邀请人数：<span class="staff-desc-figure">{{totalLevel}} </span>-</p>
         <p>- 收益金额：<span class="staff-desc-figure">¥{{userinfo.push_money}} </span>-</p>
     </div>
   </div>
@@ -53,8 +31,6 @@
     </div>
   </div>
 </div>
-
-
 {% endblock %}
 
 {% block js %}

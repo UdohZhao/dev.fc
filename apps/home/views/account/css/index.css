@@ -1,6 +1,9 @@
 body{
   background: #f8f8f8;
 }
+a{
+  text-decoration:none!important;
+}
 .gold-box{
   border-top: 1px solid #BDC0BA;
   border-bottom: 1px solid #BDC0BA;
@@ -44,4 +47,20 @@ body{
   float: right;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+.headimgurl-box{
+  border-radius: 50%;
+  width: 120px;
+  margin: 0 auto;
+  box-shadow: 0 0 0 5px rgba(243, 106, 34, .4);
+}
+.headimgurl-box img{
+  border-radius: 50%;
+}
+.staff-desc{
+  font-size: 20px;
+  margin-top: 30px;
+}
+.staff-desc-figure{
+  color: #F05E1C;
 }
