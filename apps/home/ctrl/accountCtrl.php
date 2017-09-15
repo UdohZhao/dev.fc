@@ -15,6 +15,10 @@ class accountCtrl extends baseCtrl{
   public function index(){
     // Get
     if (IS_GET === true) {
+      // 读取当前用户金币
+      $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
+      // assign
+      $this->assign('residue',$residue);
       // display
       $this->display('account','index.html');
       die;
@@ -29,8 +33,8 @@ class accountCtrl extends baseCtrl{
     if (IS_AJAX === true) {
       $openid = $_SESSION['getWecahtUserInfo']['openid'];
       $goods = '账户充值';
-      //$orderid = createIn();
-      $orderid = '123456';
+      $orderid = createIn();
+      //$orderid = '123456';
       $money = bcmul($_POST['money'], 100, 0);
       $attach = $_SESSION['userinfo']['id'];
       // 统一下单
@@ -70,43 +74,46 @@ class accountCtrl extends baseCtrl{
         $openid = $data['openid'];          //付款人openID
         $total_fee = $data['total_fee'];    //付款金额
 
-        // 获取实际充值金额
-        $total_fee = bcdiv($total_fee, 100, 2);
+        // 查询充值订单已经存在就不做处理
+        $res = $this->rrdb->getOrderid($order_sn);
+        if (!$res) {
+          // 获取实际充值金额
+          $total_fee = bcdiv($total_fee, 100, 2);
 
-        // 查询当前用户详细信息
-        $data = $this->udb->getidInfo($uid);
-        if ($data['pid'] != 0) {
-          // 获取提成百分比
-          $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 0);
-          // 计算提成金额
-          $unit_money = bcmul($total_fee, $unit_percent, 2);
-        } else {
-          $unit_money = 0;
-        }
+          // 查询当前用户详细信息
+          $data = $this->udb->getidInfo($uid);
+          if ($data['pid'] != 0) {
+            // 获取提成百分比
+            $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 0);
+            // 计算提成金额
+            $unit_money = bcmul($total_fee, $unit_percent, 2);
+          } else {
+            $unit_money = 0;
+          }
 
-        // 写入充值数据表
-        $rrData = array();
-        $rrData['uid'] = $uid;
-        $rrData['pid'] = $data['pid'];
-        $rrData['orderid'] = $order_sn;
-        $rrData['money'] = $total_fee;
-        $rrData['unit_money'] = 0;
-        $rrData['ctime'] = time();
-        $res = $this->rrdb->add($rrData);
-        if ($res) {
-          // 累加用户金币
-          $residue = bcmul($total_fee, conf::get('CONVERSION','wechat'), 0);
-          $residue = bcadd($residue, $data['residue'], 0);
-          // 更新用户金币
-          $this->udb->save($uid,array('residue'=>$residue));
-          // unit_money 提成金额不为0
-          if ($unit_money != 0) {
-            $data = $this->udb->getidInfo($data['pid']);
-            $push_money = bcadd($data['push_money'], $unit_money, 2);
-            $this->udb->save($data['pid'],array('push_money'=>$push_money));
+          // 写入充值数据表
+          $rrData = array();
+          $rrData['uid'] = $uid;
+          $rrData['pid'] = $data['pid'];
+          $rrData['orderid'] = $order_sn;
+          $rrData['money'] = $total_fee;
+          $rrData['unit_money'] = 0;
+          $rrData['ctime'] = time();
+          $res = $this->rrdb->add($rrData);
+          if ($res) {
+            // 累加用户金币
+            $residue = bcmul($total_fee, conf::get('CONVERSION','wechat'), 0);
+            $residue = bcadd($residue, $data['residue'], 0);
+            // 更新用户金币
+            $this->udb->save($uid,array('residue'=>$residue));
+            // unit_money 提成金额不为0
+            if ($unit_money != 0) {
+              $data = $this->udb->getidInfo($data['pid']);
+              $push_money = bcadd($data['push_money'], $unit_money, 2);
+              $this->udb->save($data['pid'],array('push_money'=>$push_money));
+            }
           }
         }
-
     }else{
         $result = false;
     }
