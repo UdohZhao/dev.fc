@@ -6,36 +6,41 @@
 
 {% block content %}
 <div class="container-fluid">
+  <div class="row staff-box">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-primary btn-sm" {% if userinfo.type == 1 %}onclick="gotoStaff();"{% else %}onclick="hint();"{% endif %}>职员入口</button>
+    </div>
+  </div>
   <div class="row gold-box">
-    <div class="col-xs-12">15800金币</div>
+    <div class="col-xs-12">${{residue}}<span class="residue-tips"> 金币</span></div>
   </div>
   <div class="row recharge-box">
     <div class="col-xs-12">充值（人民币）<span class="recharge-box-tips">注：100元兑换为1000金币</span></div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-defalut" id="" onclick="select(0,6);">6元</button>
+      <button type="button" class="btn offActive" id="price0" onclick="select(0,6);">6元</button>
     </div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-defalut" onclick="select(1,68);">68元</button>
+      <button type="button" class="btn offActive" id="price1" onclick="select(1,68);">68元</button>
     </div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-defalut" onclick="select(2,208);">208元</button>
+      <button type="button" class="btn offActive" id="price2" onclick="select(2,208);">208元</button>
     </div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-defalut" onclick="select(3,388);">388元</button>
+      <button type="button" class="btn offActive" id="price3" onclick="select(3,388);">388元</button>
     </div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-defalut" onclick="select(4,698);">698元</button>
+      <button type="button" class="btn offActive" id="price4" onclick="select(4,698);">698元</button>
     </div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-defalut" onclick="select(5,998);">998元</button>
+      <button type="button" class="btn offActive" id="price5" onclick="select(5,998);">998元</button>
     </div>
     <div class="col-xs-4 recharge-box-item">
-      <button type="button" class="btn btn-danger" onclick="select(6,'0.01');">0.01分</button>
+      <button type="button" class="btn offActive" id="price6" onclick="select(6,'0.01');">0.01分</button>
     </div>
   </div>
   <div class="row pay-box">
     <div class="col-xs-12">
-      <button type="button" class="btn btn-danger btn-lg btn-block" onclick="gotoPay();">去支付</button>
+      <button type="button" class="btn btn-danger btn-lg btn-block" id="gotoPay" onclick="gotoPay();">立即支付</button>
     </div>
   </div>
 </div>
