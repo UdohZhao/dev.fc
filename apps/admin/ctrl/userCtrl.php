@@ -9,7 +9,10 @@ class userCtrl extends baseCtrl{
 	public $id;
 	public $type;
 	public function _auto(){
-
+    if (isset($_SESSION['userinfo']) == null) {
+            echo "<script>window.location.href='/admin/login/index'</script>";
+            die;
+        }
 		$this->db = new user();
 		 $this->type = isset($_GET['type']) ? intval($_GET['type']) : 0;
 		 $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;

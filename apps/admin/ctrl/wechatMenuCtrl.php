@@ -7,6 +7,10 @@ class wechatMenuCtrl extends baseCtrl{
   public $id;
   // 构造方法
   public function _auto(){
+    if (isset($_SESSION['userinfo']) == null) {
+            echo "<script>window.location.href='/admin/login/index'</script>";
+            die;
+        }
     $this->db = new wechatMenu();
     $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
   }

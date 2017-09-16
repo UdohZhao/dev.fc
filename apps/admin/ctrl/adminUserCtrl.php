@@ -8,10 +8,11 @@ class adminUserCtrl extends baseCtrl{
   public $id;
   // 构造方法
   public function _auto(){
-      if($_SESSION['userinfo']['type'] !=0 ){
-          echo "<script>alert('没有权限');window.location.href='/admin/index/index'</script>";
-          die;
-      }
+      
+   if (isset($_SESSION['userinfo']) == null) {
+            echo "<script>window.location.href='/admin/login/index'</script>";
+            die;
+        }
     $this->db = new adminUser();
     $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
   }

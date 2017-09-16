@@ -1,49 +1,42 @@
 $(function(){
 
-  // 实例化编辑器
-  var ue = UE.getEditor('container');
+  
 
 
   // 验证登录表单
-  $("#buyHouseForm").validate({
-    
-        focusInvalid: true,
+  $("#carouselFigureForm").validate({
+      focusInvalid: true,
         rules: {
-            title: {
-                required: true
-            },
-            tips: {
-                required: true
+          
+            sort: {
+                required: true,
+                digits: true
             }
-
         },
         messages: {
-            title: {
-                required: "<span style='color:red;'>标题不能为空 :(</span>"
-            },
-            tips: {
-              required: "<span style='color:red;'>说明不能为空 :(</span>"
+            
+            sort: {
+                required: "<span style='color:red;'>排序不能为空 :(</span>",
+                digits: "<span style='color:red;'>必须输入整数 :(</span>"
             }
         },
    
       submitHandler: function(form){
            //获取封面图片路径，户型解析
-        var cover_path = $("input[name='cover_path']").val();
+        var path = $("input[name='path']").val();
         var ipPath = $("input[name='ipPath']").val();
-        var analysis = ue.getContent();
-        if (cover_path == '' && ipPath == undefined) {
+       
+        if (path == '' && ipPath == undefined) {
           swal("提交失败", "请上传封面图片 :(", "error");
-        } else if (analysis == false) {
-          swal("提交失败", "内容不能为空 :(", "error");
-        } else {
+        }else {
                 $(form).ajaxSubmit({
                     dataType:"json",
                     success:function(res){
                         // res
                         if (res === true) {
                             swal("提交成功", "即将跳转到娱乐内容列表 :)", "success");
-                            window.setTimeout("window.location.href='/admin/buyHouseCatagory/index'",2000);
-                        } else if (res === false) {
+                            window.setTimeout("window.location.href='/admin/carouselFigure/index'",2000);
+                        } else if (res === false) { 
                             swal("提交失败", "请尝试刷新页面后重试 :(", "error");
                         } else {
                             swal("提交失败", res, "error");
@@ -59,49 +52,46 @@ $(function(){
   });
 
 })
+  
 // 删除头像
-  function delIp(filePath){
+function delIp(filePath){
     swal({
-      title: "确认删除头像吗？",
-      text: "删除后不可恢复 :(",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-      closeOnConfirm: false,
-      closeOnCancel: false
-    },
-    function(isConfirm){
-      if (isConfirm) {
-        // Ajax
-        $.ajax({
-          type: "POST",
-          url: "/admin/base/delFile",
-          data: {filePath:filePath},
-          dataType: "JSON",
-          success: function(res){
-            // res
-            if (res === true) {
-              swal("提交成功", "当前头像已被删除 :)", "success");
-              setTimeout("window.location.reload();",2000);
+            title: "确认删除图标吗？",
+            text: "删除后不可恢复 :(",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function(isConfirm){
+            if (isConfirm) {
+                // Ajax
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/base/delFile",
+                    data: {filePath:filePath},
+                    dataType: "JSON",
+                    success: function(res){
+                        // res
+                        if (res === true) {
+                            swal("提交成功", "当前图标已被删除 :)", "success");
+                            setTimeout("window.location.reload();",2000);
+                        } else {
+                            swal("提交失败", "请尝试刷新页面后重试 :(", "error");
+                        }
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                });
             } else {
-              swal("提交失败", "请尝试刷新页面后重试 :(", "error");
+                swal("取消了", "头像是安全的 :)", "error");
             }
-          },
-          error: function(e){
-            console.log(e);
-            swal("未知错误", "请尝试刷新页面后重试 :(", "error");
-          }
         });
-      } else {
-        swal("取消了", "头像是安全的 :)", "error");
-      }
-    });
-  }
-
-
-
+}
 
   //图片上传预览    IE是用了滤镜。
   function previewImage(file)

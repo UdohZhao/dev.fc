@@ -9,6 +9,10 @@ class articlePayCtrl extends baseCtrl{
   public $id;
 	public $atype;
 	public function _auto(){
+if (isset($_SESSION['userinfo']) == null) {
+            echo "<script>window.location.href='/admin/login/index'</script>";
+            die;
+        }
   $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;  
 	$this->atype = isset($_GET['atype']) ? intval($_GET['atype']) : 0;	
 	$this->db = new articlePay(); 		

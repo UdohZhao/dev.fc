@@ -9,7 +9,8 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     public $pid;
     // 构造方法
     public function _auto(){
-        if($_SESSION == null ){
+      
+            if (isset($_SESSION['userinfo']) == null) {
             echo "<script>window.location.href='/admin/login/index'</script>";
             die;
         }
@@ -95,8 +96,8 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     private function getDat(){
         $data = array();
         // hpPath
-            $hpPath = isset($_POST['hpPath']) ? $_POST['hpPath'] : '';
-            if (!$hpPath) {
+            $ipPath = isset($_POST['ipPath']) ? $_POST['ipPath'] : '';
+            if (!$ipPath) {
               $res = upFiles('cover_path');
 
               if ($res['code'] == 400) {
@@ -106,7 +107,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
             $data['cover_path'] = $res['data'];
           }
         } else {
-            $data['cover_path'] = $hpPath;
+            $data['cover_path'] = $ipPath;
         }
             if($_POST['rcid']){
                 $data['rcid'] = $_POST['rcid'];
@@ -133,8 +134,16 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     // 房类别列表页面
     public function index(){
         if($this->id){
-            $data = $this->db->check($this->id);
+             // search
+        $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
+        // 总记录数
+        $cou = $this->db->cous($this->id);
+        // 数据分页
+        $page = new Page($cou,conf::get('LIMIT','admin'));
+        $data = $this->db->check($this->id,$search,$page->limit);
             
+            $this->assign('id',$this->id);
+            $this->assign('page',$page->showpage());
             $this->assign('data',$data);
         $this->display('buyHouseCatagory','index_article.html');
         die;
@@ -142,7 +151,8 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         // search
         $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
         // 总记录数
-        $cou = $this->db->cou($this->pid);
+        $cou = $this->db->cou();
+       
         // 数据分页
         $page = new Page($cou,conf::get('LIMIT','admin'));
         // 结果集
@@ -233,11 +243,20 @@ class buyHouseCatagoryCtrl extends baseCtrl{
   public function modify(){
 
     if(IS_GET === true){
-
-        $data = $this->db->modify($this->id);
+        if($this->id){
+            $data = $this->db->modify($this->id);
+      
+                if (!file_exists(ICUNJI.$data['cover_path'])) {
+                    $data['cover_path'] = '';
+                }
+                
+            // assign
+                $this->assign('date',$data);
+        }
+        
         $this->assign('id',$data['id']);
-        $this->assign('rcid',$data['rcid']);
-        $this->assign('date',$data);
+      
+    
     $this->display('buyHouseCatagory','add_article.html');  
     }
     

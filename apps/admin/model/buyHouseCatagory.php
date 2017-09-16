@@ -9,10 +9,7 @@ class buyHouseCatagory extends model{
     public function checkUser($data){
         return $this->get($this->table,'*',['username'=>$data['username'],'password'=>$data['password']]);
     }
-    //check
-    public function check($id){
-        return $this->select($this->tabless,'*',['rcid'=>$id]);
-    }
+    
     // getUsername
     public function getUsername($username){
         return $this->count($this->table,['username'=>$username]);
@@ -57,7 +54,23 @@ class buyHouseCatagory extends model{
         $data = $this->query($sql)->fetchAll(2);
         return $data;
     }
-
+    //check
+    public function check($id,$search,$limit){
+        $sql = "
+        SELECT
+               *
+        FROM
+                $this->tabless
+        WHERE
+                rcid = $id
+        AND
+            title like '%$search%'
+       
+        {$limit}
+    ";
+        $data = $this->query($sql)->fetchAll();
+        return $data;
+    }
     // getInfo
     public function getInfo($id){
         return $this->get($this->table,'*',['id'=>$id]);
@@ -94,10 +107,13 @@ class buyHouseCatagory extends model{
         return $info;
     }
     // cou
-    public function cou($pid){
-        return $this->count($this->table,['pid'=>$pid]);
+    public function cou(){
+        return $this->count($this->table);
     }
-
+    //cous
+    public function cous($id){
+        return $this->count($this->tabless,['rcid'  =>$id]);
+    }
     // save
     public function save($id,$data){
         $res = $this->update($this->table,$data,['id'=>$id]);
@@ -126,11 +142,11 @@ class buyHouseCatagory extends model{
     /*
      * @param $pcname 父级名称
      * */
-    public function sel_pid($pcname){
-        if($pcname == '顶级'){
+    public function sel_pid($id){
+        if($id == '顶级'){
             return 0;
         }else{
-            return $this->get($this->table,['id'],['cname'=>$pcname])['id'];
+            return $this->get($this->table,['id'],['rcid'=>$id]);
         }
     }
 
