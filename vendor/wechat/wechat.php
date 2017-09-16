@@ -61,10 +61,7 @@ class wechat{
     $url = replaceUrlParam($url,$param);
     // access_token
     $res = json_decode(CG($url),true);
-
-    see($res);
-    die;
-
+    
     if (array_key_exists('access_token', $res)) {
       $_SESSION['access_token'] = $res['access_token'];
       $_SESSION['expires_in'] = bcadd($res['expires_in'], time(), 0);

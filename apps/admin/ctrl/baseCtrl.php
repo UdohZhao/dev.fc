@@ -36,6 +36,9 @@ class baseCtrl extends \core\icunji{
       die;
     }
 
+    see($_SESSION);
+    die;
+
   }
 
   // 删除文件
