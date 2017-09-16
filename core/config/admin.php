@@ -1,6 +1,6 @@
 <?php
 return array(
-  'WEBSITE_NAME'    =>    '重庆存己科技',
+  'WEBSITE_NAME'    =>    '大众翡翠网',
   'PAGES'   =>    '10',
   'LIMIT'   =>    '25',
 );

@@ -1,0 +1,38 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/index/css/indexAll.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__hd title">{% if atype == 1 %}赌石技巧列表{% else %}行业动态列表{% endif %}</div>
+      <div class="weui-panel__bd">
+        {% for k,v in data %}
+        <a href="/index/detail/atype/{{atype}}/id/{{v.id}}" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="{{v.cover_path}}">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">{{v.title}}</h4>
+            {% if atype == 1 %}
+            <p class="weui-media-box__desc">阅读数：{{v.reads}} - 点赞数：{{v.likes}} - 评论数：{{v.comments}}</p>
+            {% else %}
+            <p class="weui-media-box__desc">{{v.tips}}</p>
+            {% endif %}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="{{appsPath}}/index/css/indexAll.css"> -->
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+ <!-- 幻灯片 start -->  
+  <div class="row swiper-box">
+  <!-- Slider main container -->
+  <div class="swiper-container">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        {% for k,v in data.banner %}
+        <div class="swiper-slide"><img src="{{v.path}}"></div>
+        {% endfor %}
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+  </div>
+  </div>
+  <!-- 幻灯片 end --> 
+  
+  <div class="row">
+    <!-- 容器 -->
+    <div class="weui-tab">
+      <div class="weui-navbar">
+        {% for k,v in data.rcData %}
+        <a class="weui-navbar__item {% if k == 0 %}weui-bar__item--on{% endif %}" href="#tab{{k}}">
+          {{v.cname}}
+        </a>
+        {% endfor %}
+      </div>
+      <div class="weui-tab__bd">
+        {% for k,v in data.rcData %}
+        <div id="tab{{k}}" class="weui-tab__bd-item {% if k == 0 %}weui-tab__bd-item--active{% endif %}">
+          <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__bd">
+              {% if v.raData %}
+                {% for kk,vv in v.raData %}
+                <a href="/recreationArticle/index/id/{{vv.id}}" class="weui-media-box weui-media-box_appmsg">
+                  <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="{{vv.cover_path}}">
+                  </div>
+                  <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">{{vv.title}}</h4>
+                    <p class="weui-media-box__desc">{{vv.tips}}</p>
+                  </div>
+                </a>
+                {% endfor %}
+              {% else %}
+                 <div class="weui-panel__hd">暂无数据 ～</div>
+              {% endif %}
+            </div>
+            {% if v.raData %}
+            <div class="weui-panel__ft">
+              <a href="/recreationArticle/indexAll/rcid/{{v.id}}" class="weui-cell weui-cell_access weui-cell_link">
+                <div class="weui-cell__bd">查看更多</div>
+                <span class="weui-cell__ft"></span>
+              </a>    
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<!-- <script src="{{appsPath}}/index/js/index.js"></script> -->
+{% endblock %}
+
