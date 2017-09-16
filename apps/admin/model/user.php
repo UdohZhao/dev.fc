@@ -6,6 +6,11 @@ class user extends model{
 	public $table1 = 'staffs';
 
 	  public function getAll($type,$id,$limit,$search){
+      if($id){
+        $qwe = " u.pid=$id and u.type=$type ";
+      }else{
+        $qwe = "u.type=$type";
+      }
    
     $sql = "
         SELECT
@@ -16,14 +21,14 @@ class user extends model{
         		`$this->table1` AS s 
         ON		u.id=s.uid       
        WHERE 
-       			
-            u.pid=$id 
-        AND
-            u.type=$type
+
+            $qwe
+
         AND 
             u.nickname like '%$search%'
         OR        
             s.phone like '$search'
+
         OR 
             s.cname like '$search'
            

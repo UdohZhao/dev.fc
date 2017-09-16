@@ -55,7 +55,7 @@ function ePass(id,username){
     keyboard: false
   });
 }
-// 查看充值记录
+// 查看邀请成员
 function flow(id){
 	window.location.href = "/admin/user/index/id/"+id+ "/type/"+0 ;
 }
