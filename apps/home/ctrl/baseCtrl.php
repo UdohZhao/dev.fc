@@ -48,7 +48,12 @@ class baseCtrl extends \core\icunji{
    * 对接微信
    */
   public function buttJointWechat(){
-    $this->wechat->valid();
+    // 接收微信get参数
+    $signature = $_GET['signature'];
+    $timestamp = $_GET['timestamp'];
+    $nonce = $_GET['nonce'];
+    $echostr = $_GET['echostr'];
+    $this->wechat->valid($signature,$timestamp,$nonce,$echostr);
   }
 
   /**
