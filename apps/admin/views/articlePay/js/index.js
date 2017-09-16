@@ -3,6 +3,9 @@
 
     window.location.href = "/admin/articlePay/add/id/"+id;
   }
+  function qwe(id){
+     window.location.href = "/admin/articlePay/and/id/"+id;
+  }
   // flag
 function flag(id,status){
     var title;

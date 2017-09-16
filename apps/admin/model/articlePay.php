@@ -34,6 +34,7 @@ class articlePay extends model{
         $res = $this->update($this->table,$data,['id'=>$id]);
         return $res->rowCount();
     }
+   
       // getInfo
   public function getInfo($id){
     return $this->get($this->table,'*',['id'=>$id]);
