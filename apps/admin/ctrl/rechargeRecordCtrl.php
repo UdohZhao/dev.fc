@@ -25,7 +25,9 @@ class rechargeRecordCtrl extends baseCtrl{
     // 结果集
 
 		$data = $this->db->getAll($this->id,$page->limit,$search);
-	
+		$id = $this->id;
+
+		$this->assign('id',$id);
 		$this->assign('data',$data);
 		$this->assign('page',$page->showpage());
 		$this->display('rechargeRecord','index.html');

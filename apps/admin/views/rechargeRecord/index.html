@@ -15,7 +15,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">@ 充值记录列表</h3>
       </div>
-      <form action="/admin/rechargeRecord/index" method="post">
+      <form action="/admin/rechargeRecord/index/id/{{id}}" method="post">
         <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
           <input type="text" class="form-control" name="search" placeholder="请输入订单编号">
           <span class="input-group-btn">
@@ -31,9 +31,7 @@
           
               <th>订单编号</th>
               <th>充值金额</th>
-             
               <th>提成金额</th>
-
               <th>时间</th>
 
             </tr>

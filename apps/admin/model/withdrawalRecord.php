@@ -12,7 +12,7 @@ class withdrawalRecord extends model{
 				$this->table 
 			WHERE 
 				uid=$id 
-			OR
+			and
 				orderid like '%$search%'	
 			ORDER BY 'ctime' desc 
 			{$limit}  

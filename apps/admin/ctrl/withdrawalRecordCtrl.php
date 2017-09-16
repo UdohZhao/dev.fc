@@ -16,7 +16,7 @@ class withdrawalRecordCtrl extends baseCtrl{
 		 $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 	}
 	public function index(){
-
+    
      $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';    
 		 // 总记录数
     $cou = $this->db->cou($this->id);
@@ -25,7 +25,10 @@ class withdrawalRecordCtrl extends baseCtrl{
     // 结果集
 
 		$data = $this->db->getAll($this->id,$page->limit,$search);
-	
+	 
+       $id = $this->id;
+
+       $this->assign('id',$id);
 		$this->assign('data',$data);
 		$this->assign('page',$page->showpage());
 		$this->display('withdrawalRecord','index.html');
