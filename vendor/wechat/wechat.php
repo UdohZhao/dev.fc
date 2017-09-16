@@ -22,12 +22,12 @@ class wechat{
   /**
    * 对接微信
    */
-  public function valid(){
+  public function valid($signature,$timestamp,$nonce,$echostr){
     // 接收微信get参数
-    $signature = $_GET['signature'];
-    $timestamp = $_GET['timestamp'];
-    $nonce = $_GET['nonce'];
-    $echostr = $_GET['echostr'];
+    // $signature = $_GET['signature'];
+    // $timestamp = $_GET['timestamp'];
+    // $nonce = $_GET['nonce'];
+    // $echostr = $_GET['echostr'];
     $res = $this->checkSignature($signature,$timestamp,$nonce);
     if ($res) {
       echo $echostr;
