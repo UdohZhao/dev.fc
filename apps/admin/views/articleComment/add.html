@@ -1,0 +1,53 @@
+{% extends "layouts.html" %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+<!-- Page -->
+<div class="page animsition">
+  <div class="page-header">
+    <h1 class="page-title"># 文章表管理</h1>
+  </div>
+  <div class="page-content">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">@  作者回复 </h3>
+      </div>
+      <div class="panel-body">
+      <!-- id="articlesForm" -->
+        <form class="form-horizontal" id="articlesForm" action="/admin/articleComment/add/id/{{ date.id }}" method="post">
+    
+       
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">评论内容</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="content" value="{{ date.content }}" placeholder="">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">回复内容</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="reply" value="{{date.reply}}" placeholder="请输入回复内容">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">      
+              <button type="submit" class="btn btn-success">回复</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->
+{% endblock %}
+{% block js %}
+<script src="/apps/admin/views/articleComment/js/add.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/public/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/public/ueditor/ueditor.all.js"></script>
+{% endblock %}

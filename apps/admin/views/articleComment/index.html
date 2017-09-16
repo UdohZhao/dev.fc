@@ -6,12 +6,12 @@
 <!-- Page -->
 <div class="page animsition">
     <div class="page-header">
-        <h1 class="page-title"># 休闲娱乐管理</h1>
+        <h1 class="page-title"># 文章表管理</h1>
     </div>
     <div class="page-content">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">@ 休闲娱乐列表</h3>
+                <h3 class="panel-title">@ 用户评论列表</h3>
             </div>
             <form action="/admin/articleComment/index/id/{{id}}" method="post">
                 <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
@@ -54,12 +54,13 @@
                          
                         <!--  <th>{{ ctime }}</th> -->
                         <td>
-                    <button type="button" class="btn btn-default btn-xs" onclick="delse({{ v.id }});">删除</button>
+                            <button type="button" class="btn btn-default btn-xs" onclick="delse({{ v.id }});">删除</button>
                         {% if v.status == 1 %}
                             <button type="button" class="btn btn-danger btn-xs" onclick="flae({{ v.id }},0);">隐藏</button>
                         {% else %}
                             <button type="button" class="btn btn-success btn-xs" onclick="flae({{ v.id }},1);">显示</button>
                          {% endif %}
+                            <button type="button" class="btn btn-default btn-xs" onclick="revert({{ v.id }});">回复</button>
                         </td>
                     </tr>
                     {% endfor %}

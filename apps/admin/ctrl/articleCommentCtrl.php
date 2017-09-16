@@ -64,4 +64,58 @@ if (isset($_SESSION['userinfo']) == null) {
             }
         }
     }
+      public function add(){
+        // Get
+    if (IS_GET === true) {
+      // display
+      if($this->id){
+         $date = $this->db->getInfo($this->id);
+        $this->assign('date',$date);
+        $this->display('articleComment','add.html');
+      die; 
+      }else{
+        $atype = isset($_GET['atype']) ? intval($_GET['atype']) : 0;
+        $this->assign('id',$this->id);
+        $this->assign('atype',$atype);
+        $this->display('articleComment','add.html');
+        die; 
+      }
+    }
+      if (IS_AJAX === true) {
+      // data  
+    
+      $data = $this->getData();
+     
+   if($this->id){
+     
+        $res = $this->db->save($this->id,$data);
+ 
+      }else{
+        // 写入数据表
+        $res = $this->db->add($data);
+      }
+      if ($res) {
+        echo json_encode(true);
+        die;
+      } else {
+        echo json_encode(false);
+        die;
+      }
+    }
+ }
+  
+        // 初始化数据
+  private function getData(){
+
+    // data
+    $data = array();
+        // hpPath
+
+    $data['content'] = isset($_POST['content']) ? $_POST['content'] : '';
+    $data['ctime'] = time();
+    $data['reply'] = isset($_POST['reply']) ? $_POST['reply'] : '';
+    $data['likes'] = isset($_POST['likes']) ? $_POST['likes'] : '';
+    return $data;
+
+  }
 }

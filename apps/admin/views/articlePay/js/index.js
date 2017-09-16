@@ -1,5 +1,6 @@
 // 跳转到行业动态条目
   function edit(id){
+
     window.location.href = "/admin/articlePay/add/id/"+id;
   }
   // flag

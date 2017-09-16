@@ -35,9 +35,9 @@ $(function(){
      
            //获取封面图片路径，户型解析
         var cover_path = $("input[name='cover_path']").val();
-        var ipPath = $("input[name='ipPath']").val();
+        var hpPath = $("input[name='hpPath']").val();
         var analysis = ue.getContent();
-        if (cover_path == '' && ipPath == undefined) {
+        if (cover_path == '' && hpPath == undefined) {
           swal("提交失败", "请上传封面图片 :(", "error");
         } else if (analysis == false) {
           swal("提交失败", "内容不能为空 :(", "error");
@@ -66,17 +66,45 @@ $(function(){
 
 })
 
-
-// 跳转到行业动态条目
-  function index(){
-    window.location.href = "/admin/articlePay/index/atype/0";
+  // 删除头像
+  function delHp(filePath){
+    swal({
+      title: "确认删除头像吗？",
+      text: "删除后不可恢复 :(",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        // Ajax
+        $.ajax({
+          type: "POST",
+          url: "/admin/base/delFile",
+          data: {filePath:filePath},
+          dataType: "JSON",
+          success: function(res){
+            // res
+            if (res === true) {
+              swal("提交成功", "当前头像已被删除 :)", "success");
+              setTimeout("window.location.reload();",2000);
+            } else {
+              swal("提交失败", "请尝试刷新页面后重试 :(", "error");
+            }
+          },
+          error: function(e){
+            console.log(e);
+          }
+        });
+      } else {
+        swal("取消了", "头像是安全的 :)", "error");
+      }
+    });
   }
-
-// 跳转到赌石技巧条目
-  function indextow(){
-    window.location.href = "/admin/articlePay/index/atype/1";
-  }
-
 
   //图片上传预览    IE是用了滤镜。
   function previewImage(file)

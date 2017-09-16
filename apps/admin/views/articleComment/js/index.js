@@ -1,4 +1,6 @@
-
+function revert(id){
+        window.location.href = "/admin/articleComment/add/id/"+id;
+}
 
 function delse(id){
     swal({
