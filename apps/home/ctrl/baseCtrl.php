@@ -3,7 +3,7 @@ namespace apps\home\ctrl;
 use core\lib\conf;
 use vendor\wechat\wechat;
 use apps\home\model\user;
-define('TOKEN', 'bainianfc');
+define('TOKEN', 'bainianfc1');
 class baseCtrl extends \core\icunji{
   public $appid;
   public $appsecret;
