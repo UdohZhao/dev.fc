@@ -3,7 +3,7 @@ namespace apps\home\ctrl;
 use core\lib\conf;
 use vendor\wechat\wechat;
 use apps\home\model\user;
-define('TOKEN', 'bainianfc1');
+define('TOKEN', 'bainianfc');
 class baseCtrl extends \core\icunji{
   public $appid;
   public $appsecret;
@@ -18,8 +18,7 @@ class baseCtrl extends \core\icunji{
     $this->appid = conf::get('APPID','wechat');
     $this->appsecret = conf::get('APPSECRET','wechat');
     $this->wechat = new wechat(TOKEN,DEBUG,$this->appid,$this->appsecret);
-    // 接收微信get参数
-    $this->wechat->valid();
+    die;
     $this->udb = new user();
     // 应用路径
     $this->assign('appsPath',$this->appsPath);
