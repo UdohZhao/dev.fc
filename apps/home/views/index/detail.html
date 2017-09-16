@@ -57,7 +57,7 @@
                 </div>
                 <div class="weui-media-box__bd">
                   <h4 class="weui-media-box__title">{{v.uData.nickname}}（{{v.ctime|date('Y-m-d')}}）<span class="acLikes-num">{{v.likes}}</span><img class="acLike-icon" onclick="acLikes({{v.id}},{{v.likes}});" src="{{appsPath}}/index/img/like.png"></h4>
-                  <p class="weui-media-box__desc">{{v.content}}</p>
+                  <p class="weui-media-box__desc">{% autoescape %}{{v.content}}{% endautoescape %}</p>
                 </div>
               </a>
               {% if v.reply %}

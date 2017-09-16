@@ -21,7 +21,7 @@
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">评论内容</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="content" value="{{ date.content }}" placeholder="">
+              <input type="text" class="form-control" name="content" value="{{ date.content }}" readonly="readonly">
             </div>
           </div>
 
@@ -29,7 +29,8 @@
             <label for="inputPassword3" class="col-sm-2 control-label">回复内容</label>
             <div class="col-sm-10">
               <!-- <input type="text" class="form-control" name="reply" value="{{date.reply}}" placeholder="请输入回复内容"> -->
-              <script id="container" name="reply" type="text/plain"  style="height: 300px;">{% autoescape false %}{{ date.reply }}{% endautoescape %}</script>
+              <textarea class="form-control" name="reply" rows="3">{% autoescape false %}{{ date.reply }}{% endautoescape %}</textarea>
+              <!-- <script id="container" name="reply" type="text/plain"  style="height: 300px;">{% autoescape false %}{{ date.reply }}{% endautoescape %}</script> -->
             </div>
           </div>
           

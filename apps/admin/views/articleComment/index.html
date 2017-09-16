@@ -26,8 +26,8 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>评价内容</th>
                         <th>评论人</th>
+                        <th>评价内容</th>
                         <th>作者回复</th>
                         <th>点赞数</th>
                         <th>时间</th>
@@ -45,9 +45,8 @@
                             <span class="text-danger">{隐藏}</span>
                             {% endif %}
                          </td>
-                      
-                        <td>{{v.content}}</td>
                         <td>{{v.nickname}}</td>
+                        <td>{{v.content}}</td>
                         <td>{% autoescape false %}{{ v.reply }}{% endautoescape %}</td>
                         <td>{{v.likes}}</td>
 					    <td>{{v.ctime|date("Y-m-d H:i")}}</td>
