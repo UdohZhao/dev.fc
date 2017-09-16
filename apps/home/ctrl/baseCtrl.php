@@ -40,6 +40,8 @@ class baseCtrl extends \core\icunji{
       // 用户信息传入模版
       $this->assign('userinfo',$_SESSION['userinfo']);
     }
+    // 站点名称
+    $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));
   }
 
   /**

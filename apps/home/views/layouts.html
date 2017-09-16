@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>重庆存己科技</title>
+    <title>{{websiteName}}</title>
 
     <!-- Bootstrap -->
     <link href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     {% endblock %}
 
   </head>
-  <body>
+  <body>   
 
   {% block content %}
 
@@ -38,6 +38,9 @@
     <script src="/public/jquery-weui-build/dist/js/swiper.min.js"></script>
     <script src="/public/jquery-weui-build/dist/js/city-picker.min.js"></script>
     <script src='/public/jquery-weui-build/dist/js/swiper.js' ></script>
+
+    <!-- layouts js -->
+    <script src="{{appsPath}}/layouts/js/layouts.js"></script>
 
   {% block js %}
 

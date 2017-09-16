@@ -25,6 +25,12 @@
                 {% autoescape false %}
                    {{data.apData.content}}
                 {% endautoescape %}
+                {% if show %}
+                  <a href="javascript:;" onclick="btnRead({{data.apData.id}},{{data.apData.gold}},{{residue}});" class="weui-btn weui-btn_warn">请兑换${{data.apData.gold}}金币阅读完整文章</a>
+                  {% if userinfo.pid != 0 and userinfo.code_status != 1 and data.apData.type != 0 %}
+                  <a href="javascript:;" onclick="btncodeRead({{data.apData.id}},{{userinfo.code_status}});" class="weui-btn weui-btn_primary">新用户凭邀请码免费阅读 :)</a>
+                  {% endif %}
+                {% endif %}
             </div>
           </div>
         </div>

@@ -1,0 +1,40 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/recreationArticle/css/index.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__bd">
+          <div class="weui-media-box weui-media-box_text">
+            <h4 class="title">{{data.title}}</h4>
+            <div class="weui-media-box__desc tips">
+                {{data.tips}}
+            </div>
+          </div>
+        </div>
+        <div class="weui-panel__ft">
+          <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title cover-box">
+                <img src="{{data.cover_path}}">
+            </h4>
+            <div class="content-box">
+                {% autoescape false %}
+                  {{data.content}}
+                {% endautoescape %}
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+

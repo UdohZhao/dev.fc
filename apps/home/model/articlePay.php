@@ -28,6 +28,28 @@ class articlePay extends model{
         return $this->query($sql)->fetchAll(2);
     }
 
+    /**
+     *  读取全部数据
+     */ 
+    public function getAll($atype){
+        // sql 
+        $sql = "
+            SELECT 
+                    *
+            FROM 
+                    `$this->table`
+            WHERE 
+                    1 = 1
+            AND 
+                    atype = '$atype'
+            AND 
+                    status = '1'        
+            ORDER BY 
+                    ctime desc                              
+        ";
+        return $this->query($sql)->fetchAll(2);
+    }
+
     /** 
      *  读取详细信息
      */

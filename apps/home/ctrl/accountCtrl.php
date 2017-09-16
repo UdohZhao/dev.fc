@@ -16,11 +16,14 @@ class accountCtrl extends baseCtrl{
     // Get
     if (IS_GET === true) {
       if (isset($_SESSION['userinfo']['id'])) {
+        // 新用户赠送金币
+        $present = conf::get('PRESENT','wechat');
         // 读取当前用户类型
         $type = $this->udb->getType($_SESSION['userinfo']['id']);
         // 读取当前用户金币
         $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
         // assign
+        $this->assign('present',$present);
         $this->assign('type',$type);
         $this->assign('residue',$residue);
       }
@@ -110,8 +113,15 @@ class accountCtrl extends baseCtrl{
             // 累加用户金币
             $residue = bcmul($total_fee, conf::get('CONVERSION','wechat'), 0);
             $residue = bcadd($residue, $data['residue'], 0);
+            // 新用户赠送金币
+            if ($data['pid'] != 0 && $data['pay_status'] != 1) {
+              $residue = bcadd($residue, conf::get('PRESENT','wechat'), 0);
+              $upData['pay_status'] = 1;
+            }
+            // 更新数据
+            $upData['residue'] = $residue;
             // 更新用户金币
-            $this->udb->save($uid,array('residue'=>$residue));
+            $this->udb->save($uid,$upData);
             // unit_money 提成金额不为0
             if ($unit_money > 0) {
               $data = $this->udb->getidInfo($data['pid']);
