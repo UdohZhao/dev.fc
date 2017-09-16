@@ -11,11 +11,11 @@
   <div class="page-content">
     <div class="panel">
       <div class="panel-heading">
-        <h3 class="panel-title">@ 添加{% if atype == 0 %}行业动态{% else %}赌石技巧{% endif %}</h3>
+        <h3 class="panel-title">@  {% if id==0%}添加{% else %}修改{% endif %}  {% if atype == 0 %}行业动态{% else %}赌石技巧{% endif %}</h3>
       </div>
       <div class="panel-body">
       <!-- id="articlesForm" -->
-        <form class="form-horizontal" id="articlesForm" action="/admin/articlePay/add/id/{{ data.id }}" method="post">
+        <form class="form-horizontal" id="articlesForm" action="/admin/articlePay/add/id/{{ date.id }}" method="post">
         {% if atype == 0 %}
         <input type="hidden" name = "atype" value="0">
         {% else %}
@@ -28,11 +28,19 @@
                 <div id="preview">
                 {% if id == 0 %}
                  <img id="imghead" border="0" src="/apps/admin/views/assets/images/photo_icon.png" width="90" height="90" onclick="$('#previewImg').click();">
-                {% else %}
-                 <img id="imghead" border="0" src="{{ date.cover_path }}" width="90" height="90" onclick="$('#previewImg').click();">
-                {% endif %}
+                {% else %} 
+                      {% if date.cover_path  %} 
+                            <img id="imghead" border="0" src="{{ date.cover_path }}" width="90" height="90" 
+                             onclick="delHp('{{ date.cover_path }}');">
+                            <input type="hidden" name="hpPath" value="{{ date.cover_path }}">
+                          {% else %}
+                            <img id="imghead" border="0" src="/apps/admin/views/assets/images/photo_icon.png" width="90" height="90" onclick="$('#previewImg').click();">
+                          
+                        {% endif %}
+                 
+                {% endif %} 
                 </div>
-                <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg" name="cover_path">
+                 <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg" name="cover_path">
             </div>
 
           </div>

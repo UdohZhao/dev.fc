@@ -38,4 +38,17 @@ class articleComment extends model{
   public function cou(){
     return $this->count($this->table);
   }
+   // getInfo
+  public function getInfo($id){
+    return $this->get($this->table,'*',['id'=>$id]);
+  }
+   //修改.....
+    public function save($id,$data){
+        $res = $this->update($this->table,$data,['id'=>$id]);
+        return $res->rowCount();
+    }
+     public function add($data){
+    $res = $this->insert($this->table,$data);
+    return $this->id();
+  }
 }

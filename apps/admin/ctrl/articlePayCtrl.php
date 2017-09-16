@@ -40,6 +40,12 @@ class articlePayCtrl extends baseCtrl{
       // display
       if($this->id){
          $date = $this->db->getInfo($this->id);
+          if (!file_exists(ICUNJI.$date['cover_path'])) {
+          $date['cover_path'] = '';
+        }
+        // assign
+        $this->assign('date',$date);
+
          $atype = $date['atype'];
          $this->assign('id',$this->id);
         $this->assign('atype',$atype);
@@ -62,9 +68,9 @@ class articlePayCtrl extends baseCtrl{
       $data = $this->getData();
      
    if($this->id){
-
+     
         $res = $this->db->save($this->id,$data);
-
+ 
       }else{
         // 写入数据表
         $res = $this->db->add($data);
