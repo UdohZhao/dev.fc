@@ -115,9 +115,9 @@ if (isset($_SESSION['userinfo']) == null) {
         $this->display('articlePay','and.html');
         die; 
       }
-    
+
       if (IS_AJAX === true) {
-      // data  
+
     
       $data = $this->getData();
      
@@ -141,10 +141,25 @@ if (isset($_SESSION['userinfo']) == null) {
 
   }
 
-
-
-
-
+  // 修改阅读，点赞，评论
+  public function changeAp(){
+    // Ajax 
+    if (IS_AJAX === true) {
+      // 获取数据
+      $data['comments'] = $_POST['comments'];
+      $data['likes'] = $_POST['likes'];
+      $data['reads'] = $_POST['reads'];
+      // 更新数据
+      $res = $this->db->save($this->id,$data);
+      if ($res) {
+        echo J(R(200,'受影响的操作 :)',true));
+        die;
+      } else {
+        echo J(R(400,'请尝试刷新页面后重试 :)',false));
+        die;
+      }
+    }
+  }
 
 	  // 初始化数据
   
