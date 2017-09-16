@@ -18,7 +18,7 @@ class baseCtrl extends \core\icunji{
     $this->appid = conf::get('APPID','wechat');
     $this->appsecret = conf::get('APPSECRET','wechat');
     $this->wechat = new wechat(TOKEN,DEBUG,$this->appid,$this->appsecret);
-   /* $this->udb = new user();
+    $this->udb = new user();
     // 应用路径
     $this->assign('appsPath',$this->appsPath);
     // access_token检测是否过期
@@ -41,11 +41,11 @@ class baseCtrl extends \core\icunji{
       $this->assign('userinfo',$_SESSION['userinfo']);
     }
     // 站点名称
-    $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));*/
+    $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));
   }
 
   /**
-   * 对接微信
+   * 对接微信服务器
    */
   public function buttJointWechat(){
     // 接收微信get参数
