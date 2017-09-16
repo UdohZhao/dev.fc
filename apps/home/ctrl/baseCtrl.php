@@ -18,6 +18,8 @@ class baseCtrl extends \core\icunji{
     $this->appid = conf::get('APPID','wechat');
     $this->appsecret = conf::get('APPSECRET','wechat');
     $this->wechat = new wechat(TOKEN,DEBUG,$this->appid,$this->appsecret);
+    // 对接微信
+    $this->wechat->valid();
     $this->udb = new user();
     // 应用路径
     $this->assign('appsPath',$this->appsPath);
