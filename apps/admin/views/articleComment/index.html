@@ -45,10 +45,10 @@
                             <span class="text-danger">{隐藏}</span>
                             {% endif %}
                          </td>
-                        
+                      
                         <td>{{v.content}}</td>
                         <td>{{v.nickname}}</td>
-                        <td>{{v.reply}}</td>
+                        <td>{% autoescape false %}{{ v.reply }}{% endautoescape %}</td>
                         <td>{{v.likes}}</td>
 					    <td>{{v.ctime|date("Y-m-d H:i")}}</td>
                          

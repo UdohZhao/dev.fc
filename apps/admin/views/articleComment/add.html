@@ -28,7 +28,8 @@
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">回复内容</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="reply" value="{{date.reply}}" placeholder="请输入回复内容">
+              <!-- <input type="text" class="form-control" name="reply" value="{{date.reply}}" placeholder="请输入回复内容"> -->
+              <script id="container" name="reply" type="text/plain"  style="height: 300px;">{% autoescape false %}{{ date.reply }}{% endautoescape %}</script>
             </div>
           </div>
           
