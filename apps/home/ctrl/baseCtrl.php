@@ -90,7 +90,7 @@ class baseCtrl extends \core\icunji{
         $data['province'] = $_SESSION['getWecahtUserInfo']['province'];
         $data['country'] = $_SESSION['getWecahtUserInfo']['country'];
         $data['headimgurl'] = $_SESSION['getWecahtUserInfo']['headimgurl'];
-        $data['residue'] = 0;
+        $data['residue'] = conf::get('PRESENT','wechat');
         $data['push_money'] = 0;
         $data['type'] = 0;
         $data['status'] = 0;
@@ -109,7 +109,8 @@ class baseCtrl extends \core\icunji{
       }
     }
 
-    header("Location:/account/index");
+    # 跳转
+    header("Location:/index/index");
     die;
 
   }

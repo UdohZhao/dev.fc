@@ -1,7 +1,7 @@
 $(function(){
 
   // 默认选中
-  $("#price6").removeClass("offActive").addClass("onActive");
+  $("#price8").removeClass("offActive").addClass("onActive");
    // 选中的money追加金额到支付按钮
   $("#gotoPay").attr("value",'0.01');
 
@@ -11,7 +11,7 @@ $(function(){
 // 选择价格
 function select(k,money){
   console.log(k,money);
-  for(i=0; i<=6;){
+  for(i=0; i<=8;){
     $("#price"+i).removeClass("onActive").addClass("offActive");
     i++;
   }
