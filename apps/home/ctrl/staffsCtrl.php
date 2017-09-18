@@ -17,11 +17,11 @@ class staffsCtrl extends baseCtrl{
       if ($data['userData']['type'] == 1) {
         // 读取代理商信息和总数
         $data['agentData'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
-        $data['agentCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
+        $data['agentData']['count'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
         // 读取经销商信息和总数
         foreach ($data['agentData'] AS $k => $v) {
           $data['agencyData'][] = $this->udb->getLevel($v['id']);
-          $data['agencyCount'][] = $this->udb->getTotalLevel($v['id']);
+          $data['agencyData'][]['count'] = $this->udb->getTotalLevel($v['id']);
         }
         see($data);
         die;
