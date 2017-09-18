@@ -29,6 +29,7 @@ class staffsCtrl extends baseCtrl{
             $data['generalCount'][$k][$kk] = $this->udb->getTotalLevel($vv['id']);
           }
         }
+        see($data);
         // 统计
         $totalCount = array();
         // 统计代理商数量
