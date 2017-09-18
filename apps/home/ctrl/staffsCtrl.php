@@ -29,8 +29,21 @@ class staffsCtrl extends baseCtrl{
             $data['generalCount'][$k][$kk] = $this->udb->getTotalLevel($vv['id']);
           }
         }
+        // 统计
+        $totalCount = array();
+        // 统计代理商数量
+        $totalCount['agentCount'] = $data['agentCount'];
+        // 统计经销商数量
+        $totalCount['agencyCount'] = array_sum($data['agencyCount']);
+        // 统计经销商邀请的用户
+        foreach ($data['generalCount'] AS $k => $v) {
+          foreach ($data['generalCount'][$k] AS $kk => $vv) {
+            $totalCount['generalCount'][] = $vv;
+          }
+        }
 
-        see($data);
+
+        see($totalCount);
         die;
 
       }
