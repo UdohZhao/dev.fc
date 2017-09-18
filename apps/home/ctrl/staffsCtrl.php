@@ -25,8 +25,8 @@ class staffsCtrl extends baseCtrl{
         }
         // 读取经销商邀请的用户总数
         foreach ($data['agencyData'] AS $k => $v ) {
-          foreach ($v AS $kk => $vv) {
-            $data['general'][] = $this->udb->getTotalLevel($vv['id']);
+          foreach ($data['agencyData'][$k] AS $kk => $vv) {
+            $data['generalCount'][$k][$kk] = $this->udb->getTotalLevel($vv['id']);
           }
         }
 
