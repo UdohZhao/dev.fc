@@ -7,11 +7,11 @@ class user extends model{
 
 	  public function getAll($type,$id,$limit,$search){
       if($id){
-        $qwe = " u.pid=$id and u.type=$type ";
+        $qwe = " u.pid=$id and u.type=$type";
       }else{
         $qwe = "u.type=$type";
       }
-   
+
     $sql = "
         SELECT
                 *,u.id
@@ -33,7 +33,7 @@ class user extends model{
             s.cname like '$search'
            
        order by 
-            u.id   
+            u.id   desc
             
         {$limit} 
         
