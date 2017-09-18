@@ -20,7 +20,7 @@ class staffsCtrl extends baseCtrl{
         $data['agent']['count'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
         // 读取经销商信息和总数
         foreach ($data['agent'] AS $k => $v) {
-          $data['agency'][] = $this->udb->getLevel($v['id']);
+          $data['agency'] = $this->udb->getLevel($v['id']);
           $data['agency']['count'][] = $this->udb->getTotalLevel($v['id']);
         }
         see($data);
@@ -55,7 +55,15 @@ class staffsCtrl extends baseCtrl{
   public function getQRcode(){
     // 引入二维码类
     include ICUNJI.'/vendor/wxpay/phpqrcode/phpqrcode.php';
-    $data = isHttps() . '/base/index/pid/' . $_SESSION['userinfo']['id']; 
+    // 根据用户类型推理 1>总代理，2>代理商，3经销商
+    if ($_SESSION['userinfo']['type'] == 1) {
+      $type = 2;
+    } else if ($_SESSION['userinfo']['type'] == 2) {
+      $type = 3;
+    } else if ($_SESSION['userinfo']['type'] == 3) {
+      $type = 0;
+    }
+    $data = isHttps() . '/base/index/pid/' . $_SESSION['userinfo']['id'] .'/type/' . $type;
     $level = 'L';// 纠错级别：L、M、Q、H
     $size = 6;// 点的大小：1到10,用于手机端4就可以了
     $QRcode = new \QRcode();
