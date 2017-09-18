@@ -41,18 +41,35 @@ class staffsCtrl extends baseCtrl{
             $totalCount['generalCount'][] = $vv;
           }
         }
-
-        $totalCount['generalCount'] = array_sum($data['agencyCount']);
-
-
-        see($totalCount);
-        die;
-
+        $totalCount['generalCount'] = array_sum($totalCount['generalCount']);
       }
-
+      // type 2>代理商
+      if ($data['userData']['type'] == 2) {
+        // 读取经销商信息和总数
+        $data['agencyData'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
+        $data['agencyCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
+        // 读取经销商邀请的用户总数
+        foreach ($data['agencyData'] AS $k => $v ) {
+            $data['generalCount'][$k] = $this->udb->getTotalLevel($v['id']);
+        }
+        // 统计
+        $totalCount = array();
+        // 统计经销商数量
+        $totalCount['agencyCount'] = array_sum($data['agencyCount']);
+        // 统计经销商邀请的用户
+        foreach ($data['generalCount'] AS $k => $v) {
+            $totalCount['generalCount'][] = $v;
+        }
+        $totalCount['generalCount'] = array_sum($totalCount['generalCount']);
+      }
+      // type 3>经销商
+      if ($data['userData']['type'] == 3) {
+        // 读取经销商邀请的用户总数
+        $totalCount['generalCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
+      }
       // assign
-      $this->assign('push_money',$push_money);
-      $this->assign('totalLevel',$totalLevel);
+      $this->assign('userData',$data['userData']);
+      $this->assign('totalCount',$totalCount);
       // display
       $this->display('staffs','index.html');
       die;

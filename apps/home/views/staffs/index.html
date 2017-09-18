@@ -12,7 +12,19 @@
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">{{userinfo.nickname}}</h2>
     <div class="weui-msg__desc staff-desc">
-        <p>- 邀请人数：<span class="staff-desc-figure">{{totalLevel}} </span>-</p>
+      {% if userData.type == 1 %}
+        <p>- 当前身份：<span class="staff-desc-figure">总代理 </span>-</p>
+        <p>- 代理商总数：<span class="staff-desc-figure">{{totalCount.agentCount}} </span>-</p>
+        <p>- 经销商总数：<span class="staff-desc-figure">{{totalCount.agencyCount}} </span>-</p>
+        <p>- 普通用户总数：<span class="staff-desc-figure">{{totalCount.generalCount}} </span>-</p>
+      {% else if userData.type == 2 %}
+        <p>- 当前身份：<span class="staff-desc-figure">代理商 </span>-</p>
+        <p>- 经销商总数：<span class="staff-desc-figure">{{totalCount.agencyCount}} </span>-</p>
+        <p>- 普通用户总数：<span class="staff-desc-figure">{{totalCount.generalCount}} </span>-</p>
+      {% else if userData.type == 3 %}
+        <p>- 当前身份：<span class="staff-desc-figure">经销商 </span>-</p>
+        <p>- 普通用户总数：<span class="staff-desc-figure">{{totalCount.generalCount}} </span>-</p>
+      {% endif %}
         <p>- 收益金额：<span class="staff-desc-figure">¥{{push_money}} </span>-</p>
     </div>
   </div>
