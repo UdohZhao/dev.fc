@@ -17,11 +17,11 @@
         <p>- 代理商总数：<span class="staff-desc-figure">{{totalCount.agentCount}} </span>-</p>
         <p>- 经销商总数：<span class="staff-desc-figure">{{totalCount.agencyCount}} </span>-</p>
         <p>- 普通用户总数：<span class="staff-desc-figure">{{totalCount.generalCount}} </span>-</p>
-      {% else if userData.type == 2 %}
+      {% elseif userData.type == 2 %}
         <p>- 当前身份：<span class="staff-desc-figure">代理商 </span>-</p>
         <p>- 经销商总数：<span class="staff-desc-figure">{{totalCount.agencyCount}} </span>-</p>
         <p>- 普通用户总数：<span class="staff-desc-figure">{{totalCount.generalCount}} </span>-</p>
-      {% else if userData.type == 3 %}
+      {% elseif userData.type == 3 %}
         <p>- 当前身份：<span class="staff-desc-figure">经销商 </span>-</p>
         <p>- 普通用户总数：<span class="staff-desc-figure">{{totalCount.generalCount}} </span>-</p>
       {% endif %}
