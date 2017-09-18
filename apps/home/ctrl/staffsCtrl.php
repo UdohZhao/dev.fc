@@ -43,6 +43,8 @@ class staffsCtrl extends baseCtrl{
           }
         }
 
+        $totalCount['generalCount'] = array_sum($data['agencyCount']);
+
 
         see($totalCount);
         die;
