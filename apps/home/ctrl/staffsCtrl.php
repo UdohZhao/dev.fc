@@ -12,16 +12,16 @@ class staffsCtrl extends baseCtrl{
     // Get
     if (IS_GET === true) {
       // 读取当前用户基本信息
-      $data = $this->udb->getidInfo($_SESSION['userinfo']['id']);
+      $data['userData'] = $this->udb->getidInfo($_SESSION['userinfo']['id']);
       // 获取当前用户类型 1>总代理 ，2>代理商，3>经销商
-      if ($data['type'] == 1) {
+      if ($data['userData']['type'] == 1) {
         // 读取代理商信息和总数
-        $data['agent'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
-        $data['agent']['count'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
+        $data['agentData'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
+        $data['agentData']['count'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
         // 读取经销商信息和总数
-        foreach ($data['agent'] AS $k => $v) {
-          $data['agency'] = $this->udb->getLevel($v['id']);
-          $data['agency']['count'][] = $this->udb->getTotalLevel($v['id']);
+        foreach ($data['agentData'] AS $k => $v) {
+          $data['agencyData'] = $this->udb->getLevel($v['id']);
+          $data['agencyData']['count'][] = $this->udb->getTotalLevel($v['id']);
         }
         see($data);
         die;
