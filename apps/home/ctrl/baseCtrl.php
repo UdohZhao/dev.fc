@@ -60,7 +60,9 @@ class baseCtrl extends \core\icunji{
     if (IS_GET === true) {
       // pid 父级id
       $pid = isset($_GET['pid']) ? intval($_GET['pid']) : 0;
-      $_SESSION['pid'] = $pid;
+      $type = isset($_GET['type']) ? intval($_GET['type']) : 0;
+      $_SESSION['invite']['pid'] = $pid;
+      $_SESSION['invite']['type'] = $type;
     }
   }
 
@@ -83,7 +85,7 @@ class baseCtrl extends \core\icunji{
         $_SESSION['userinfo'] = $res;
       } else {
         // 组装数据
-        $data['pid'] = isset($_SESSION['pid']) ? $_SESSION['pid'] : 0;
+        $data['pid'] = isset($_SESSION['invite']['pid']) ? $_SESSION['invite']['pid'] : 0;
         $data['openid'] = $_SESSION['getWecahtUserInfo']['openid'];
         $data['nickname'] = $_SESSION['getWecahtUserInfo']['nickname'];
         $data['city'] = $_SESSION['getWecahtUserInfo']['city'];
@@ -92,7 +94,7 @@ class baseCtrl extends \core\icunji{
         $data['headimgurl'] = $_SESSION['getWecahtUserInfo']['headimgurl'];
         $data['residue'] = conf::get('PRESENT','wechat');
         $data['push_money'] = 0;
-        $data['type'] = 0;
+        $data['type'] = isset($_SESSION['invite']['type']) ? $_SESSION['invite']['type'] : 0;
         $data['status'] = 0;
         $data['code_status'] = 0;
         $data['pay_status'] = 0;
