@@ -87,17 +87,24 @@ class accountCtrl extends baseCtrl{
         if (!$res) {
           // 获取实际充值金额
           $total_fee = bcdiv($total_fee, 100, 2);
-          //$total_fee = 100;
-
+          // 测试充值金额
+          $total_fee = bcadd($total_fee, conf::get('TEST_MONEY','wechat'));
           // 查询当前用户详细信息
           $data = $this->udb->getidInfo($uid);
-          if ($data['pid'] != 0) {
-            // 获取提成百分比
-            $unit_percent = bcdiv(conf::get('UNIT_PERCENT','wechat'), 100, 2);
-            // 计算提成金额
-            $unit_money = bcmul($total_fee, $unit_percent, 2);
-          } else {
-            $unit_money = 0;
+          // 普通用户充值计算提成
+          if ($data['type'] != 1 && $data['pid'] != 0) {
+            // 获取总代理提成百分比
+            $general_agency_percent = bcdiv(conf::get('GENERAL_AGENCY_PERCENT','wechat'), 100, 2);
+            // 获取代理商提成百分比
+            $agent_percent = bcdiv(conf::get('AGENT_PERCENT','wechat'), 100, 2);
+            // 获取经销商提成百分比
+            $agency_percent = bcdiv(conf::get('AGENCY_PERCENT','wechat'), 100, 2);
+            // 计算总代理提成金额
+            $general_agency_money = bcmul($total_fee, $general_agency_percent, 2);
+            // 计算代理商提成金额
+            $agent_money = bcmul($total_fee, $agent_percent, 2);
+            // 计算经销商提成金额
+            $agency_money = bcmul($total_fee, $agency_percent, 2);
           }
 
           // 写入充值数据表
@@ -106,27 +113,46 @@ class accountCtrl extends baseCtrl{
           $rrData['pid'] = $data['pid'];
           $rrData['orderid'] = $order_sn;
           $rrData['money'] = $total_fee;
-          $rrData['unit_money'] = $unit_money;
+          $rrData['general_agency_money'] = $general_agency_money;
+          $rrData['agent_money'] = $agent_money;
+          $rrData['agency_money'] = $agency_money;
           $rrData['ctime'] = time();
           $res = $this->rrdb->add($rrData);
           if ($res) {
             // 累加用户金币
             $residue = bcmul($total_fee, conf::get('CONVERSION','wechat'), 0);
             $residue = bcadd($residue, $data['residue'], 0);
-            // 新用户赠送金币
+            /*// 新用户赠送金币
             if ($data['pid'] != 0 && $data['pay_status'] != 1) {
               $residue = bcadd($residue, conf::get('PRESENT','wechat'), 0);
               $upData['pay_status'] = 1;
-            }
+            }*/
             // 更新数据
             $upData['residue'] = $residue;
             // 更新用户金币
             $this->udb->save($uid,$upData);
-            // unit_money 提成金额不为0
-            if ($unit_money > 0) {
-              $data = $this->udb->getidInfo($data['pid']);
-              $push_money = bcadd($data['push_money'], $unit_money, 2);
-              $this->udb->save($data['id'],array('push_money'=>$push_money));
+            // 利润分配
+            if ($data['type'] != 1 && $data['pid'] != 0) {
+              // 用户信息
+              $userinfoData = array();
+              // 获取经销商用户信息
+              $userinfoData['agency'] = $this->udb->getidInfo($data['pid']);
+              // 获取代理商用户信息
+              $userinfoData['agent'] = $this->udb->getidInfo($userinfoData['agency']['pid']);
+              // 获取总代理用户信息
+              $userinfoData['general_agency'] = $this->udb->getidInfo($userinfoData['agent']['pid']);
+              // 累加经销商提成金额
+              $userinfoupData['agency']['push_money'] = bcadd($userinfoData['agency']['push_money'], $agency_money, 2);
+              // 累加代理商提成金额
+              $userinfoupData['agent']['push_money'] = bcadd($userinfoData['agent']['push_money'], $agent_money, 2);
+              // 累加总代理提成金额
+              $userinfoupData['general_agency']['push_money'] = bcadd($userinfoData['general_agency']['push_money'], $general_agency_money, 2);
+              // 更新经销商提成金额
+              $this->udb->save($userinfoData['agency']['id'],array('push_money'=>$userinfoupData['agency']['push_money']));
+              // 更新代理商提成金额
+              $this->udb->save($userinfoData['agent']['id'],array('push_money'=>$userinfoupData['agent']['push_money']));
+              // 更新总代理提成金额
+              $this->udb->save($userinfoData['general_agency']['id'],array('push_money'=>$userinfoupData['general_agency']['push_money']));
             }
           }
         }

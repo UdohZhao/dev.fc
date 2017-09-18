@@ -54,10 +54,18 @@ class user extends model{
     return $this->count($this->table,['pid'=>$pid]);
   }
 
+  /**
+   * 读取下级
+   */
+  public function getLevel($pid){
+    return $this->select($this->table,'*',['pid'=>$pid]);
+  }
+
   // 读取用户类型
   public function getType($id){
     return $this->get($this->table,'type',['id'=>$id]);
   }
+
 
 
 }

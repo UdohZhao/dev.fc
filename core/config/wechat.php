@@ -6,6 +6,7 @@ return array(
   'GENERAL_AGENCY_PERCENT'    =>    '5', // 总代理提成百分比
   'AGENT_PERCENT'    =>    '10', // 代理商提成百分比
   'AGENCY_PERCENT'    =>    '15', // 经销商提成百分比
-  'CONVERSION'      =>    '100', // 兑换比例，测试为100倍，默认为10倍
-  'PRESENT'         =>    '100' //新用户赠送$100金币
+  'CONVERSION'      =>    '10', // 兑换比例，测试为100倍，默认为10倍
+  'PRESENT'         =>    '100', //新用户赠送$100金币,
+  'TEST_MONEY'      =>    '10000' // 测试金额1000倍，正式金额为0倍；
 );
