@@ -16,12 +16,16 @@ class userCtrl extends baseCtrl{
 		$this->db = new user();
 		 $this->type = isset($_GET['type']) ? intval($_GET['type']) : 0;
 		 $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+     
+   
 		 // if($_SESSION['userinfo']['type'] !=0 ){
    //        echo "<script>alert('没有权限');window.location.href='/admin/index/index'</script>";
    //        die;
    //    }
 	}
 	public function index(){
+       
 
     // 获取搜索条件
     $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
@@ -35,9 +39,8 @@ class userCtrl extends baseCtrl{
 		$data = $this->db->getAll($this->type,$this->id,$page->limit,$search);
 		
     $type = $this->type;
-		
-
-		$this->assign('type',$type);
+   
+    $this->assign('type',$type);
 		$this->assign('data',$data);
     $this->assign('page',$page->showpage());
 		$this->display('user','index.html');
@@ -58,7 +61,7 @@ class userCtrl extends baseCtrl{
    // Ajax
     if (IS_AJAX === true) {
         // password
-      $type = 1;
+      $type = $this->type;
       // update
       $delt = $this->db->ePass($this->id,$type);
      
