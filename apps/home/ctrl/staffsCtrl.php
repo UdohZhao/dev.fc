@@ -46,6 +46,8 @@ class staffsCtrl extends baseCtrl{
         // 读取经销商信息和总数
         $data['agencyData'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
         $data['agencyCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
+        see($data);
+        die;
         // 读取经销商邀请的用户总数
         foreach ($data['agencyData'] AS $k => $v ) {
             $data['generalCount'][$k] = $this->udb->getTotalLevel($v['id']);
