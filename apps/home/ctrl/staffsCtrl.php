@@ -42,9 +42,7 @@ class staffsCtrl extends baseCtrl{
           }
         }
         $totalCount['generalCount'] = array_sum($totalCount['generalCount']);
-      }
-      // type 2>代理商
-      if ($data['userData']['type'] == 2) {
+      } else if ($data['userData']['type'] == 2) {  // type 2>代理商
         // 读取经销商信息和总数
         $data['agencyData'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
         $data['agencyCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
@@ -61,9 +59,7 @@ class staffsCtrl extends baseCtrl{
             $totalCount['generalCount'][] = $v;
         }
         $totalCount['generalCount'] = array_sum($totalCount['generalCount']);
-      }
-      // type 3>经销商
-      if ($data['userData']['type'] == 3) {
+      } else if ($data['userData']['type'] == 3) { // type 3>经销商
         // 读取经销商邀请的用户总数
         $totalCount['generalCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
       }
