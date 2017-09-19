@@ -17,26 +17,26 @@ class user extends model{
                 *,u.id
         FROM
                 `$this->table` AS u
-        LEFT JOIN  
-        		`$this->table1` AS s 
-        ON		u.id=s.uid       
-       WHERE 
+        LEFT JOIN
+        		`$this->table1` AS s
+        ON		u.id=s.uid
+       WHERE
 
             $qwe
 
-        AND 
+        AND
             u.nickname like '%$search%'
-        OR        
+        OR
             s.phone like '$search'
 
-        OR 
+        OR
             s.cname like '$search'
-           
-       order by 
+
+       order by
             u.id   desc
-            
-        {$limit} 
-        
+
+        {$limit}
+
     ";
     return $this->query($sql)->fetchAll(2);
   }
@@ -54,5 +54,23 @@ class user extends model{
   public function cou(){
     return $this->count($this->table);
   }
- 
+
+  // 读取type全部数据
+  public function gettypeAll($pid,$type){
+    // sql
+    $sql = "
+        SELECT
+                *
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        and
+                pid = '$pid'
+        AND
+                type = '$type'
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
 }
