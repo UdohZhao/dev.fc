@@ -46,9 +46,9 @@ $(function(){
 });
 
 // 申请成为职员
-function ePass(id,username){
+function ePass(id,type){
 
-  $("#ePassForm").attr("action","/admin/user/add/id/"+id);
+  $("#ePassForm").attr("action","/admin/user/add/id/"+id+"/type/"+type);
   // modal
   $('#ePassModal').modal({
     backdrop: 'static',
@@ -57,7 +57,16 @@ function ePass(id,username){
 }
 // 查看邀请成员
 function flow(id){
-	window.location.href = "/admin/user/index/id/"+id+ "/type/"+0 ;
+
+	window.location.href = "/admin/user/index/id/"+id+"/type/"+2;
+}
+function flow1(id){
+
+  window.location.href = "/admin/user/index/id/"+id+"/type/"+3;
+}
+function flow2(id){
+
+  window.location.href = "/admin/user/index/id/"+id+"/type/"+0;
 }
 
 
