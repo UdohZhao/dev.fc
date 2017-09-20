@@ -42,7 +42,7 @@
                       <img src="{{appsPath}}/recreationArticle/img/wechat.png">
                     </div>
                     <div class="weui-grid__label">
-                      {% if qq_show == false %}获取微信号{% else %}{{wechat_show}}{% endif %}
+                      {% if wechat_show == false %}获取微信号{% else %}{{wechat_show}}{% endif %}
                     </div>
                   </a>
                   <a href="javascript:;" class="weui-grid js_grid" {% if phone_show == false %}onclick="getInfo(3,{{data.id}},{{data.beData.phone_money}});"{% endif %}>
@@ -50,7 +50,7 @@
                       <img src="{{appsPath}}/recreationArticle/img/phone.png">
                     </div>
                     <div class="weui-grid__label">
-                      {% if qq_show == false %}获取手机号{% else %}{{phone_show}}{% endif %}
+                      {% if phone_show == false %}获取手机号{% else %}{{phone_show}}{% endif %}
                     </div>
                   </a>
               </div>
