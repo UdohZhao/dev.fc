@@ -43,6 +43,8 @@ class recreationArticle extends model{
                     rcid = '$rcid'
             AND
                     status = '1'
+            ORDER BY
+                    id DESC
         ";
         return $this->query($sql)->fetchAll(2);
     }
