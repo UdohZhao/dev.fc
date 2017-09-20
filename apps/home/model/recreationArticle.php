@@ -7,20 +7,22 @@ class recreationArticle extends model{
      * 读取相关信息
      */
     public function getCorrelation($rcid){
-        // sql 
+        // sql
         $sql = "
-            SELECT 
+            SELECT
                     *
-            FROM 
+            FROM
                     `$this->table`
-            WHERE 
+            WHERE
                     1 = 1
-            AND 
+            AND
                     rcid = '$rcid'
-            AND 
+            AND
                     status = '1'
-            LIMIT 
-                    0,5                                
+            ORDER BY
+                    id DESC
+            LIMIT
+                    0,5
         ";
         return $this->query($sql)->fetchAll(2);
     }
@@ -29,18 +31,18 @@ class recreationArticle extends model{
      * 读取全部相关数据
      */
     public function getAll($rcid){
-        // sql 
+        // sql
         $sql = "
-            SELECT 
+            SELECT
                     *
-            FROM 
+            FROM
                     `$this->table`
-            WHERE 
+            WHERE
                     1 = 1
-            AND 
+            AND
                     rcid = '$rcid'
-            AND 
-                    status = '1'                              
+            AND
+                    status = '1'
         ";
         return $this->query($sql)->fetchAll(2);
     }
