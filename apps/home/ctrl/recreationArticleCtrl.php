@@ -27,11 +27,6 @@ class recreationArticleCtrl extends baseCtrl{
   public function index(){
     // Get
     if (IS_GET === true) {
-
-        $attachArr = explode(',', '1,0,0');
-        see($attachArr);
-        die;
-
         // 读取详细信息
         $data = $this->db->getInfo($this->id);
         $data['beData'] = $this->bedb->getCorrelation($data['id']);
