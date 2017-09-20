@@ -18,7 +18,7 @@ class recreationCategory extends model{
             AND
                     status = '1'
             ORDER BY
-                    sort DESC
+                    sort ASC
         ";
         return $this->query($sql)->fetchAll(2);
     }
