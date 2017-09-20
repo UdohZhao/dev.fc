@@ -34,14 +34,14 @@ class staffsCtrl extends baseCtrl{
         // 统计代理商数量
         $totalCount['agentCount'] = $data['agentCount'];
         // 统计经销商数量
-        $totalCount['agencyCount'] = array_sum($data['agencyCount']);
+        $totalCount['agencyCount'] = is_array($data['agencyCount']) ? array_sum($data['agencyCount']) : $data['agencyCount'];
         // 统计经销商邀请的用户
         foreach ($data['generalCount'] AS $k => $v) {
           foreach ($data['generalCount'][$k] AS $kk => $vv) {
             $totalCount['generalCount'][] = $vv;
           }
         }
-        $totalCount['generalCount'] = array_sum($totalCount['generalCount']);
+        $totalCount['generalCount'] = is_array($totalCount['generalCount']) ? array_sum($totalCount['generalCount']) : $totalCount['generalCount'];
       } else if ($data['userData']['type'] == 2) {  // type 2>代理商
         // 读取经销商信息和总数
         $data['agencyData'] = $this->udb->getLevel($_SESSION['userinfo']['id']);
@@ -58,7 +58,7 @@ class staffsCtrl extends baseCtrl{
         foreach ($data['generalCount'] AS $k => $v) {
             $totalCount['generalCount'][] = $v;
         }
-        $totalCount['generalCount'] = array_sum($totalCount['generalCount']);
+        $totalCount['generalCount'] = is_array($totalCount['generalCount']) ? array_sum($totalCount['generalCount']) : $totalCount['generalCount'];
       } else if ($data['userData']['type'] == 3) { // type 3>经销商
         // 读取经销商邀请的用户总数
         $totalCount['generalCount'] = $this->udb->getTotalLevel($_SESSION['userinfo']['id']);
