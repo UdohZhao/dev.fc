@@ -7,18 +7,18 @@ class recreationCategory extends model{
      *  读取数据
      */
     public function getAll(){
-        // sql 
+        // sql
         $sql = "
-            select 
+            SELECT
                     *
-            from 
+            FROM
                     `$this->table`
-            where 
+            WHERE
                     1 = 1
-            and 
+            AND
                     status = '1'
-            order by 
-                    sort ASC                        
+            ORDER BY
+                    id DESC
         ";
         return $this->query($sql)->fetchAll(2);
     }
