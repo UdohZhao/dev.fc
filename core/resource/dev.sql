@@ -96,6 +96,19 @@ CREATE TABLE `recreation_article`(
   PRIMARY KEY (`id`),
   KEY (`rcid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# 美妹扩展表
+CREATE TABLE `belle_extend`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '美妹扩展表主键id',
+  `raid` int(11) UNSIGNED NOT NULL COMMENT '关联休闲娱乐文章表主键id',
+  `qq` varchar(25) NOT NULL COMMENT 'QQ号',
+  `wecaht` varchar(25) NOT NULL COMMENT '微信号',
+  `phone` char(11) NOT NULL COMMENT '手机号码',
+  `qq_money` decimal(14,2) UNSIGNED NOT NULL COMMENT '查看QQ号费用',
+  `wechat_money` decimal(14,2) UNSIGNED NOT NULL COMMENT '查看微信号费用',
+  `phone_money` decimal(14,2) UNSIGNED NOT NULL COMMENT '查看手机号费用',
+  PRIMARY KEY (`id`),
+  KEY (`raid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 # banner
 CREATE TABLE `banner`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'banner主键id',
@@ -115,6 +128,7 @@ CREATE TABLE `wecaht_menu`(
 CREATE TABLE `recharge_record`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '充值记录表主键id',
   `uid` int(11) UNSIGNED NOT NULL COMMENT '关联用户表主键id',
+  `raid` int(11) UNSIGNED NOT NULL COMMENT '关联休闲娱乐文章表主键id',
   `pid` int(11) UNSIGNED NOT NULL COMMENT '父id',
   `orderid` varchar(64) NOT NULL COMMENT '订单编号',
   `money` decimal(14,2) UNSIGNED NOT NULL COMMENT '充值金额',

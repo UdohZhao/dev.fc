@@ -1,3 +1,82 @@
+$(function(){
+
+  // 验证配置美妹表单
+  $("#belleExtendForm").validate({
+      focusInvalid: true,
+      rules: {
+        qq: {
+          required: true,
+          digits: true
+        },
+        wecaht: {
+          required: true
+        },
+        phone: {
+          required: true,
+          digits: true
+        },
+        qq_money: {
+          required: true,
+          number: true
+        },
+        wechat_money: {
+          required: true,
+          number: true
+        },
+        phone_money: {
+          required: true,
+          number: true
+        }
+      },
+      messages: {
+        qq: {
+          required: "<span style='color:red;'>QQ号不能为空 :(</span>",
+          digits: "<span style='color:red;'>必须输入整数 :(</span>"
+        },
+        wecaht: {
+          required: "<span style='color:red;'>微信号不能为空 :(</span>"
+        },
+        phone: {
+          required: "<span style='color:red;'>手机号不能为空 :(</span>",
+          digits: "<span style='color:red;'>必须输入整数 :(</span>"
+        },
+        qq_money: {
+          required: "<span style='color:red;'>查看QQ号费用不能为空 :(</span>",
+          number: "<span style='color:red;'>必须输入合法的数字（整数，小数） :(</span>"
+        },
+        wechat_money: {
+          required: "<span style='color:red;'>查看微信号费用不能为空 :(</span>",
+          number: "<span style='color:red;'>必须输入合法的数字（整数，小数） :(</span>"
+        },
+        phone_money: {
+          required: "<span style='color:red;'>查看手机号费用不能为空 :(</span>",
+          number: "<span style='color:red;'>必须输入合法的数字（整数，小数） :(</span>"
+        }
+      },
+      submitHandler: function(form){
+        $(form).ajaxSubmit({
+            dataType:"json",
+              success:function(res){
+                console.log(res);
+                // 隐藏Modal
+                $('#belleExtendModal').modal('hide');
+                // res
+                if (res.code == 400) {
+                  swal("提交失败", res.msg, "error");
+                } else {
+                  swal("提交成功", res.msg, "success");
+                  setTimeout("window.location.reload();",2000);
+                }
+              },
+              error:function(e){
+              console.log(e);
+              swal("未知错误", "请尝试刷新页面后重试 :(", "error");
+            }
+        });
+      }
+  });
+
+});
 // 修改
 function edit(id){
     window.location.href = "/admin/buyHouseCatagory/modify/id/"+id;
@@ -22,7 +101,7 @@ function del(id){
         type: "GET",
         url: "/admin/buyHouseCatagory/dle/id/"+id,
         dataType: "JSON",
-        
+
         success: function(res){
           // res
           if (res === true) {
@@ -50,11 +129,11 @@ function flag(id,status){
     var text;
     // status
     if (status == 1) {
-        title = "确认显示该房类别吗？";
-        text = "隐藏后该房类别将不再显示 :(";
+        title = "确认展示该片文章吗？";
+        text = "确定后将对外展示 :)";
     } else {
-        title = "确认隐藏该房类别吗？";
-        text = "显示后该房类别将可正常显示 :)";
+        title = "确认隐藏该篇文章吗？";
+        text = "确定后将对外隐藏 :(";
     }
     swal({
             title: title,
@@ -93,4 +172,40 @@ function flag(id,status){
                 swal("取消了", "当前操作未发生改变 :)", "error");
             }
         });
+}
+
+// 配置
+function config(id){
+    console.log(id);
+    // Ajax 是否配置
+    $.ajax({
+        method: "GET",
+        url: "/admin/belleExtend/getInfo/raid/"+id,
+        dataType: "JSON",
+        success: function (res) {
+            console.log(res);
+            if (res.code == 200) {
+                // 配置动态赋值
+                $("input[name='qq']").attr("value",res.data.qq);
+                $("input[name='wecaht']").attr("value",res.data.wecaht);
+                $("input[name='phone']").attr("value",res.data.phone);
+                $("input[name='qq_money']").attr("value",res.data.qq_money);
+                $("input[name='wechat_money']").attr("value",res.data.wechat_money);
+                $("input[name='phone_money']").attr("value",res.data.phone_money);
+                // 动态修改form表单action
+                $("#belleExtendForm").attr("action","/admin/belleExtend/add/raid/"+id+"/id/"+res.data.id);
+            } else {
+                // 动态修改form表单action
+                $("#belleExtendForm").attr("action","/admin/belleExtend/add/raid/"+id);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+    $('#belleExtendModal').modal({
+        backdrop: 'static',
+        keyboard: false,
+        show: true
+    });
 }

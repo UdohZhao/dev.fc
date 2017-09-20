@@ -55,8 +55,8 @@ class user extends model{
     return $this->count($this->table);
   }
 
-  // 读取type全部数据
-  public function gettypeAll($pid,$type){
+  // 读取pid全部数据
+  public function getpidAll($pid,$type,$search,$limit){
     // sql
     $sql = "
         SELECT
@@ -65,12 +65,56 @@ class user extends model{
                 `$this->table`
         WHERE
                 1 = 1
-        and
+        AND
                 pid = '$pid'
         AND
                 type = '$type'
+        AND
+                nickname like '%$search%'
+        {$limit}
     ";
     return $this->query($sql)->fetchAll(2);
+  }
+
+  // 读取type全部数据
+  public function gettypeAll($type,$search,$limit){
+    // sql
+    $sql = "
+        SELECT
+                *
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                type = '$type'
+        AND
+                nickname like '%$search%'
+        {$limit}
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
+  /**
+   * 更新数据
+   */
+  public function save($id,$data){
+    $res = $this->update($this->table,$data,['id'=>$id]);
+    return $res->rowCount();
+  }
+
+  /**
+   * 读取pid总记录数
+   */
+  public function totalpidRows($pid,$type){
+    return $this->count($this->table,['pid'=>$pid,'type'=>$type]);
+  }
+
+  /**
+   * 读取type总记录数
+   */
+  public function totaltypeRows($type){
+    return $this->count($this->table,['type'=>$type]);
   }
 
 }

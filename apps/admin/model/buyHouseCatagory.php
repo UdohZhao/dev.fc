@@ -4,12 +4,12 @@ use core\lib\model;
 class buyHouseCatagory extends model{
     public $tabless='recreation_article';
     public $table='recreation_category';
-    
+
 
     public function checkUser($data){
         return $this->get($this->table,'*',['username'=>$data['username'],'password'=>$data['password']]);
     }
-    
+
     // getUsername
     public function getUsername($username){
         return $this->count($this->table,['username'=>$username]);
@@ -34,7 +34,7 @@ class buyHouseCatagory extends model{
         $res = $this->insert($this->table,$data);
         return $this->id();
     }
- 
+
     // sel
     public function sel($search,$limit){
         // sql
@@ -65,10 +65,10 @@ class buyHouseCatagory extends model{
                 rcid = $id
         AND
             title like '%$search%'
-       
+
         {$limit}
     ";
-        $data = $this->query($sql)->fetchAll();
+        $data = $this->query($sql)->fetchAll(2);
         return $data;
     }
     // getInfo

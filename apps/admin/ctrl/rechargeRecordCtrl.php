@@ -7,6 +7,7 @@ class rechargeRecordCtrl extends baseCtrl{
 	public $id;
 	public $db;
 	public $type;
+  public $uid;
 	public function _auto(){
 		if (isset($_SESSION['userinfo']) == null) {
             echo "<script>window.location.href='/admin/login/index'</script>";
@@ -14,9 +15,11 @@ class rechargeRecordCtrl extends baseCtrl{
         }
 		 $this->db = new rechargeRecord();
 		 $this->type = isset($_GET['type']) ? intval($_GET['type']) : 0;
-		 $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+     $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+		 $this->uid = isset($_GET['uid']) ? intval($_GET['uid']) : 0;
+     $this->assign('uid',$this->uid);
 	}
-	public function index(){
+	public function index_demo(){
 	 $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
 	  // 总记录数
     $cou = $this->db->cou($this->id);
@@ -33,4 +36,25 @@ class rechargeRecordCtrl extends baseCtrl{
 		$this->display('rechargeRecord','index.html');
 		die;
 	}
+
+  /**
+   * 充值记录页面
+   */
+  public function index(){
+    // search
+    $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
+    // 总记录数
+    $totalRows = $this->db->totalpidRows($this->uid);
+    // 数据分页
+    $page = new Page($totalRows,conf::get('LIMIT','admin'));
+    // 读取相关数据
+    $data = $this->db->getCorrelation($this->uid,$search,$page->limit);
+    // assign
+    $this->assign('data',$data);
+    $this->assign('page',$page->showpage());
+    // display
+    $this->display('rechargeRecord','index.html');
+    die;
+  }
+
 }

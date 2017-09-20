@@ -43,19 +43,21 @@
                             <span class="text-danger">{隐藏}</span>
                             {% endif %}
                         </td>
-                        
+
                         <td>
                         <img src="{{ v.cover_path }}" class="img-responsive" style="width: 90px; height: 90px;"></td>
                         <td style="width: 15%;">{{ v.title }}</td>
                         <td style="width: 50%;">{{ v.tips }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
-                            <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
-
                             {% if v.status == 1 %}
                             <button type="button" class="btn btn-danger btn-xs" onclick="flag({{ v.id }},0);">隐藏</button>
                             {% else %}
+                            <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
+                            <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
                             <button type="button" class="btn btn-success btn-xs" onclick="flag({{ v.id }},1);">显示</button>
+                            {% if showConfig %}
+                            <button type="button" class="btn btn-danger btn-xs" onclick="config({{ v.id }});">配置</button>
+                            {% endif %}
                             {% endif %}
                         </td>
                     </tr>
@@ -83,6 +85,64 @@
     </div>
 </div>
 <!-- End Page -->
+
+<!-- 美妹配置 -->
+<div id="belleExtendModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">@ 配置美妹相关信息</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="belleExtendForm" method="post">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">QQ号</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="qq" placeholder="请输入QQ号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">微信号</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="wecaht" placeholder="请输入微信号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">手机号码</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="phone" placeholder="请输入手机号码">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">查看QQ号费用</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="qq_money" placeholder="请输入查看QQ号费用">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">查看微信号费用</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="wechat_money" placeholder="请输入查看微信号码费用">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">查看手机号费用</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="phone_money" placeholder="请输入查看手机号费用">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">提 交</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {% endblock %}
 
 {% block js %}
