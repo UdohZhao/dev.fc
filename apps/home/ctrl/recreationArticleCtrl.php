@@ -33,22 +33,20 @@ class recreationArticleCtrl extends baseCtrl{
         // 读取当前用户是否已经付费查看QQ号，微信号，手机号
         $data['rrData'] = $this->rrdb->getPaytype($data['id'],$_SESSION['userinfo']['id']);
         if ($data['rrData']) {
-          foreach ($data['rrData'] AS $k => $v) {
-            if ($v == 1) {
-              $data['qq_show'] = $data['beData']['qq'];
-            } else {
-              $data['qq_show'] = false;
-            }
-            if ($v == 2) {
-              $data['wechat_show'] = $data['beData']['wecaht'];
-            } else {
-              $data['wechat_show'] = false;
-            }
-            if ($v == 3) {
-              $data['phone_show'] = $data['beData']['phone'];
-            } else {
-              $data['phone_show'] = false;
-            }
+          if (in_array('1', $data['rrData'])) {
+            $data['qq_show'] = $data['beData']['qq'];
+          } else {
+            $data['qq_show'] = false;
+          }
+          if (in_array('2', $data['rrData'])) {
+            $data['wechat_show'] = $data['beData']['wecaht'];
+          } else {
+            $data['wechat_show'] = false;
+          }
+          if (in_array('3', $data['rrData'])) {
+            $data['phone_show'] = $data['beData']['phone'];
+          } else {
+            $data['phone_show'] = false;
           }
         } else {
           $data['qq_show'] = false;
