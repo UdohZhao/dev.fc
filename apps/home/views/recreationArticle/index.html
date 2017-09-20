@@ -45,7 +45,7 @@
                       {% if data.wechat_show == false %}获取微信号{% else %}{{data.wechat_show}}{% endif %}
                     </div>
                   </a>
-                  <a href="javascript:;" class="weui-grid js_grid" {% if data.phone_show == false %}onclick="getInfo(3,{{data.id}},{{data.beData.phone_money}});"{% endif %}>
+                  <a class="weui-grid js_grid" {% if data.phone_show == false %}href="javascript:;" onclick="getInfo(3,{{data.id}},{{data.beData.phone_money}});"{% else %} href="tel:{{data.phone_show}}"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/phone.png">
                     </div>
