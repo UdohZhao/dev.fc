@@ -96,15 +96,11 @@ class accountCtrl extends baseCtrl{
 
         // 字符串转换成数组 ，uid，raid，type
         $attachArr = explode(',', $attach);
-        $attach['uid'] = $attachArr[0];
-        $attach['raid'] = $attachArr[1];
-        $attach['type'] = $attachArr[2];
+        $uid = $attachArr[0];
+        $raid = $attachArr[1];
+        $type = $attachArr[2];
 
-        $attach['uid'] = 1;
-        $attach['raid'] = 0;
-        $attach['type'] = 0;
-
-        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['uid'].PHP_EOL,FILE_APPEND);
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$uid.PHP_EOL,FILE_APPEND);
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
