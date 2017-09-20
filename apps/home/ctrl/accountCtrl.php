@@ -102,7 +102,9 @@ class accountCtrl extends baseCtrl{
         $attach['raid'] = $attachArr[1];
         $attach['type'] = $attachArr[2];
 
-        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attachArr.PHP_EOL,FILE_APPEND);
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['uid'].PHP_EOL,FILE_APPEND);
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['raid'].PHP_EOL,FILE_APPEND);
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['type'].PHP_EOL,FILE_APPEND);
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
