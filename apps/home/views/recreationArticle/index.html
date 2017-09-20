@@ -29,28 +29,28 @@
 
             {% if data.beData %}
               <div class="weui-grids">
-                  <a href="javascript:;" class="weui-grid js_grid" {% if qq_show == false %}onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});"{% endif %}>
+                  <a href="javascript:;" class="weui-grid js_grid" {% if data.qq_show == false %}onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/qq.png">
                     </div>
                     <div class="weui-grid__label">
-                      {% if qq_show == false %}获取QQ号{% else %}{{qq_show}}{% endif %}
+                      {% if data.qq_show == false %}获取QQ号{% else %}{{data.qq_show}}{% endif %}
                     </div>
                   </a>
-                  <a href="javascript:;" class="weui-grid js_grid" {% if wechat_show == false %}onclick="getInfo(2,{{data.id}},{{data.beData.wecaht_money}});"{% endif %}>
+                  <a href="javascript:;" class="weui-grid js_grid" {% if data.wechat_show == false %}onclick="getInfo(2,{{data.id}},{{data.beData.wechat_money}});"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/wechat.png">
                     </div>
                     <div class="weui-grid__label">
-                      {% if wechat_show == false %}获取微信号{% else %}{{wechat_show}}{% endif %}
+                      {% if data.wechat_show == false %}获取微信号{% else %}{{data.wechat_show}}{% endif %}
                     </div>
                   </a>
-                  <a href="javascript:;" class="weui-grid js_grid" {% if phone_show == false %}onclick="getInfo(3,{{data.id}},{{data.beData.phone_money}});"{% endif %}>
+                  <a href="javascript:;" class="weui-grid js_grid" {% if data.phone_show == false %}onclick="getInfo(3,{{data.id}},{{data.beData.phone_money}});"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/phone.png">
                     </div>
                     <div class="weui-grid__label">
-                      {% if phone_show == false %}获取手机号{% else %}{{phone_show}}{% endif %}
+                      {% if data.phone_show == false %}获取手机号{% else %}{{data.phone_show}}{% endif %}
                     </div>
                   </a>
               </div>
