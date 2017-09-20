@@ -36,10 +36,18 @@ class recreationArticleCtrl extends baseCtrl{
           foreach ($data['rrData'] AS $k => $v) {
             if ($v == 1) {
               $data['qq_show'] = $data['beData']['qq'];
-            } else if ($v == 2) {
+            } else {
+              $data['qq_show'] = false;
+            }
+            if ($v == 2) {
               $data['wechat_show'] = $data['beData']['wecaht'];
-            } else if ($v == 3) {
+            } else {
+              $data['wechat_show'] = false;
+            }
+            if ($v == 3) {
               $data['phone_show'] = $data['beData']['phone'];
+            } else {
+              $data['phone_show'] = false;
             }
           }
         } else {
