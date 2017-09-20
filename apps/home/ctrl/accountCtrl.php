@@ -139,7 +139,7 @@ class accountCtrl extends baseCtrl{
           $rrData['type'] = $type;
           $res = $this->rrdb->add($rrData);
           // 这句file_put_contents是用来查看服务器返回的XML数据 测试完可以删除了
-          file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/test.log",$res.PHP_EOL,FILE_APPEND);
+          file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/test.log",'111'.PHP_EOL,FILE_APPEND);
           if ($res) {
             // 累加用户金币
             $residue = bcmul($total_fee, conf::get('CONVERSION','wechat'), 0);
