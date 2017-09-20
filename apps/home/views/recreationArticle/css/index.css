@@ -4,3 +4,6 @@ body{
 .content-box{
     color: #333;
 }
+.content-box img{
+  width: 100%;
+}
