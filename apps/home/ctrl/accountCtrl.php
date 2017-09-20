@@ -102,19 +102,15 @@ class accountCtrl extends baseCtrl{
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
-        if ($res == 0) {
+        if (!$res) {
           // 获取实际充值金额
           $total_fee = bcdiv($total_fee, 100, 2);
-          file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/20170916.log",$total_fee.PHP_EOL,FILE_APPEND);
           // 测试充值金额
-          $total_fee = bcadd($total_fee, conf::get('TEST_MONEY','wechat'),2);
-          // 这句file_put_contents是用来查看服务器返回的XML数据 测试完可以删除了
-          file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/20170916.log",$total_fee.PHP_EOL,FILE_APPEND);
-          file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/20170916.log",$uid.PHP_EOL,FILE_APPEND);
+          $total_fee = bcadd($total_fee, conf::get('TEST_MONEY','wechat'), 0);
           // 查询当前用户详细信息
           $data = $this->udb->getidInfo($uid);
           // 普通用户充值计算提成
-          if ($data['type'] != 1 && $data['pid'] != 0) {
+          if ($data['type'] == 0 && $data['pid'] != 0) {
             // 获取总代理提成百分比
             $general_agency_percent = bcdiv(conf::get('GENERAL_AGENCY_PERCENT','wechat'), 100, 2);
             // 获取代理商提成百分比
@@ -132,8 +128,8 @@ class accountCtrl extends baseCtrl{
           // 写入充值数据表
           $rrData = array();
           $rrData['uid'] = $uid;
-          $rrData['pid'] = $data['pid'];
           $rrData['raid'] = $raid;
+          $rrData['pid'] = $data['pid'];
           $rrData['orderid'] = $order_sn;
           $rrData['money'] = $total_fee;
           $rrData['general_agency_money'] = $general_agency_money;
@@ -156,7 +152,7 @@ class accountCtrl extends baseCtrl{
             // 更新用户金币
             $this->udb->save($uid,$upData);
             // 利润分配
-            if ($data['type'] != 1 && $data['pid'] != 0) {
+            if ($data['type'] == 0 && $data['pid'] != 0) {
               // 用户信息
               $userinfoData = array();
               // 获取经销商用户信息
