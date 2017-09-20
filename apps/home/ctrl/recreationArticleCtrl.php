@@ -31,7 +31,7 @@ class recreationArticleCtrl extends baseCtrl{
         $data = $this->db->getInfo($this->id);
         $data['beData'] = $this->bedb->getCorrelation($data['id']);
         // 读取当前用户是否已经付费查看QQ号，微信号，手机号
-        $data['rrData'] = $this->rrdb->getPaytype($data['id']);
+        $data['rrData'] = $this->rrdb->getPaytype($data['id'],$_SESSION['userinfo']['id']);
         // assign
         $this->assign('data',$data);
         // display

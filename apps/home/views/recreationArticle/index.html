@@ -37,7 +37,7 @@
                             <img src="{{appsPath}}/recreationArticle/img/qq.png">
                           </div>
                           <div class="weui-grid__label">
-                            {{data.qq}}
+                            {{data.beData.qq}}
                           </div>
                         </a>
                       {% else %}
@@ -56,7 +56,7 @@
                             <img src="{{appsPath}}/recreationArticle/img/wechat.png">
                           </div>
                           <div class="weui-grid__label">
-                            {{data.wechat}}
+                            {{data.beData.wechat}}
                           </div>
                         </a>
                       {% else %}
@@ -65,7 +65,7 @@
                             <img src="{{appsPath}}/recreationArticle/img/wechat.png">
                           </div>
                           <div class="weui-grid__label">
-                            <span id="show_wechat">获取微信号</span>
+                             获取微信号
                           </div>
                         </a>
                       {% endif %}
@@ -75,7 +75,7 @@
                             <img src="{{appsPath}}/recreationArticle/img/phone.png">
                           </div>
                           <div class="weui-grid__label">
-                            <span id="show_phone">{{data.phone}}</span>
+                            {{data.beData.phone}}
                           </div>
                         </a>
                       {% else %}
@@ -84,7 +84,7 @@
                             <img src="{{appsPath}}/recreationArticle/img/phone.png">
                           </div>
                           <div class="weui-grid__label">
-                            <span id="show_phone">获取手机号</span>
+                            获取手机号
                           </div>
                         </a>
                       {% endif %}
@@ -95,7 +95,7 @@
                       <img src="{{appsPath}}/recreationArticle/img/qq.png">
                     </div>
                     <div class="weui-grid__label">
-                      <span id="show_qq">获取QQ号</span>
+                      获取QQ号
                     </div>
                   </a>
                   <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(2,{{data.id}},{{data.beData.qq_money}});">
@@ -103,7 +103,7 @@
                       <img src="{{appsPath}}/recreationArticle/img/wechat.png">
                     </div>
                     <div class="weui-grid__label">
-                      <span id="show_wechat">获取微信号</span>
+                      获取微信号
                     </div>
                   </a>
                   <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(3,{{data.id}},{{data.beData.qq_money}});">
@@ -111,7 +111,7 @@
                       <img src="{{appsPath}}/recreationArticle/img/phone.png">
                     </div>
                     <div class="weui-grid__label">
-                      <span id="show_phone">获取手机号</span>
+                      获取手机号
                     </div>
                   </a>
                 {% endif %}

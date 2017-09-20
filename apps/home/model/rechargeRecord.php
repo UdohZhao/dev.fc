@@ -21,8 +21,8 @@ class rechargeRecord extends model{
   /**
    * 读取付费查看类型
    */
-  public function getPaytype($raid){
-    return $this->select($this->table,'*',['raid'=>$raid]);
+  public function getPaytype($raid,$uid){
+    return $this->select($this->table,'*',['raid'=>$raid,['uid'=>$uid]]);
   }
 
 
