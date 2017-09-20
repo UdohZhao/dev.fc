@@ -59,10 +59,10 @@ function gotoPay(){
 }
 
 // 唤起微信支付
-function onBridgeReady(info){
+function onBridgeReady(jsApiParameters){
    WeixinJSBridge.invoke(
        'getBrandWCPayRequest',
-       info,
+       jsApiParameters,
        function(res){
            if(res.err_msg == "get_brand_wcpay_request:ok" ) {
             $.alert("充值成功 :)", "提示");

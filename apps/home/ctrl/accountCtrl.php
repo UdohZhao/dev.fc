@@ -40,11 +40,21 @@ class accountCtrl extends baseCtrl{
     // Ajax
     if (IS_AJAX === true) {
       $openid = $_SESSION['getWecahtUserInfo']['openid'];
-      $goods = '账户充值';
       $orderid = createIn();
-      //$orderid = '123456';
       $money = bcmul($_POST['money'], 100, 0);
-      $attach = $_SESSION['userinfo']['id'];
+      // raid 美妹付费
+      if (isset($_POST['raid'])) {
+        $goods = '美妹付费';
+        $attachArr['uid'] = $_SESSION['userinfo']['id'];
+        $attachArr['raid'] = $_POST['raid'];
+        $attachArr['type'] = $_POST['type'];
+      } else {
+        $goods = '账户充值';
+        $attachArr['uid'] = $_SESSION['userinfo']['id'];
+        $attachArr['raid'] = 0;
+        $attachArr['type'] = 0;
+      }
+      $attach = serialize($attachArr);
       // 统一下单
       $jsApiParameters = $this->wechat->JsApiPay($openid,$goods,$orderid,$money,$attach);
       echo $jsApiParameters;
@@ -78,7 +88,7 @@ class accountCtrl extends baseCtrl{
 
         //获取服务器返回的数据
         $order_sn = $data['out_trade_no'];  //订单单号
-        $uid = $data['attach'];        //附加参数,选择传递订单ID
+        $attach = unserialize($data['attach']);        //附加参数,选择传递订单ID
         $openid = $data['openid'];          //付款人openID
         $total_fee = $data['total_fee'];    //付款金额
 
@@ -90,7 +100,7 @@ class accountCtrl extends baseCtrl{
           // 测试充值金额
           $total_fee = bcadd($total_fee, conf::get('TEST_MONEY','wechat'));
           // 查询当前用户详细信息
-          $data = $this->udb->getidInfo($uid);
+          $data = $this->udb->getidInfo($attach['uid']);
           // 普通用户充值计算提成
           if ($data['type'] != 1 && $data['pid'] != 0) {
             // 获取总代理提成百分比
@@ -109,14 +119,16 @@ class accountCtrl extends baseCtrl{
 
           // 写入充值数据表
           $rrData = array();
-          $rrData['uid'] = $uid;
+          $rrData['uid'] = $attach['uid'];
           $rrData['pid'] = $data['pid'];
+          $rrData['raid'] = $attach['raid'];
           $rrData['orderid'] = $order_sn;
           $rrData['money'] = $total_fee;
           $rrData['general_agency_money'] = $general_agency_money;
           $rrData['agent_money'] = $agent_money;
           $rrData['agency_money'] = $agency_money;
           $rrData['ctime'] = time();
+          $rrData['type'] = $attach['type'];
           $res = $this->rrdb->add($rrData);
           if ($res) {
             // 累加用户金币
@@ -130,7 +142,7 @@ class accountCtrl extends baseCtrl{
             // 更新数据
             $upData['residue'] = $residue;
             // 更新用户金币
-            $this->udb->save($uid,$upData);
+            $this->udb->save($attach['uid'],$upData);
             // 利润分配
             if ($data['type'] != 1 && $data['pid'] != 0) {
               // 用户信息
