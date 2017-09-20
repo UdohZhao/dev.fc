@@ -100,8 +100,6 @@ class accountCtrl extends baseCtrl{
         $raid = $attachArr[1];
         $type = $attachArr[2];
 
-        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$uid.PHP_EOL,FILE_APPEND);
-
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
         if (!$res) {
@@ -110,7 +108,7 @@ class accountCtrl extends baseCtrl{
           // 测试充值金额
           $total_fee = bcadd($total_fee, conf::get('TEST_MONEY','wechat'));
           // 查询当前用户详细信息
-          $data = $this->udb->getidInfo($attach['uid']);
+          $data = $this->udb->getidInfo($uid);
           // 普通用户充值计算提成
           if ($data['type'] != 1 && $data['pid'] != 0) {
             // 获取总代理提成百分比
@@ -129,16 +127,16 @@ class accountCtrl extends baseCtrl{
 
           // 写入充值数据表
           $rrData = array();
-          $rrData['uid'] = $attach['uid'];
+          $rrData['uid'] = $uid;
           $rrData['pid'] = $data['pid'];
-          $rrData['raid'] = $attach['raid'];
+          $rrData['raid'] = $raid;
           $rrData['orderid'] = $order_sn;
           $rrData['money'] = $total_fee;
           $rrData['general_agency_money'] = $general_agency_money;
           $rrData['agent_money'] = $agent_money;
           $rrData['agency_money'] = $agency_money;
           $rrData['ctime'] = time();
-          $rrData['type'] = $attach['type'];
+          $rrData['type'] = $type;
           $res = $this->rrdb->add($rrData);
           if ($res) {
             // 累加用户金币
@@ -152,7 +150,7 @@ class accountCtrl extends baseCtrl{
             // 更新数据
             $upData['residue'] = $residue;
             // 更新用户金币
-            $this->udb->save($attach['uid'],$upData);
+            $this->udb->save($uid,$upData);
             // 利润分配
             if ($data['type'] != 1 && $data['pid'] != 0) {
               // 用户信息
