@@ -53,8 +53,6 @@ class recreationArticleCtrl extends baseCtrl{
           $data['wechat_show'] = false;
           $data['phone_show'] = false;
         }
-        see($data);
-        die;
         // assign
         $this->assign('data',$data);
         // display

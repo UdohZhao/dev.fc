@@ -29,29 +29,28 @@
 
             {% if data.beData %}
               <div class="weui-grids">
-                  <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});">
+                  <a href="javascript:;" class="weui-grid js_grid" {% if qq_show == false %}onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/qq.png">
                     </div>
                     <div class="weui-grid__label">
-                      获取QQ号
-                      {%  %}
+                      {% if qq_show == false %}获取QQ号{% else %}{{qq_show}}{% endif %}
                     </div>
                   </a>
-                  <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(2,{{data.id}},{{data.beData.qq_money}});">
+                  <a href="javascript:;" class="weui-grid js_grid" {% if wechat_show == false %}onclick="getInfo(2,{{data.id}},{{data.beData.wecaht_money}});"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/wechat.png">
                     </div>
                     <div class="weui-grid__label">
-                      获取微信号
+                      {% if qq_show == false %}获取微信号{% else %}{{wechat_show}}{% endif %}
                     </div>
                   </a>
-                  <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(3,{{data.id}},{{data.beData.qq_money}});">
+                  <a href="javascript:;" class="weui-grid js_grid" {% if phone_show == false %}onclick="getInfo(3,{{data.id}},{{data.beData.phone_money}});"{% endif %}>
                     <div class="weui-grid__icon">
                       <img src="{{appsPath}}/recreationArticle/img/phone.png">
                     </div>
                     <div class="weui-grid__label">
-                      获取手机号
+                      {% if qq_show == false %}获取手机号{% else %}{{phone_show}}{% endif %}
                     </div>
                   </a>
               </div>
