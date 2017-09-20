@@ -32,6 +32,21 @@ class recreationArticleCtrl extends baseCtrl{
         $data['beData'] = $this->bedb->getCorrelation($data['id']);
         // 读取当前用户是否已经付费查看QQ号，微信号，手机号
         $data['rrData'] = $this->rrdb->getPaytype($data['id'],$_SESSION['userinfo']['id']);
+        if ($data['rrData']) {
+          foreach ($data['rrData'] AS $k => $v) {
+            if ($v == 1) {
+              $data['qq_show'] = $data['beData']['qq'];
+            } else if ($v == 2) {
+              $data['wechat_show'] = $data['beData']['wechat'];
+            } else if ($v == 3) {
+              $data['phone_show'] = $data['beData']['phone'];
+            }
+          }
+        } else {
+          $data['qq_show'] = false;
+          $data['wechat_show'] = false;
+          $data['phone_show'] = false;
+        }
         see($data);
         die;
         // assign
