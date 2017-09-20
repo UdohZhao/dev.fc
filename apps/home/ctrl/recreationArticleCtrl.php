@@ -26,9 +26,7 @@ class recreationArticleCtrl extends baseCtrl{
     if (IS_GET === true) {
         // 读取详细信息
         $data = $this->db->getInfo($this->id);
-        foreach ($data AS $k => $v) {
-          $data[$k]['beData'] = $this->bedb->getCorrelation($v['id']);
-        }
+        $data['beData'] = $this->bedb->getCorrelation($data['id']);
         // assign
         $this->assign('data',$data);
         // display
