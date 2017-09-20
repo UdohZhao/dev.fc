@@ -94,8 +94,6 @@ class accountCtrl extends baseCtrl{
         $openid = $data['openid'];          //付款人openID
         $total_fee = $data['total_fee'];    //付款金额
 
-        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach.PHP_EOL,FILE_APPEND);
-
         // 字符串转换成数组 ，uid，raid，type
         $attachArr = explode(',', $attach);
         $attach['uid'] = $attachArr[0];
@@ -103,8 +101,6 @@ class accountCtrl extends baseCtrl{
         $attach['type'] = $attachArr[2];
 
         file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['uid'].PHP_EOL,FILE_APPEND);
-        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['raid'].PHP_EOL,FILE_APPEND);
-        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach['type'].PHP_EOL,FILE_APPEND);
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
