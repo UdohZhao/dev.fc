@@ -48,10 +48,42 @@ class rechargeRecord extends model{
   }
 
   /**
-   * 读取相关总记录数
+   * 读取pid相关总记录数
    */
   public function totalpidRows($uid){
     return $this->count($this->table,['uid'=>$uid]);
+  }
+
+  /**
+   * 读取type相关数据
+   */
+  public function gettypeCorrelation($raid,$type,$search,$limit){
+    // sql
+    $sql = "
+        SELECT
+                *
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                raid = '$raid'
+        AND
+                type = '$type'
+        AND
+                orderid like '%$search%'
+        ORDER BY
+                ctime DESC
+        {$limit}
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
+  /**
+   * 读取type相关总记录数
+   */
+  public function totaltypeRows($raid,$type){
+    return $this->count($this->table,['raid'=>$raid,'type'=>$type]);
   }
 
 }

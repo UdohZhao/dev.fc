@@ -49,6 +49,9 @@
                         <td style="width: 15%;">{{ v.title }}</td>
                         <td style="width: 50%;">{{ v.tips }}</td>
                         <td>
+                            {% if showConfig %}
+                            <button type="button" class="btn btn-success btn-xs" onclick="payRecord({{ v.id }});">付费记录</button>
+                            {% endif %}
                             {% if v.status == 1 %}
                             <button type="button" class="btn btn-danger btn-xs" onclick="flag({{ v.id }},0);">隐藏</button>
                             {% else %}

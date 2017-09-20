@@ -65,7 +65,8 @@ class buyHouseCatagory extends model{
                 rcid = $id
         AND
             title like '%$search%'
-
+        ORDER BY
+                id DESC
         {$limit}
     ";
         $data = $this->query($sql)->fetchAll(2);

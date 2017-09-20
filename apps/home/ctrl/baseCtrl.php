@@ -56,7 +56,7 @@ class baseCtrl extends \core\icunji{
    * index 邀请用户专用
    */
   public function index(){
-    // Get 
+    // Get
     if (IS_GET === true) {
       // pid 父级id
       $pid = isset($_GET['pid']) ? intval($_GET['pid']) : 0;

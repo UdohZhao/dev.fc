@@ -1,0 +1,81 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content%}
+
+<div class="page animsition">
+  <div class="page-header">
+    <h1 class="page-title"># 充值管理</h1>
+  </div>
+  <div class="page-content">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">@ 美妹付费记录列表</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/admin/rechargeRecord/payRecord/raid/{{raid}}/type/{{type}}" method="post">
+          <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
+            <input type="text" class="form-control" name="search" placeholder="请输入订单编号">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
+            </span>
+          </div>
+        </form>
+        <ul class="nav nav-pills">
+          <li role="presentation" {% if type == 1 %}class="active"{% endif %}><a href="/admin/rechargeRecord/payRecord/raid/{{raid}}/type/1">QQ号付费</a></li>
+          <li role="presentation" {% if type == 2 %}class="active"{% endif %}><a href="/admin/rechargeRecord/payRecord/raid/{{raid}}/type/2">微信号付费</a></li>
+          <li role="presentation" {% if type == 3 %}class="active"{% endif %}><a href="/admin/rechargeRecord/payRecord/raid/{{raid}}/type/3">手机号付费</a></li>
+        </ul>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>订单编号</th>
+              <th>充值金额</th>
+              <th>总代理提成金额</th>
+              <th>代理商提成金额</th>
+              <th>经销商提成金额</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if data %}
+          {% for k,v in data %}
+            <tr>
+              <td>{{v.ctime|date("Y-m-d H:i")}}</td>
+              <td>{{v.orderid}}</td>
+              <td>{{v.money}}</td>
+              <td>{{v.general_agency_money}}</td>
+              <td>{{v.agent_money}}</td>
+              <td>{{v.agency_money}}</td>
+            </tr>
+          {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="4">
+                <blockquote>
+                  <p>暂无数据 :(</p>
+                </blockquote>
+              </td>
+            </tr>
+          {% endif %}
+          </tbody>
+        </table>
+
+          <div style="float: right;">
+            {% autoescape false %}
+              {{ page }}
+            {% endautoescape %}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

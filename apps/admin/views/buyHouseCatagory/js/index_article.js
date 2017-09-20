@@ -209,3 +209,8 @@ function config(id){
         show: true
     });
 }
+
+// 美妹付费记录
+function payRecord(id){
+  window.location.href = "/admin/rechargeRecord/payRecord/raid/"+id;
+}
