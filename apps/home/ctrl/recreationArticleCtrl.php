@@ -37,7 +37,7 @@ class recreationArticleCtrl extends baseCtrl{
             if ($v == 1) {
               $data['qq_show'] = $data['beData']['qq'];
             } else if ($v == 2) {
-              $data['wechat_show'] = $data['beData']['wechat'];
+              $data['wechat_show'] = $data['beData']['wecaht'];
             } else if ($v == 3) {
               $data['phone_show'] = $data['beData']['phone'];
             }
