@@ -136,8 +136,10 @@ CREATE TABLE `recharge_record`(
   `agent_money` decimal(14,2) UNSIGNED NOT NULL COMMENT '代理商提成金额',
   `agency_money` decimal(14,2) UNSIGNED NOT NULL COMMENT '经销商提成金额',
   `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
+  `type` tinyint(1) UNSIGNED NOT NULL COMMENT '类型？0>默认充值，1>查看QQ号费用，2>查看微信号费用，3>查看手机号费用',
   PRIMARY KEY (`id`),
-  KEY (`uid`)
+  KEY (`uid`),
+  KEY (`raid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 # 提现记录表
 CREATE TABLE `withdrawal_record`(

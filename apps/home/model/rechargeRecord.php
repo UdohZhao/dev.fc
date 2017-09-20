@@ -18,6 +18,13 @@ class rechargeRecord extends model{
     return $this->count($this->table,['orderid'=>$orderid]);
   }
 
+  /**
+   * 读取付费查看类型
+   */
+  public function getPaytype($raid){
+    return $this->select($this->table,'*',['raid'=>$raid]);
+  }
+
 
 }
 

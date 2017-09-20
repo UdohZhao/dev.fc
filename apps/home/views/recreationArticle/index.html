@@ -29,30 +29,92 @@
 
             {% if data.beData %}
               <div class="weui-grids">
-                <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(0,{{data.id}},{{data.beData.qq_money}});">
-                  <div class="weui-grid__icon">
-                    <img src="{{appsPath}}/recreationArticle/img/qq.png">
-                  </div>
-                  <div class="weui-grid__label">
-                    获取QQ号
-                  </div>
-                </a>
-                <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});">
-                  <div class="weui-grid__icon">
-                    <img src="{{appsPath}}/recreationArticle/img/wechat.png">
-                  </div>
-                  <div class="weui-grid__label">
-                    获取微信号
-                  </div>
-                </a>
-                <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(2,{{data.id}},{{data.beData.qq_money}});">
-                  <div class="weui-grid__icon">
-                    <img src="{{appsPath}}/recreationArticle/img/phone.png">
-                  </div>
-                  <div class="weui-grid__label">
-                    获取手机号
-                  </div>
-                </a>
+                {% if data.rrData %}
+                    {% for k,v in data.rrData %}
+                      {% if v.type == 1 %}
+                        <a href="javascript:;" class="weui-grid js_grid">
+                          <div class="weui-grid__icon">
+                            <img src="{{appsPath}}/recreationArticle/img/qq.png">
+                          </div>
+                          <div class="weui-grid__label">
+                            {{data.qq}}
+                          </div>
+                        </a>
+                      {% else %}
+                        <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});">
+                          <div class="weui-grid__icon">
+                            <img src="{{appsPath}}/recreationArticle/img/qq.png">
+                          </div>
+                          <div class="weui-grid__label">
+                            获取QQ号
+                          </div>
+                        </a>
+                      {% endif %}
+                      {% if v.type == 2 %}
+                        <a href="javascript:;" class="weui-grid js_grid">
+                          <div class="weui-grid__icon">
+                            <img src="{{appsPath}}/recreationArticle/img/wechat.png">
+                          </div>
+                          <div class="weui-grid__label">
+                            {{data.wechat}}
+                          </div>
+                        </a>
+                      {% else %}
+                        <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(2,{{data.id}},{{data.beData.qq_money}});">
+                          <div class="weui-grid__icon">
+                            <img src="{{appsPath}}/recreationArticle/img/wechat.png">
+                          </div>
+                          <div class="weui-grid__label">
+                            <span id="show_wechat">获取微信号</span>
+                          </div>
+                        </a>
+                      {% endif %}
+                      {% if v.type == 3 %}
+                        <a href="javascript:;" class="weui-grid js_grid">
+                          <div class="weui-grid__icon">
+                            <img src="{{appsPath}}/recreationArticle/img/phone.png">
+                          </div>
+                          <div class="weui-grid__label">
+                            <span id="show_phone">{{data.phone}}</span>
+                          </div>
+                        </a>
+                      {% else %}
+                        <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(3,{{data.id}},{{data.beData.qq_money}});">
+                          <div class="weui-grid__icon">
+                            <img src="{{appsPath}}/recreationArticle/img/phone.png">
+                          </div>
+                          <div class="weui-grid__label">
+                            <span id="show_phone">获取手机号</span>
+                          </div>
+                        </a>
+                      {% endif %}
+                    {% endfor %}
+                {% else %}
+                  <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(1,{{data.id}},{{data.beData.qq_money}});">
+                    <div class="weui-grid__icon">
+                      <img src="{{appsPath}}/recreationArticle/img/qq.png">
+                    </div>
+                    <div class="weui-grid__label">
+                      <span id="show_qq">获取QQ号</span>
+                    </div>
+                  </a>
+                  <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(2,{{data.id}},{{data.beData.qq_money}});">
+                    <div class="weui-grid__icon">
+                      <img src="{{appsPath}}/recreationArticle/img/wechat.png">
+                    </div>
+                    <div class="weui-grid__label">
+                      <span id="show_wechat">获取微信号</span>
+                    </div>
+                  </a>
+                  <a href="javascript:;" class="weui-grid js_grid" onclick="getInfo(3,{{data.id}},{{data.beData.qq_money}});">
+                    <div class="weui-grid__icon">
+                      <img src="{{appsPath}}/recreationArticle/img/phone.png">
+                    </div>
+                    <div class="weui-grid__label">
+                      <span id="show_phone">获取手机号</span>
+                    </div>
+                  </a>
+                {% endif %}
               </div>
             {% endif %}
 
