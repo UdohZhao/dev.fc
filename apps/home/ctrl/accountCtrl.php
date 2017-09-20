@@ -102,11 +102,14 @@ class accountCtrl extends baseCtrl{
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$res.PHP_EOL,FILE_APPEND);
         if (!$res) {
           // 获取实际充值金额
           $total_fee = bcdiv($total_fee, 100, 2);
           // 测试充值金额
           $total_fee = bcadd($total_fee, conf::get('TEST_MONEY','wechat'));
+          // 这句file_put_contents是用来查看服务器返回的XML数据 测试完可以删除了
+          file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$total_fee.PHP_EOL,FILE_APPEND);
           // 查询当前用户详细信息
           $data = $this->udb->getidInfo($uid);
           // 普通用户充值计算提成
