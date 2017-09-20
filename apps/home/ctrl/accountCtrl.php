@@ -94,11 +94,15 @@ class accountCtrl extends baseCtrl{
         $openid = $data['openid'];          //付款人openID
         $total_fee = $data['total_fee'];    //付款金额
 
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attach.PHP_EOL,FILE_APPEND);
+
         // 字符串转换成数组 ，uid，raid，type
         $attachArr = explode(',', $attach);
         $attach['uid'] = $attachArr[0];
         $attach['raid'] = $attachArr[1];
         $attach['type'] = $attachArr[2];
+
+        file_put_contents(ICUNJI."/vendor/wxpay/wxlogs/ok.log",$attachArr.PHP_EOL,FILE_APPEND);
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
