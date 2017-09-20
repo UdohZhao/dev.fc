@@ -42,21 +42,21 @@
                             <span class="text-danger">{隐藏}</span>
                             {% endif %}
                         </td>
-                       
+
                         <td>{{ v.cname }}</td>
-                       
+
                         <td>{{ v.sort }}</td>
                         <td>
                     <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">修改</button>
                     <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">删除</button>
 
                             {% if v.pid == 0 %}
-                            <button type="button" class="btn btn-primary btn-xs" onclick="add({{ v.id }});">添加内容</button>          
+                            <button type="button" class="btn btn-primary btn-xs" onclick="add({{ v.id }});">添加内容</button>
                             <button type="button" class="btn btn-primary btn-xs" onclick="view_next({{ v.id }});">查看内容</button>
 
                             {% endif %}
-                        
-  
+
+
                             {% if v.status == 1 %}
                             <button type="button" class="btn btn-danger btn-xs" onclick="flag({{ v.id }},0);">隐藏</button>
                             {% else %}

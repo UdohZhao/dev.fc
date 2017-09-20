@@ -1,11 +1,15 @@
+$(function(){
 
-function withdrawal(id,status){
+});
+
+// 成功 & 失败
+function commonality(id,status){
     var title;
     // status
     if (status == 2) {
-        title = "确认同意提现吗？";
+        title = "确认转账成功吗？";
     } else {
-        title = "确认不同意提现吗？";
+        title = "确认转账失败吗？";
     }
     swal({
             title: title,
@@ -22,16 +26,15 @@ function withdrawal(id,status){
                 // Ajax
                 $.ajax({
                     type: "POST",
-                    url: "/admin/withdrawalRecord/status/id/" +id,
-                    data: {status:status},
+                    url: "/admin/withdrawalRecord/commonality/id/" +id+"/status/"+status,
                     dataType: "JSON",
                     success: function(res){
-                        // res
-                        if (res === true) {
-                            swal("提交成功", "当前操作已发生改变 :)", "success");
-                            setTimeout("window.location.reload();",2000);
+                        console.log(res);
+                        if (res.code == 400) {
+                            swal("提交失败", res.msg, "error");
                         } else {
-                            swal("提交失败", "请刷新页面后重试 :(", "error");
+                            swal("提交成功", res.msg, "success");
+                            setTimeout("window.location.reload();",2000);
                         }
                     },
                     error: function(e){

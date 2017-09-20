@@ -15,15 +15,20 @@
       <div class="panel-heading">
         <h3 class="panel-title">@ 提现记录列表</h3>
       </div>
-      <form action="/admin/withdrawalRecord/index/id/{{id}}" method="post">
-        <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
-          <input type="text" class="form-control" name="search" placeholder="请输入订单编号">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
-          </span>
-        </div>
-      </form>
       <div class="panel-body">
+         <form action="/admin/withdrawalRecord/index/uid/{{uid}}/status/{{status}}" method="post">
+          <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
+            <input type="text" class="form-control" name="search" placeholder="请输入订单编号">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
+            </span>
+          </div>
+        </form>
+        <ul class="nav nav-pills">
+          <li role="presentation" {% if status == 0 %}class="active"{% endif %} ><a href="/admin/withdrawalRecord/index/uid/{{uid}}/status/0">默认</a></li>
+          <li role="presentation" {% if status == 1 %}class="active"{% endif %} ><a href="/admin/withdrawalRecord/index/uid/{{uid}}/status/1">失败</a></li>
+          <li role="presentation" {% if status == 2 %}class="active"{% endif %} ><a href="/admin/withdrawalRecord/index/uid/{{uid}}/status/2">成功</a></li>
+        </ul>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -38,22 +43,20 @@
           {% if data %}
           {% for k,v in data %}
             <tr>
-            {% if v.status == 0 %}
-              <td>默认</td>
-		        {% elseif v.status == 1 %}
-			        <td class="text-danger">失败</td>
+            {% if status == 0 %}
+              <td>{默认}</td>
+		        {% elseif status == 1 %}
+			        <td class="text-danger">{失败}</td>
 		      	{% else %}
-			        <td class="text-success">成功</td>
-		      	{% endif %}    
+			        <td class="text-success">{成功}</td>
+		      	{% endif %}
               <td>{{v.orderid}}</td>
               <td>{{v.money}}</td>
               <td>{{v.ctime|date("Y-m-d H:i")}}</td>
-            {% if v.status==0 %}
+            {% if status == 0 %}
               <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="withdrawal({{ v.id }},2);">同意</button>
-              </td>
-              <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="withdrawal({{ v.id }},1);">拒绝</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{ v.id }},2);">成功</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{ v.id }},1);">失败</button>
               </td>
             {% endif %}
             </tr>

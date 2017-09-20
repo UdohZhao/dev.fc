@@ -2,27 +2,33 @@
 namespace apps\admin\ctrl;
 use core\lib\conf;
 use apps\admin\model\buyHouseCatagory;
+use apps\admin\model\belleExtend;
 use vendor\page\Page;
 class buyHouseCatagoryCtrl extends baseCtrl{
     public $db;
+    public $bedb;
     public $id;
     public $pid;
     // 构造方法
     public function _auto(){
-      
+
             if (isset($_SESSION['userinfo']) == null) {
             echo "<script>window.location.href='/admin/login/index'</script>";
             die;
         }
         $this->db = new buyHouseCatagory();
+        $this->bedb = new belleExtend();
         $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        if ($this->id == 1) {
+            $this->assign('showConfig',true);
+        }
     }
 
     // 添加娱乐页面
     public function add(){
         // Get
 
-        if (IS_GET === true) {   
+        if (IS_GET === true) {
             // id
             if ($this->id) {
                 // var_dump($this->id);
@@ -40,7 +46,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
             // data
             $data = $this->getData();
             // id
-            
+
             if ($this->id) {
                 $res = $this->db->save($this->id,$data);
             } else {
@@ -55,27 +61,27 @@ class buyHouseCatagoryCtrl extends baseCtrl{
                 die;
             }
         }
-        
+
     }
     public function and(){
-         if (IS_GET === true) {   
+         if (IS_GET === true) {
             // id
             if($this->id){
                 $this->assign('id',$this->id);
                $this->display('buyHouseCatagory','add_article.html');
             }
             // display
-            
+
         }
-       
+
       // Ajax
     if (IS_AJAX === true) {
-      // data  
+      // data
 
       $data = $this->getDat();
-        
+
       if($_POST['rcid']){
-        
+
         $res = $this->db->saves($this->id,$data);
       }else{
         // 写入数据表
@@ -91,7 +97,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     }
     }
     // 修改初始化休闲娱乐文章表
-    
+
     // 初始化休闲娱乐文章表
     private function getDat(){
         $data = array();
@@ -120,7 +126,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         $data['status'] = 1;
     return $data;
       }
-      
+
     // 初始化休闲娱乐类别表
     private function getData(){
         // data
@@ -131,7 +137,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         return $data;
     }
 
-    // 房类别列表页面
+    // 休闲娱乐类别列表页面
     public function index(){
         if($this->id){
              // search
@@ -141,10 +147,14 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         // 数据分页
         $page = new Page($cou,conf::get('LIMIT','admin'));
         $data = $this->db->check($this->id,$search,$page->limit);
-            
-            $this->assign('id',$this->id);
-            $this->assign('page',$page->showpage());
-            $this->assign('data',$data);
+        // if ($this->id == 1) {
+        //     foreach ($data AS $k => $v) {
+        //         $data[$k]['beData'] = $this->bedb->getInfo($v['id']);
+        //     }
+        // }
+        $this->assign('id',$this->id);
+        $this->assign('page',$page->showpage());
+        $this->assign('data',$data);
         $this->display('buyHouseCatagory','index_article.html');
         die;
         }else{
@@ -152,23 +162,22 @@ class buyHouseCatagoryCtrl extends baseCtrl{
         $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
         // 总记录数
         $cou = $this->db->cou();
-       
+
         // 数据分页
         $page = new Page($cou,conf::get('LIMIT','admin'));
         // 结果集
         $data = $this->db->sel($search,$page->limit);
-        
+
         // assign
         $this->assign('data',$data);
         $this->assign('page',$page->showpage());
         // display
-
         $this->display('buyHouseCatagory','index.html');
         die;
     }
 
     }
-  
+
     // flag展示 隐藏(顶级)
     public function flag(){
         // Ajax
@@ -207,7 +216,7 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     public function dle(){
         if (IS_AJAX === true) {
         $res = $this->db->dle($this->id);
-         if($res) {    
+         if($res) {
             echo json_encode(true);
             die;
           } else {
@@ -223,14 +232,14 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     if (IS_AJAX === true) {
       // 读取下级
       $res= $this->db->rcid($this->id);
-        if($res) {    
+        if($res) {
         echo json_encode(1);
         die;
       }
       // 删除
       $res = $this->db->del($this->id);
 
-     if($res) {    
+     if($res) {
         echo json_encode(true);
         die;
       } else {
@@ -245,21 +254,21 @@ class buyHouseCatagoryCtrl extends baseCtrl{
     if(IS_GET === true){
         if($this->id){
             $data = $this->db->modify($this->id);
-      
+
                 if (!file_exists(ICUNJI.$data['cover_path'])) {
                     $data['cover_path'] = '';
                 }
-                
+
             // assign
                 $this->assign('date',$data);
         }
-        
+
         $this->assign('id',$data['id']);
-      
-    
-    $this->display('buyHouseCatagory','add_article.html');  
+
+
+    $this->display('buyHouseCatagory','add_article.html');
     }
-    
+
   }
 
 

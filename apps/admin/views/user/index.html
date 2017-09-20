@@ -17,9 +17,9 @@
         <h3 class="panel-title">@ 微信用户列表</h3>
       </div>
       <div class="panel-body">
-        <form action="/admin/user/index" method="post">
+        <form action="/admin/user/index/type/{{type}}/pid/{{pid}}" method="post">
           <div class="input-group" style="width: 300px;float: right;margin-right: 30px;">
-            <input type="text" class="form-control" name="search" placeholder="请输入关键字">
+            <input type="text" class="form-control" name="search" placeholder="请输入用户昵称">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
             </span>
@@ -39,6 +39,10 @@
               <th>昵称</th>
               <th>所在地</th>
               <th>剩余金币</th>
+              {% if type %}
+              <th>姓名</th>
+              <th>手机号码</th>
+              {% endif %}
               <th>操作</th>
             </tr>
           </thead>
@@ -51,9 +55,27 @@
               <td>{{v.nickname}}</td>
               <td>{{v.country}} - {{v.province}} - {{v.city}}</td>
               <td>{{v.residue}}</td>
+              {% if type %}
+                {% if v.sData == false %}
+                <td>待完善</td>
+                <td>待完善</td>
+                {% else %}
+                <td>{{v.sData.cname}}</td>
+                <td>{{v.sData.phone}}</td>
+                {% endif %}
+              {% endif %}
               <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="edit({{ v.id }});">设置为总代理</button>
-                <button type="button" class="btn btn-default btn-xs" onclick="del({{ v.id }});">充值记录</button>
+                {% if type == 0 and v.pid == 0 %}
+                  <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{ v.id }});">设置为总代理</button>
+                {% endif %}
+                {% if v.sData == false and type != 0 %}
+                  <button type="button" class="btn btn-primary btn-xs" onclick="staffs({{ v.id }});">完善个人信息</button>
+                {% endif %}
+                {% if type %}
+                  <button type="button" class="btn btn-primary btn-xs" onclick="grade({{type}},{{ v.id }});">下级用户</button>
+                  <button type="button" class="btn btn-success btn-xs" onclick="withdrawal({{ v.id }});">提现记录</button>
+                {% endif %}
+                <button type="button" class="btn btn-success btn-xs" onclick="recharge({{ v.id }});">充值记录</button>
               </td>
             </tr>
           {% endfor %}
@@ -79,8 +101,41 @@
 </div>
 <!-- End Page -->
 
+<!-- 完善个人信息 Modal -->
+<div id="staffsModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">@ 完善个人信息</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="staffsForm" method="post">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="cname" placeholder="请输入用户真实姓名">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">手机号码</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="phone" placeholder="请输入手机号码">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">提 交</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {% endblock %}
 
 {% block js %}
-
+<script src="{{appsPath}}/user/js/index.js"></script>
 {% endblock %}
