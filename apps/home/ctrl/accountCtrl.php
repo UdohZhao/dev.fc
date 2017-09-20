@@ -43,18 +43,20 @@ class accountCtrl extends baseCtrl{
       $orderid = createIn();
       $money = bcmul($_POST['money'], 100, 0);
       // raid 美妹付费
-      if (isset($_POST['raid'])) {
+      if (isset($_POST['raid']) && isset($_POST['type'])) {
         $goods = '美妹付费';
-        $attachArr['uid'] = $_SESSION['userinfo']['id'];
-        $attachArr['raid'] = $_POST['raid'];
-        $attachArr['type'] = $_POST['type'];
+        $uid = $_SESSION['userinfo']['id'];
+        $raid = $_POST['raid'];
+        $type = $_POST['type'];
+        $attachStr = "$uid,$raid,$type";
       } else {
         $goods = '账户充值';
-        $attachArr['uid'] = $_SESSION['userinfo']['id'];
-        $attachArr['raid'] = 0;
-        $attachArr['type'] = 0;
+        $uid = $_SESSION['userinfo']['id'];
+        $raid = 0;
+        $type = 0;
+        $attachStr = "$uid,$raid,$type";
       }
-      $attach = serialize($attachArr);
+      $attach = $attachStr;
       // 统一下单
       $jsApiParameters = $this->wechat->JsApiPay($openid,$goods,$orderid,$money,$attach);
       echo $jsApiParameters;
@@ -88,9 +90,15 @@ class accountCtrl extends baseCtrl{
 
         //获取服务器返回的数据
         $order_sn = $data['out_trade_no'];  //订单单号
-        $attach = unserialize($data['attach']);        //附加参数,选择传递订单ID
+        $attach = $data['attach'];        //附加参数,选择传递订单ID
         $openid = $data['openid'];          //付款人openID
         $total_fee = $data['total_fee'];    //付款金额
+
+        // 字符串转换成数组 ，uid，raid，type
+        $attachArr = explode(',', $attach);
+        $attach['uid'] = $attachArr[0];
+        $attach['raid'] = $attachArr[1];
+        $attach['type'] = $attachArr[2];
 
         // 查询充值订单已经存在就不做处理
         $res = $this->rrdb->getOrderid($order_sn);
