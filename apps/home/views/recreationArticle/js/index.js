@@ -5,7 +5,7 @@ $(function(){
 // 获取信息
 function getInfo(type,id,monery){
   console.log(type,id,monery);
-  var msg;
+  var msg = '';
   if (type == 0) {
     msg = "获取美妹QQ号仅需¥".monery;
   } else if (type == 1) {
