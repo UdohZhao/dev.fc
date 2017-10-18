@@ -41,7 +41,7 @@ class rechargeRecord extends model{
         AND
                 orderid like '%$search%'
         ORDER BY
-                citme DESC
+                ctime DESC
         {$limit}
   	";
   	return $this->query($sql)->fetchAll(2);
