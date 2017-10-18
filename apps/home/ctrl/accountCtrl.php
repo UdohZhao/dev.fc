@@ -110,7 +110,7 @@ class accountCtrl extends baseCtrl{
           // 查询当前用户详细信息
           $data = $this->udb->getidInfo($uid);
           // 普通用户充值计算提成
-          if ($data['type'] == 0 && $data['pid'] != 0) {
+          if ($data['type'] != 0 && $data['pid'] != 0) {
             // 获取经销商提成百分比
             $agency_percent = bcdiv(conf::get('AGENCY_PERCENT','wechat'), 100, 2);
             // 获取代理商提成百分比
@@ -149,7 +149,7 @@ class accountCtrl extends baseCtrl{
             // 更新用户金币
             $this->udb->save($uid,$upData);
             // 利润分配
-            if ($data['type'] == 0 && $data['pid'] != 0) {
+            if ($data['type'] != 0 && $data['pid'] != 0) {
               // 用户信息
               $userinfoData = array();
               // 获取经销商用户信息

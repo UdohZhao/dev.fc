@@ -92,7 +92,7 @@ class staffsCtrl extends baseCtrl{
     } else if ($_SESSION['userinfo']['type'] == 2) {
       $type = 3;
     } else if ($_SESSION['userinfo']['type'] == 3) {
-      $type = 0;
+      $type = 3;
     }
     $data = isHttps() . '/base/index/pid/' . $_SESSION['userinfo']['id'] .'/type/' . $type;
     $level = 'L';// 纠错级别：L、M、Q、H
