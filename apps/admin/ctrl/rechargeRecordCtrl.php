@@ -10,10 +10,6 @@ class rechargeRecordCtrl extends baseCtrl{
   public $uid;
   public $raid;
 	public function _auto(){
-		if (isset($_SESSION['userinfo']) == null) {
-            echo "<script>window.location.href='/admin/login/index'</script>";
-            die;
-        }
 		 $this->db = new rechargeRecord();
 		 $this->type = isset($_GET['type']) ? intval($_GET['type']) : 0;
      $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;

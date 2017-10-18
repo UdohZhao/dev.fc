@@ -30,9 +30,9 @@
               <th>#</th>
               <th>订单编号</th>
               <th>充值金额</th>
-              <th>总代理提成金额</th>
-              <th>代理商提成金额</th>
-              <th>经销商提成金额</th>
+              <!-- <th>总代理提成金额</th> -->
+              <th>一级代理商提成</th>
+              <th>二级分销商提成</th>
             </tr>
           </thead>
           <tbody>
@@ -42,9 +42,9 @@
               <td>{{v.ctime|date("Y-m-d H:i")}}</td>
               <td>{{v.orderid}}</td>
               <td>{{v.money}}</td>
-              <td>{{v.general_agency_money}}</td>
-              <td>{{v.agent_money}}</td>
+              <!-- <td>{{v.general_agency_money}}</td> -->
               <td>{{v.agency_money}}</td>
+              <td>{{v.agent_money}}</td>
             </tr>
           {% endfor %}
           {% else %}
