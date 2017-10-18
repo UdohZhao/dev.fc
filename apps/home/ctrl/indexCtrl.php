@@ -42,7 +42,7 @@ class indexCtrl extends baseCtrl{
       foreach ($data['atype1'] AS $k => $v) {
         $data['atype1'][$k]['comments'] = $this->acdb->getcCount($v['id']);
       }
-      // assign 
+      // assign
       $this->assign('data',$data);
       // display
       $this->display('index','index.html');
@@ -52,7 +52,7 @@ class indexCtrl extends baseCtrl{
 
   // 文章详细
   public function detail(){
-    // Get 
+    // Get
     if (IS_GET === true) {
       // 读取当前用户信息
       $userinfo = $this->udb->getidInfo($_SESSION['userinfo']['id']);
@@ -67,7 +67,7 @@ class indexCtrl extends baseCtrl{
           $data['apData']['content'] = substr_replace($data['apData']['content'], '', stripos($data['apData']['content'], '{vip}'));
           // 获取当前用户剩余金币
           $residue = $this->udb->getResidue($_SESSION['userinfo']['id']);
-          // assign 
+          // assign
           $this->assign('residue',$residue);
           // 显示兑换金币按钮
           $this->assign('show',true);
@@ -88,14 +88,14 @@ class indexCtrl extends baseCtrl{
       }
       // assign
       $this->assign('data',$data);
-      // display 
+      // display
       $this->display('index','detail.html');
     }
   }
 
   // 文章点赞
   public function likes(){
-    // Ajax 
+    // Ajax
     if (IS_AJAX === true) {
       // 点赞数+1
       $likes = bcadd($_POST['likes'], 1, 0);
@@ -107,7 +107,7 @@ class indexCtrl extends baseCtrl{
 
   // 留言点赞
   public function acLikes(){
-    // Ajax 
+    // Ajax
     if (IS_AJAX === true) {
       // 点赞数+1
       $likes = bcadd($_POST['likes'], 1, 0);
@@ -119,15 +119,15 @@ class indexCtrl extends baseCtrl{
 
   /**
    * 查看更多
-   */ 
+   */
   public function indexAll(){
     // 读取行业动态OR赌石技巧
     $data = $this->apdb->getAll($this->atype);
-    // assign 
+    // assign
     $this->assign('data',$data);
-    // display 
+    // display
     $this->display('index','indexAll.html');
     die;
-  } 
+  }
 
 }
