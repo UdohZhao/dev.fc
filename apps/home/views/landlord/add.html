@@ -1,0 +1,66 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/landlord/css/add.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- 头部图标 -->
+<div class="weui-flex">
+  <div class="weui-flex__item">
+    <div class="landlord-header">
+      <img src="{{appsPath}}/landlord/img/landlord.png">
+    </div>
+  </div>
+</div>
+
+<!-- 表单 -->
+<form id="landlordForm" action="/landlord/add" method="post">
+<div class="weui-cells weui-cells_form">
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">手机号码</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="phone" type="number" pattern="[0-9]*" placeholder="请输入手机号码" value="{{data.phone}}" {% if data %}readonly="readonly"{% endif %}>
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="cname" type="text" placeholder="请输入姓名" value="{{data.cname}}" {% if data %}readonly="readonly"{% endif %}>
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="id_card" type="text" placeholder="请输入身份证号码" value="{{data.id_card}}" {% if data %}readonly="readonly"{% endif %}>
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">所在城市</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="city" type="text" placeholder="请输入目前所在城市" value="{{data.city}}" {% if data %}readonly="readonly"{% endif %}>
+    </div>
+  </div>
+</div>
+</form>
+
+<!-- 成为地主按钮 -->
+<div class="weui-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder form-btn">
+      {% if data %}
+        <p class="text-danger">您已经成为地主 ～</p>
+      {% else %}
+        <button type="button" class="weui-btn weui-btn_warn" onclick="become();">成 为 地 主</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/landlord/js/add.js"></script>
+{% endblock %}
+

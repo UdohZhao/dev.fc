@@ -24,6 +24,7 @@ CREATE TABLE `user`(
   `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态？0>未申请提现，1>已申请提现',
   `code_status` tinyint(1) UNSIGNED NOT NULL COMMENT '编码状态？0>未使用，1>已使用',
   `pay_status` tinyint(1) UNSIGNED NOT NULL COMMENT '充值状态？0>未使用，1>已使用',
+  `landlord_status` tinyint(1) UNSIGNED NOT NULL COMMENT '地主状态？0>默认，1>地主',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 # 职员信息表
@@ -146,13 +147,37 @@ CREATE TABLE `withdrawal_record`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '提现记录表主键id',
   `uid` int(11) UNSIGNED NOT NULL COMMENT '关联用户表主键id',
   `orderid` varchar(64) NOT NULL COMMENT '订单编号',
+  `deposit_bank` varchar(25) NOT NULL COMMENT '开户银行',
+  `card_number` varchar(25) NOT NULL COMMENT '开户卡号',
   `money` decimal(14,2) UNSIGNED NOT NULL COMMENT '提现金额',
   `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
   `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态？0>默认，1>失败，2>成功',
   PRIMARY KEY (`id`),
   KEY (`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+# 提现配置表
+CREATE TABLE `withdrawal_config`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '提现配置表主键id',
+  `uid` int(11) UNSIGNED NOT NULL COMMENT '关联用户表主键id',
+  `deposit_bank` varchar(25) NOT NULL COMMENT '开户银行',
+  `card_number` varchar(25) NOT NULL COMMENT '开户卡号',
+  `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`),
+  KEY (`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# 地主信息表
+CREATE TABLE `landlord`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '职员信息表主键id',
+  `uid` int(11) UNSIGNED NOT NULL COMMENT '关联用户表主键id',
+  `pid` int(11) UNSIGNED DEFAULT 0 COMMENT '父级id',
+  `phone` char(11) NOT NULL COMMENT '手机号码',
+  `cname` varchar(25) NOT NULL COMMENT '姓名',
+  `id_card` varchar(25) NOT NULL COMMENT '身份证号码',
+  `city` varchar(25) NOT NULL COMMENT '所在城市',
+  `ctime` int(10) UNSIGNED NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`),
+  KEY (`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

@@ -22,20 +22,20 @@ class articleComment extends model{
      * 读取相关数据
      */
     public function getCorrelation($apid){
-        // sql 
+        // sql
         $sql = "
-            SELECT 
+            SELECT
                     *
-            FROM 
+            FROM
                     `$this->table`
-            WHERE 
+            WHERE
                     1 = 1
-            AND 
+            AND
                     apid = '$apid'
-            AND 
-                    status = '1' 
-            ORDER BY 
-                    likes DESC                               
+            AND
+                    status = '1'
+            ORDER BY
+                    likes DESC
         ";
         return $this->query($sql)->fetchAll(2);
     }

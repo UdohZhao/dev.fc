@@ -1,0 +1,15 @@
+.landlord-header img{
+  width: 100%;
+}
+.placeholder{
+  margin: 5px;
+  padding: 0 10px;
+  height: 2.3em;
+  line-height: 2.3em;
+  text-align: center;
+}
+.form-btn{
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+

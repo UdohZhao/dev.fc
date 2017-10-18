@@ -1,0 +1,142 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/user/css/index.css">
+{% endblock %}
+
+{% block content %}
+<!-- 容器 -->
+<div class="weui-tab">
+  <div class="weui-navbar">
+    <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+      一级
+    </a>
+    <a class="weui-navbar__item" href="#tab2">
+      二级
+    </a>
+  </div>
+  <div class="weui-tab__bd">
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+      {% if data.oneGrade %}
+      <header class="demos-header">
+        <h1 class="demos-title">我的下线</h1>
+      </header>
+      {% for k,v in data.oneGrade %}
+      <div class="weui-form-preview tape-out-box">
+        <div class="weui-form-preview__hd">
+          <label class="weui-form-preview__label">累计充值</label>
+          <em class="weui-form-preview__value ">¥{{v.rechargeMoney.total}}</em>
+        </div>
+        <div class="weui-form-preview__hd">
+          <label class="weui-form-preview__label">我的收益</label>
+          <em class="weui-form-preview__value ">¥{{v.royaltiesMoney.total}}</em>
+        </div>
+        <div class="weui-form-preview__bd">
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">头像</label>
+            <span class="weui-form-preview__value">
+              <img src="{{v.headimgurl}}" class="img-circle head-img">
+            </span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">昵称</label>
+            <span class="weui-form-preview__value">{{v.nickname}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">城市</label>
+            <span class="weui-form-preview__value">
+            {% if v.province %}
+              {{v.province}} - {{v.city}}
+            {% else %}
+                暂无记录
+            {% endif %}
+            </span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">当前身份</label>
+            <span class="weui-form-preview__value">
+              {% if v.landlord_status == 1 %}
+                <p class="text-warning">地主身份</p>
+              {% else %}
+                <p class="text-success">普通用户身份</p>
+              {% endif %}
+            </span>
+          </div>
+        </div>
+        <div class="weui-form-preview__ft">
+          <button type="button" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" onclick="examine({{v.id}},0);">查看充值记录</button>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <header class="demos-header">
+        <h1 class="demos-title">暂无数据 ～</h1>
+      </header>
+      {% endif %}
+    </div>
+    <div id="tab2" class="weui-tab__bd-item">
+      {% if data.twoGrade %}
+      <header class="demos-header">
+        <h1 class="demos-title">我的下线</h1>
+      </header>
+      {% for k,v in data.twoGrade %}
+      <div class="weui-form-preview tape-out-box">
+        <div class="weui-form-preview__hd">
+          <label class="weui-form-preview__label">累计充值</label>
+          <em class="weui-form-preview__value ">¥{{v.rechargeMoney.total}}</em>
+        </div>
+        <div class="weui-form-preview__hd">
+          <label class="weui-form-preview__label">我的收益</label>
+          <em class="weui-form-preview__value ">¥{{v.royaltiesMoney.total}}</em>
+        </div>
+        <div class="weui-form-preview__bd">
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">头像</label>
+            <span class="weui-form-preview__value">
+              <img src="{{v.headimgurl}}" class="img-circle head-img">
+            </span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">昵称</label>
+            <span class="weui-form-preview__value">{{v.nickname}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">城市</label>
+            <span class="weui-form-preview__value">
+            {% if v.province %}
+              {{v.province}} - {{v.city}}
+            {% else %}
+                暂无记录
+            {% endif %}
+            </span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">当前身份</label>
+            <span class="weui-form-preview__value">
+              {% if v.landlord_status == 1 %}
+                <p class="text-warning">地主身份</p>
+              {% else %}
+                <p class="text-success">普通用户身份</p>
+              {% endif %}
+            </span>
+          </div>
+        </div>
+        <div class="weui-form-preview__ft">
+          <button type="button" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" onclick="examine({{v.id}},1);">查看充值记录</button>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <header class="demos-header">
+        <h1 class="demos-title">暂无数据 ～</h1>
+      </header>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/user/js/index.js"></script>
+{% endblock %}
+

@@ -10,6 +10,7 @@ class baseCtrl extends \core\icunji{
   public $wechat;
   public $udb;
   public $appsPath = '/apps/home/views';
+  public $userinfo;
   // 构造方法
   public function _initialize(){
     //控制器初始化
@@ -37,8 +38,10 @@ class baseCtrl extends \core\icunji{
     if (!isset($_SESSION['userinfo'])) {
       $this->wechat->getUserInfo(1,'','','');
     } else {
+      // 读取最新用户数据
+      $this->userinfo = $this->udb->getidInfo($_SESSION['userinfo']['id']);
       // 用户信息传入模版
-      $this->assign('userinfo',$_SESSION['userinfo']);
+      $this->assign('userinfo',$this->userinfo);
     }
     // 站点名称
     $this->assign('websiteName',conf::get('WEBSITE_NAME','admin'));

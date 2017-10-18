@@ -1,0 +1,53 @@
+body{
+  background: #f8f8f8;
+}
+a{
+  text-decoration:none!important;
+}
+.headimgurl-box{
+  border-radius: 50%;
+  width: 120px;
+  margin: 0 auto;
+  box-shadow: 0 0 0 5px rgba(243, 106, 34, .4);
+}
+.headimgurl-box img{
+  border-radius: 50%;
+}
+.placeholder{
+  margin: 5px;
+  padding: 0 10px;
+  height: 2.3em;
+  line-height: 2.3em;
+  text-align: center;
+}
+.gold-quantity{
+  color: #FC4D1A;
+}
+.landlord-flex{
+  margin-top: 30px;
+}
+.landlord-img{
+  height: 150px;
+}
+.landlord-btn{
+  margin-top: 50px;
+}
+.commission-flex{
+  margin-top: 50px;
+}
+.commission-img{
+  height: 80px;
+  width: 100px;
+}
+.commission-btn{
+  margin-top: 30px;
+}
+.friends-flex{
+  margin-top: 30px;
+}
+.friends-img{
+  width: 150px;
+}
+.friends-btn{
+  margin-top: 50px;
+}

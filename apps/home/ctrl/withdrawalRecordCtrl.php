@@ -39,4 +39,17 @@ class withdrawalRecordCtrl extends baseCtrl{
     return $data;
   }
 
+  /**
+   * 提现记录页面
+   */
+  public function index(){
+    // 读取当前用户提现记录
+    $data = $this->db->getRows($this->userinfo['id']);
+    // assign
+    $this->assign('data',$data);
+    // display
+    $this->display('withdrawalRecord','index.html');
+    die;
+  }
+
 }

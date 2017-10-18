@@ -25,6 +25,80 @@ class rechargeRecord extends model{
     return $this->select($this->table,'type',['raid'=>$raid,'uid'=>$uid]);
   }
 
+  /**
+   * SUM相关用户订单充值总额
+   */
+  public function getSumRecharge($uid){
+    // sql
+    $sql = "
+        SELECT
+                sum(money) AS total
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                uid = '$uid'
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
+  /**
+   * SUM相关用户订单提成总额
+   */
+  public function getSumRoyalties($uid){
+    // sql
+    $sql = "
+        SELECT
+                sum(agency_money) AS total
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                uid = '$uid'
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
+  /**
+   * SUM相关用户订单提成总额
+   */
+  public function getSumSecondRoyalties($uid){
+    // sql
+    $sql = "
+        SELECT
+                sum(agent_money) AS total
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                uid = '$uid'
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
+  /**
+   * 读取相关充值记录
+   */
+  public function getRows($uid){
+    // sql
+    $sql = "
+        SELECT
+                *
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                uid = '$uid'
+        ORDER BY
+                ctime DESC
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
+
 
 }
 

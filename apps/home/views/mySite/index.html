@@ -1,0 +1,95 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/mySite/css/index.css">
+{% endblock %}
+
+{% block content %}
+<div class="weui-msg">
+  <div class="weui-msg__icon-area headimgurl-box">
+    <img src="{{userinfo.headimgurl}}" class="img-responsive">
+  </div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">{{userinfo.nickname}}</h2>
+  </div>
+</div>
+
+
+<div class="weui-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <img class="commission-img" src="{{appsPath}}/mySite/img/commission.png">
+      <p>金币数：<span class="gold-quantity">${{userinfo.residue}}</span></p>
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <a href="javascript:;" class="weui-btn weui-btn_primary commission-btn" onclick="topUp();">充 值</a>
+    </div>
+  </div>
+</div>
+
+<div class="weui-flex landlord-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      {% if userinfo.landlord_status == 0 %}
+      <a href="javascript:;" class="weui-btn weui-btn_warn landlord-btn" onclick="landlord();">我要当地主</a>
+      {% else %}
+      <a href="javascript:;" class="weui-btn weui-btn_primary landlord-btn" onclick="landlord();">我是地主</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <img class="landlord-img" src="{{appsPath}}/mySite/img/landlord.png">
+    </div>
+  </div>
+</div>
+
+<div class="weui-flex commission-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <img class="commission-img" src="{{appsPath}}/mySite/img/brokerage.png">
+      <p>佣金：<span class="gold-quantity">¥{{userinfo.push_money}}</span></p>
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <a href="javascript:;" class="weui-btn weui-btn_primary commission-btn" onclick="withdrawDetails({{userinfo.landlord_status}});">提现详情</a>
+    </div>
+  </div>
+</div>
+
+<div class="weui-flex friends-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <a href="javascript:;" class="weui-btn weui-btn_primary friends-btn" onclick="littleFriends({{userinfo.landlord_status}});">小伙伴</a>
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <img class="friends-img" src="{{appsPath}}/mySite/img/friends.png">
+    </div>
+  </div>
+</div>
+
+<div class="weui-flex friends-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <img class="friends-img" src="{{appsPath}}/mySite/img/Invitation-code.png">
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder">
+      <a href="javascript:;" class="weui-btn weui-btn_primary friends-btn" onclick="share({{userinfo.landlord_status}});">邀请码</a>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/mySite/js/index.js"></script>
+{% endblock %}
+

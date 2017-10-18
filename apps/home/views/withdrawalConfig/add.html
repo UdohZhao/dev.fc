@@ -1,0 +1,64 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/withdrawalConfig/css/add.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- 头部背景 -->
+<div class="weui-flex">
+  <div class="weui-flex__item">
+    <div class="wc-header">
+      <img src="{{appsPath}}/withdrawalConfig/img/brokerage.png">
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <p class="royalties-text">¥{{userinfo.push_money}}</p>
+  </div>
+</div>
+
+<!-- 表单 -->
+<form id="landlordForm" action="/landlord/add" method="post">
+<div class="weui-cells weui-cells_form">
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">提现金额</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="money" type="number" pattern="[0-9]*" placeholder="请输入提现金额">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">开户银行</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="deposit_bank" type="text" value="{{data.deposit_bank}}" placeholder="请输入开户银行">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">开户卡号</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="card_number" type="number" pattern="[0-9]*" value="{{data.card_number}}" placeholder="请输入开户卡号">
+    </div>
+  </div>
+</div>
+</form>
+
+<!-- 申请提现按钮 -->
+<div class="weui-flex">
+  <div class="weui-flex__item">
+    <div class="placeholder form-btn">
+      <button type="button" class="weui-btn weui-btn_warn" onclick="requestWithdrawal('{{userinfo.push_money}}');">申请提现</button>
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder form-btn">
+      <button type="button" class="weui-btn weui-btn_primary" onclick="rwIndex();">提现列表</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/withdrawalConfig/js/add.js"></script>
+{% endblock %}
+

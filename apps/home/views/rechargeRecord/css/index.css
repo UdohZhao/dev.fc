@@ -1,0 +1,24 @@
+.wc-header {
+  padding: 15px;
+}
+.wc-header img{
+  width: 100%;
+}
+.royalties-text{
+  padding: 40px;
+  font-size: 27px;
+  color: #F76B10;
+}
+.demos-header{
+  padding: 35px 0;
+}
+.demos-title{
+  text-align: center;
+  font-size: 34px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.withdrawal-box{
+  margin-bottom: 20px;
+}

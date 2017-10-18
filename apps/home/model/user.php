@@ -66,7 +66,25 @@ class user extends model{
     return $this->get($this->table,'type',['id'=>$id]);
   }
 
-
+  /**
+   * 读取pid下级
+   */
+  public function getPidRows($pid){
+    // sql
+    $sql = "
+        SELECT
+                *
+        FROM
+                `$this->table`
+        WHERE
+                1 = 1
+        AND
+                pid = '$pid'
+        ORDER BY
+                id DESC
+    ";
+    return $this->query($sql)->fetchAll(2);
+  }
 
 }
 

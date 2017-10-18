@@ -1,0 +1,58 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{appsPath}}/rechargeRecord/css/index.css">
+{% endblock %}
+
+{% block content %}
+
+{% if data %}
+<!-- 标题 -->
+<header class="demos-header">
+  <h1 class="demos-title">充值记录</h1>
+</header>
+{% for k,v in data %}
+<div class="weui-form-preview withdrawal-box">
+  <div class="weui-form-preview__hd">
+    <label class="weui-form-preview__label">充值金额</label>
+    <em class="weui-form-preview__value">¥{{v.money}}</em>
+  </div>
+
+  <div class="weui-form-preview__hd">
+    <label class="weui-form-preview__label">我的收益</label>
+    <em class="weui-form-preview__value">
+      {% if type == 0 %}
+        ¥{{v.agency_money}}
+      {% else %}
+        ¥{{v.agent_money}}
+      {% endif %}
+    </em>
+  </div>
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label">订单编号</label>
+      <span class="weui-form-preview__value">{{v.orderid}}</span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label">充值时间</label>
+      <span class="weui-form-preview__value">{{v.ctime|date('Y-m-d H:i')}}</span>
+    </div>
+  </div>
+  <!-- <div class="weui-form-preview__ft">
+    <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">辅助操作</a>
+    <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">操作</button>
+  </div> -->
+</div>
+{% endfor %}
+{% else %}
+<header class="demos-header">
+  <h1 class="demos-title">暂无数据 ～</h1>
+</header>
+{% endif %}
+
+{% endblock %}
+
+{% block js %}
+<script src="{{appsPath}}/rechargeRecord/js/index.js"></script>
+{% endblock %}
+
