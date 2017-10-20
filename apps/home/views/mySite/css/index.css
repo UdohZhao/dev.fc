@@ -24,16 +24,21 @@ a{
   color: #FC4D1A;
 }
 .landlord-flex{
-  margin-top: 30px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
 }
 .landlord-img{
   height: 150px;
 }
 .landlord-btn{
-  margin-top: 50px;
+  margin-top: 20px;
+  padding: 20px;
 }
 .commission-flex{
-  margin-top: 50px;
+  margin-top: 110px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
 }
 .commission-img{
   height: 80px;
@@ -43,11 +48,18 @@ a{
   margin-top: 30px;
 }
 .friends-flex{
-  margin-top: 30px;
+  margin-top: 60px;
+  border-top: 1px solid #eee;
 }
 .friends-img{
   width: 150px;
 }
 .friends-btn{
   margin-top: 50px;
+}
+.pay-btn{
+  color: #ffffff!important;
+}
+.bottom-left-box{
+  border-right: 1px solid #eee;
 }
