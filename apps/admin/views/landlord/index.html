@@ -1,0 +1,45 @@
+{% extends "layouts.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content%}
+
+<!-- Page -->
+<div class="page animsition">
+  <div class="page-header">
+    <h1 class="page-title"># 地主身份信息</h1>
+  </div>
+  <div class="page-content">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title"></h3>
+      </div>
+      <div class="panel-body">
+        <blockquote>
+          <img src="{{appsPath}}/landlord/img/landlord.png">
+        </blockquote>
+        <blockquote>
+          <p>姓名：{{data.cname}}</p>
+        </blockquote>
+        <blockquote>
+          <p>手机号码：{{data.phone}}</p>
+        </blockquote>
+        <blockquote>
+          <p>所在城市：{{data.city}}</p>
+        </blockquote>
+        <blockquote>
+          <p>申请地主时间：{{data.ctime|date('Y-m-d H:i:s')}}</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

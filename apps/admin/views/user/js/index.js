@@ -122,3 +122,9 @@ function withdrawal(id){
   console.log(id);
   window.location.href = "/admin/withdrawalRecord/index/uid/"+id;
 }
+
+// 地主身份
+function landlord(uid){
+  console.log(uid);
+  window.location.href = "/admin/landlord/index/uid/"+uid;
+}

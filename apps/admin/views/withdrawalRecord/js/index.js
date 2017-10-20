@@ -3,7 +3,7 @@ $(function(){
 });
 
 // 成功 & 失败
-function commonality(id,status){
+function commonality(uid,id,status){
     var title;
     // status
     if (status == 2) {
@@ -26,7 +26,7 @@ function commonality(id,status){
                 // Ajax
                 $.ajax({
                     type: "POST",
-                    url: "/admin/withdrawalRecord/commonality/id/" +id+"/status/"+status,
+                    url: "/admin/withdrawalRecord/commonality/uid/"+uid+"/id/" +id+"/status/"+status,
                     dataType: "JSON",
                     success: function(res){
                         console.log(res);

@@ -4,7 +4,6 @@ use apps\admin\model\user;
 use apps\admin\model\staffs;
 use core\lib\conf;
 use vendor\page\Page;
-
 class userCtrl extends baseCtrl{
   public $db;
 	public $sdb;
@@ -12,10 +11,6 @@ class userCtrl extends baseCtrl{
   public $pid;
 	public $type;
 	public function _auto(){
-    if (isset($_SESSION['userinfo']) == null) {
-            echo "<script>window.location.href='/admin/login/index'</script>";
-            die;
-    }
     $this->db = new user();
 		$this->sdb = new staffs();
 		$this->type = isset($_GET['type']) ? intval($_GET['type']) : 0;

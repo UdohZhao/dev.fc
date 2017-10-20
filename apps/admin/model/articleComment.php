@@ -5,22 +5,22 @@ class articleComment extends model{
 	public $table = 'article_comment';
 	public $table1 = 'user';
 	public function sel($id,$limit,$search){
-		$sql = " 
-		SELECT 
+		$sql = "
+		SELECT
 				a.*,u.nickname
-		FROM 
+		FROM
 				$this->table as a
-		LEFT JOIN 
+		LEFT JOIN
 				$this->table1 as u
-		ON  
-				a.uid = u.id 
+		ON
+				a.uid = u.id
 		WHERE
 				a.apid=$id
-		AND 
+		AND
 			a.content like '%$search%'
 		OR
 			u.nickname like '$search'
-								
+
 				{$limit}";
 		return $this->query($sql)->fetchAll(2);
 	}

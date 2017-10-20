@@ -50,7 +50,11 @@
           {% if data %}
           {% for k,v in data %}
             <tr>
-              <td></td>
+              <td>
+                {% if v.status == 1 %}
+                  <span class="text-danger">{申请提现}</span>
+                {% endif %}
+              </td>
               <td><img src="{{v.headimgurl}}" class="img-responsive" style="width: 90px;height: 90px;"></td>
               <td>{{v.nickname}}</td>
               <td>{{v.country}} - {{v.province}} - {{v.city}}</td>
@@ -75,7 +79,10 @@
                   <button type="button" class="btn btn-primary btn-xs" onclick="grade({{type}},{{ v.id }});">下级用户</button>
                   <button type="button" class="btn btn-success btn-xs" onclick="withdrawal({{ v.id }});">提现记录</button>
                 {% endif %}
-                <button type="button" class="btn btn-success btn-xs" onclick="recharge({{ v.id }});">充值记录</button>
+                  <button type="button" class="btn btn-success btn-xs" onclick="recharge({{ v.id }});">充值记录</button>
+                {% if v.landlord_status == 1 %}
+                  <button type="button" class="btn btn-danger btn-xs" onclick="landlord({{v.id}});">地主身份</button>
+                {% endif %}
               </td>
             </tr>
           {% endfor %}

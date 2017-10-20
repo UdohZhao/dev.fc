@@ -1,6 +1,7 @@
 <?php
 namespace apps\admin\ctrl;
 use apps\admin\model\withdrawalRecord;
+use apps\admin\model\user;
 use core\lib\conf;
 use vendor\page\Page;
 class withdrawalRecordCtrl extends baseCtrl{
@@ -9,32 +10,26 @@ class withdrawalRecordCtrl extends baseCtrl{
 	public $db;
 	public $type;
     public $status;
+    public $udb;
 	public function _auto(){
-       if (isset($_SESSION['userinfo']) == null) {
-            echo "<script>window.location.href='/admin/login/index'</script>";
-            die;
-        }
-		 $this->db = new withdrawalRecord();
-         $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-         $this->uid = isset($_GET['uid']) ? intval($_GET['uid']) : 0;
-		 $this->status = isset($_GET['status']) ? intval($_GET['status']) : 0;
-         $this->assign('uid',$this->uid);
-         $this->assign('status',$this->status);
+     $this->db = new withdrawalRecord();
+     $this->udb = new user();
+     $this->id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+     $this->uid = isset($_GET['uid']) ? intval($_GET['uid']) : 0;
+     $this->status = isset($_GET['status']) ? intval($_GET['status']) : 0;
+     $this->assign('uid',$this->uid);
+     $this->assign('status',$this->status);
 	}
 	public function index_demo(){
-
-     $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
-		 // 总记录数
-    $cou = $this->db->cou($this->id);
-    // 数据分页
-    $page = new Page($cou,conf::get('LIMIT','admin'));
-    // 结果集
-
+        $search = isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '';
+		// 总记录数
+        $cou = $this->db->cou($this->id);
+        // 数据分页
+        $page = new Page($cou,conf::get('LIMIT','admin'));
+        // 结果集
 		$data = $this->db->getAll($this->id,$page->limit,$search);
-
-       $id = $this->id;
-
-       $this->assign('id',$id);
+        $id = $this->id;
+        $this->assign('id',$id);
 		$this->assign('data',$data);
 		$this->assign('page',$page->showpage());
 		$this->display('withdrawalRecord','index.html');
@@ -87,6 +82,8 @@ class withdrawalRecordCtrl extends baseCtrl{
         if (IS_AJAX === true) {
            $res = $this->db->save($this->id,array('status'=>$this->status));
            if ($res) {
+                // status为2更新用户提现状态为0
+                $this->udb->save($this->uid,array('status'=>0));
                 echo J(R(200,'受影响的操作 :)',true));
                 die;
            } else {

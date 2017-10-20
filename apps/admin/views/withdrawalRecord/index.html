@@ -55,8 +55,8 @@
               <td>{{v.ctime|date("Y-m-d H:i")}}</td>
             {% if status == 0 %}
               <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{ v.id }},2);">成功</button>
-                <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{ v.id }},1);">失败</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{uid}},{{v.id}},2);">成功</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="commonality({{uid}},{{v.id}},1);">失败</button>
               </td>
             {% endif %}
             </tr>
