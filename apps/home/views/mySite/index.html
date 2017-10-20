@@ -7,24 +7,17 @@
 {% block content %}
 <div class="weui-msg">
   <div class="weui-msg__icon-area headimgurl-box">
-    <img src="{{userinfo.headimgurl}}" class="img-responsive">
+    <!-- <img src="{{userinfo.headimgurl}}" class="img-responsive"> -->
+    <img src="{{appsPath}}/mySite/img/friends.png" class="img-responsive">
   </div>
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">{{userinfo.nickname}}</h2>
   </div>
-</div>
-
-
-<div class="weui-flex">
-  <div class="weui-flex__item">
-    <div class="placeholder">
-      <img class="commission-img" src="{{appsPath}}/mySite/img/commission.png">
-      <p>金币数：<span class="gold-quantity">${{userinfo.residue}}</span></p>
-    </div>
-  </div>
-  <div class="weui-flex__item">
-    <div class="placeholder">
-      <a href="javascript:;" class="weui-btn weui-btn_primary commission-btn" onclick="topUp();">充 值</a>
+  <div class="weui-msg__text-area">
+    <div class="button_sp_area">
+      <!-- <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">按钮</a> -->
+      <p>- 金币数：<span class="gold-quantity">${{userinfo.residue}}</span> -</p>
+      <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary pay-btn" onclick="topUp();">充 值</a>
     </div>
   </div>
 </div>
@@ -32,16 +25,16 @@
 <div class="weui-flex landlord-flex">
   <div class="weui-flex__item">
     <div class="placeholder">
+      <img class="landlord-img" src="{{appsPath}}/mySite/img/landlord.png">
+    </div>
+  </div>
+  <div class="weui-flex__item">
+    <div class="placeholder">
       {% if userinfo.landlord_status == 0 %}
       <a href="javascript:;" class="weui-btn weui-btn_warn landlord-btn" onclick="landlord();">我要当地主</a>
       {% else %}
       <a href="javascript:;" class="weui-btn weui-btn_primary landlord-btn" onclick="landlord();">我是地主</a>
       {% endif %}
-    </div>
-  </div>
-  <div class="weui-flex__item">
-    <div class="placeholder">
-      <img class="landlord-img" src="{{appsPath}}/mySite/img/landlord.png">
     </div>
   </div>
 </div>
@@ -61,31 +54,27 @@
 </div>
 
 <div class="weui-flex friends-flex">
-  <div class="weui-flex__item">
-    <div class="placeholder">
-      <a href="javascript:;" class="weui-btn weui-btn_primary friends-btn" onclick="littleFriends({{userinfo.landlord_status}});">小伙伴</a>
-    </div>
+  <div class="weui-flex__item bottom-left-box">
+    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" onclick="littleFriends({{userinfo.landlord_status}});">
+      <div class="weui-media-box__hd">
+        <img class="weui-media-box__thumb" src="{{appsPath}}/mySite/img/friends.png">
+      </div>
+      <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title">我的小伙伴</h4>
+      </div>
+    </a>
   </div>
   <div class="weui-flex__item">
-    <div class="placeholder">
-      <img class="friends-img" src="{{appsPath}}/mySite/img/friends.png">
-    </div>
-  </div>
-</div>
-
-<div class="weui-flex friends-flex">
-  <div class="weui-flex__item">
-    <div class="placeholder">
-      <img class="friends-img" src="{{appsPath}}/mySite/img/Invitation-code.png">
-    </div>
-  </div>
-  <div class="weui-flex__item">
-    <div class="placeholder">
-      <a href="javascript:;" class="weui-btn weui-btn_primary friends-btn" onclick="share({{userinfo.landlord_status}});">邀请码</a>
-    </div>
+    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" onclick="share({{userinfo.landlord_status}});">
+      <div class="weui-media-box__hd">
+        <img class="weui-media-box__thumb" src="{{appsPath}}/mySite/img/Invitation-code.png">
+      </div>
+      <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title">生成邀请码</h4>
+      </div>
+    </a>
   </div>
 </div>
-
 
 {% endblock %}
 
