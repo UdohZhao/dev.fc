@@ -26,15 +26,13 @@ function become(){
   // 验证表单
   var phone = $("input[name='phone']").val();
   var cname = $("input[name='cname']").val();
-  var id_card = $("input[name='id_card']").val();
+  //var id_card = $("input[name='id_card']").val();
   var city = $("input[name='city']").val();
   // if
   if (!isPhoneNo(phone)) {
     $.alert("请输入有效的手机号码 :(", "提示");
   } else if (!isChinaName(cname)) {
     $.alert("请输入有效的姓名 :(", "提示");
-  } else if (!isCardNo(id_card)) {
-    $.alert("请输入合法的身份证号码 :(", "提示");
   } else if (!isChinaName(city)) {
     $.alert("请输入有效的城市 :(", "提示");
   } else {
